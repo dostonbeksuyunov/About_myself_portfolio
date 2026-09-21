@@ -1,0 +1,223 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ current_lang }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ t.name_first }} {{ t.name_last }} — {{ t.hero_role }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Playfair+Display:ital,wght@1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <p class="preloader-name">Dostonbek Suyunov<span class="preloader-dot">.</span></p>
+  <p class="preloader-label">PORTFOLIO</p>
+  <div class="preloader-bar-wrap">
+    <div class="preloader-bar-track"><div class="preloader-bar" id="preloader-bar"></div></div>
+    <span class="preloader-percent" id="preloader-percent">0%</span>
+  </div>
+</div>
+
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<div class="page-bg">
+  <div class="stars"></div>
+  <div class="stars-2"></div>
+  <div class="orbit-ring"></div>
+  <div class="orbit-ring secondary"></div>
+</div>
+<div class="scroll-progress"><div class="scroll-progress-bar" id="progress-bar"></div></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#home" class="nav-brand">{{ t.initials }}</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <a href="#about">{{ t.nav.about }}</a>
+      <a href="#skills">{{ t.nav.skills }}</a>
+      <a href="#projects">{{ t.nav.projects }}</a>
+      <a href="#experience">{{ t.nav.experience }}</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-switch">
+        <a href="?lang=uz" class="{% if current_lang == 'uz' %}active{% endif %}">UZ</a>
+        <a href="?lang=ru" class="{% if current_lang == 'ru' %}active{% endif %}">RU</a>
+        <a href="?lang=en" class="{% if current_lang == 'en' %}active{% endif %}">EN</a>
+      </div>
+      <a href="https://t.me/Dostonbek_Suyunov" target="_blank" class="nav-cta">{{ t.btn_hire }}</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="hero-content">
+    <span class="hero-badge"><span class="dot"></span>{{ t.badge_location }}</span>
+    <h1 class="hero-name">
+      <span class="name-line">{{ t.name_first }}</span>
+      <span class="name-line">{{ t.name_last }}</span>
+    </h1>
+    <p class="hero-tagline"><em>{{ t.hero_role }}</em> — {{ t.hero_tagline }}</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-gradient">{{ t.btn_projects }}</a>
+      <a href="#contact" class="btn btn-outline">{{ t.btn_contact }}</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>{{ t.scroll_label }}</span>
+    <span class="arrow">↓</span>
+  </div>
+</header>
+
+<section class="section" id="about">
+  <div class="section-inner">
+    <p class="route reveal">01 — GET /about</p>
+    <h2 class="reveal">{{ t.about_title }}</h2>
+    <p class="about-text reveal">{{ t.about_text }}</p>
+    <div class="about-edu reveal">
+      <p class="edu-title">{{ t.edu_label }}</p>
+      <p>{{ t.edu_degree }}</p>
+      <p class="muted">{{ t.edu_org }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <div class="section-inner">
+    <p class="route reveal">02 — GET /skills</p>
+    <h2 class="reveal">{{ t.skills_title }}</h2>
+    <div class="skills-grid">
+      {% for category, items in skills.items %}
+      <div class="skill-group reveal">
+        <p class="skill-cat">{{ category }}</p>
+        <div class="skill-tags">
+          {% for item in items %}<span class="tag">{{ item }}</span>{% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="skills-soft reveal">✨ {{ t.skills_soft_label }} {{ t.skills_soft_value }}</p>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      {% for s in all_skills %}<span>{{ s }}</span><span class="dot">✦</span>{% endfor %}
+      {% for s in all_skills %}<span>{{ s }}</span><span class="dot">✦</span>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects">
+  <div class="section-inner">
+    <p class="route reveal">03 — GET /projects</p>
+    <h2 class="reveal">{{ t.projects_title }}</h2>
+    <div class="projects-list">
+      {% for p in projects %}
+      <div class="project-card reveal">
+        <div class="project-head">
+          <span class="method method-{{ p.method|lower }}">{{ p.method }}</span>
+          <span class="endpoint">{{ p.endpoint }}</span>
+        </div>
+        <h3>{{ p.name }}</h3>
+        <p>{{ p.description }}</p>
+        <div class="stack">
+          {% for s in p.stack %}<span class="tag tag-sm">{{ s }}</span>{% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="experience">
+  <div class="section-inner">
+    <p class="route reveal">04 — GET /experience</p>
+    <h2 class="reveal">{{ t.experience_title }}</h2>
+    <div class="timeline">
+      {% for item in timeline %}
+      <div class="timeline-item reveal">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <p class="timeline-period">{{ item.period }}</p>
+          <h3>{{ item.title }}</h3>
+          <p class="timeline-org">{{ item.org }}</p>
+          {% if item.desc %}<p class="timeline-desc">{{ item.desc }}</p>{% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="section-inner">
+    <p class="route reveal">05 — POST /contact</p>
+    <h2 class="contact-headline reveal">{{ t.contact_headline_pre }} <em>{{ t.contact_headline_em }}</em>{{ t.contact_headline_post }}</h2>
+    <p class="contact-desc reveal">{{ t.contact_desc }}</p>
+
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dostonbeksuyunov444@gmail.com" target="_blank" class="contact-email-cta reveal">
+      <span>✉</span>
+      <span>dostonbeksuyunov444@gmail.com</span>
+      <span class="cta-arrow">↗</span>
+    </a>
+
+    <div class="contact-grid">
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dostonbeksuyunov444@gmail.com" target="_blank" class="contact-card reveal">
+        <span class="card-arrow">↗</span>
+        <span class="contact-card-icon">✉</span>
+        <p class="contact-card-label">EMAIL</p>
+        <p class="contact-card-value">dostonbeksuyunov444@gmail.com</p>
+      </a>
+      <a href="tel:+998775353104" class="contact-card reveal">
+        <span class="card-arrow">↗</span>
+        <span class="contact-card-icon">☎</span>
+        <p class="contact-card-label">PHONE</p>
+        <p class="contact-card-value">+998 77 535 31 04</p>
+      </a>
+      <a href="{% static 'core/resume.pdf' %}" target="_blank" class="contact-card reveal">
+        <span class="card-arrow">↗</span>
+        <span class="contact-card-icon">📄</span>
+        <p class="contact-card-label">RESUME</p>
+        <p class="contact-card-value">Dostonbek_Suyunov_CV.pdf</p>
+      </a>
+      <a href="https://github.com/dostonbeksuyunov" target="_blank" class="contact-card social reveal">
+        <span class="card-arrow">↗</span>
+        <span class="contact-card-icon">⌘</span>
+        <p class="contact-card-label">GITHUB</p>
+        <p class="contact-card-value">@dostonbeksuyunov</p>
+      </a>
+      <a href="https://linkedin.com/in/dostonbek-suyunov" target="_blank" class="contact-card social reveal">
+        <span class="card-arrow">↗</span>
+        <span class="contact-card-icon">in</span>
+        <p class="contact-card-label">LINKEDIN</p>
+        <p class="contact-card-value">dostonbek-suyunov</p>
+      </a>
+      <a href="https://t.me/Dostonbek_Suyunov" target="_blank" class="contact-card social reveal">
+        <span class="card-arrow">↗</span>
+        <span class="contact-card-icon">➤</span>
+        <p class="contact-card-label">TELEGRAM</p>
+        <p class="contact-card-value">@Dostonbek_Suyunov</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-copy">© 2026 {{ t.name_first }} {{ t.name_last }}</p>
+    <div class="footer-links">
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=dostonbeksuyunov444@gmail.com" target="_blank">Email</a>
+      <a href="https://github.com/dostonbeksuyunov" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/dostonbek-suyunov" target="_blank">LinkedIn</a>
+      <a href="https://t.me/Dostonbek_Suyunov" target="_blank">Telegram</a>
+    </div>
+    <p class="footer-location"><span class="dot"></span>{{ t.badge_location }}</p>
+  </div>
+</footer>
+
+<script src="{% static 'core/js/script.js' %}"></script>
+</body>
+</html>
