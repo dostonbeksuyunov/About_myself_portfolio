@@ -1,7 +1,7 @@
 from django.test import TestCase, override_settings
 
 
-@override_settings(STORAGES={
+@override_settings(SECURE_SSL_REDIRECT=False, STORAGES={
     'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
     'staticfiles': {'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage'},
 })
