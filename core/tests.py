@@ -46,3 +46,8 @@ class HomeViewTests(TestCase):
         response = self.client.get('/')
         self.assertContains(response, 'id="hire-menu"')
         self.assertNotContains(response, 'TELEGRAM GROUP')
+
+    def test_theme_toggle_and_fullstack_role_are_rendered(self):
+        response = self.client.get('/')
+        self.assertContains(response, 'id="theme-toggle"')
+        self.assertContains(response, 'Fullstack dasturchi')

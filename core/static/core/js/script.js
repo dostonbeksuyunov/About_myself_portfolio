@@ -42,6 +42,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Theme switcher: cosmic (default) -> light -> night
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    const themes = ['cosmic', 'light', 'night'];
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'cosmic';
+      const next = themes[(themes.indexOf(current) + 1) % themes.length];
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  }
+
   // "Menga yozing" dropdown: close on outside click / Escape
   const hireMenu = document.getElementById('hire-menu');
   if (hireMenu) {
