@@ -28,3 +28,16 @@ class HomeViewTests(TestCase):
     def test_empty_timeline_description_is_hidden(self):
         response = self.client.get('/')
         self.assertNotContains(response, '<p class="timeline-desc"></p>')
+
+    def test_services_section_and_group_link_are_rendered(self):
+        response = self.client.get('/')
+        self.assertContains(response, 'id="services"')
+        self.assertContains(response, 'https://t.me/IT_vs_AI_XIZMATLAR_Uz')
+
+    def test_services_are_translated(self):
+        response = self.client.get('/?lang=en')
+        self.assertContains(response, 'Telegram bots')
+
+    def test_meta_description_is_rendered(self):
+        response = self.client.get('/')
+        self.assertContains(response, '<meta name="description"')

@@ -11,6 +11,59 @@ SKILL_CATEGORY_LABELS = {
     'en': {'core': 'Languages & Frameworks', 'data': 'Databases & Caching', 'practices': 'Backend Practices', 'tools': 'Tools & DevOps'},
 }
 
+CONTACT = {
+    'email': 'dostonbeksuyunov444@gmail.com',
+    'phone': '+998775353104',
+    'phone_display': '+998 77 535 31 04',
+    'github': 'https://github.com/dostonbeksuyunov',
+    'github_handle': '@dostonbeksuyunov',
+    'linkedin': 'https://linkedin.com/in/dostonbek-suyunov',
+    'linkedin_handle': 'dostonbek-suyunov',
+    'telegram': 'https://t.me/Dostonbek_Suyunov',
+    'telegram_handle': '@Dostonbek_Suyunov',
+    'group': 'https://t.me/IT_vs_AI_XIZMATLAR_Uz',
+    'group_handle': '@IT_vs_AI_XIZMATLAR_Uz',
+}
+
+SERVICES = [
+    {
+        'icon': '🤖',
+        'title': {'uz': 'Telegram bot', 'ru': 'Telegram-бот', 'en': 'Telegram bots'},
+        'desc': {
+            'uz': "Bot ichidagi mini-app'lar bilan birga, to'lov va admin panel integratsiyasi.",
+            'ru': "Включая мини-приложения внутри бота, интеграцию оплаты и админ-панели.",
+            'en': "Including in-bot mini-apps, payment and admin panel integration.",
+        },
+    },
+    {
+        'icon': '🌐',
+        'title': {'uz': 'Sayt yaratish', 'ru': 'Создание сайтов', 'en': 'Websites'},
+        'desc': {
+            'uz': "Landing page, korporativ sayt va onlayn-do'kon.",
+            'ru': "Лендинги, корпоративные сайты и интернет-магазины.",
+            'en': "Landing pages, corporate sites and online stores.",
+        },
+    },
+    {
+        'icon': '🎓',
+        'title': {'uz': 'Talabalar uchun', 'ru': 'Для студентов', 'en': 'For students'},
+        'desc': {
+            'uz': "Taqdimot, diplom va kurs ishlari bo'yicha yordam.",
+            'ru': "Помощь с презентациями, дипломными и курсовыми работами.",
+            'en': "Help with presentations, diploma and coursework projects.",
+        },
+    },
+    {
+        'icon': '🚀',
+        'title': {'uz': 'Mavjud loyihalar', 'ru': 'Существующие проекты', 'en': 'Existing projects'},
+        'desc': {
+            'uz': "Mavjud loyihalarni qo'llab-quvvatlash va yangilash.",
+            'ru': "Поддержка и обновление существующих проектов.",
+            'en': "Maintaining, strengthening and modernizing existing projects.",
+        },
+    },
+]
+
 PROJECTS = [
     {
         'method': 'GET', 'endpoint': '/api/books',
@@ -115,6 +168,13 @@ TEXT = {
         'contact_headline_pre': 'Kelinglar, birga',
         'contact_headline_em': 'quraylik',
         'contact_headline_post': '.',
+        'nav_services': 'Xizmatlar',
+        'services_title': 'Xizmatlar',
+        'services_desc': "Telegram botlar, saytlar va talabalar uchun loyihalar — real tajriba, texnik muammolarni mustaqil hal qilish va muddatga rioya qilish bilan. Narx kelishiladi.",
+        'group_title': "IT VA AI XIZMATLAR guruhi",
+        'group_desc': "Jamoadoshlar va mijozlar guruhimizga qo'shiling — savol bering, buyurtma qoldiring, yangiliklardan xabardor bo'ling.",
+        'group_btn': "Guruhga qo'shilish",
+        'meta_desc': "Dostonbek Suyunov — Python Backend dasturchi (Django, DRF, FastAPI). Telegram bot, sayt va talabalar uchun IT xizmatlari.",
         'contact_desc': "Loyiha yoki hamkorlik bo'yicha taklif bormi? Yozib qoling — albatta javob beraman.",
     },
     'ru': {
@@ -142,6 +202,13 @@ TEXT = {
         'contact_headline_pre': 'Давайте создадим что-то',
         'contact_headline_em': 'вместе',
         'contact_headline_post': '.',
+        'nav_services': 'Услуги',
+        'services_title': 'Услуги',
+        'services_desc': "Telegram-боты, сайты и проекты для студентов — с реальным опытом, самостоятельным решением технических задач и соблюдением сроков. Цена договорная.",
+        'group_title': "Группа «IT VA AI XIZMATLAR»",
+        'group_desc': "Присоединяйтесь к нашей группе единомышленников и клиентов — задавайте вопросы, оставляйте заявки и следите за новостями.",
+        'group_btn': "Вступить в группу",
+        'meta_desc': "Достонбек Суюнов — Python Backend-разработчик (Django, DRF, FastAPI). Telegram-боты, сайты и IT-услуги для студентов.",
         'contact_desc': "Есть предложение по проекту или сотрудничеству? Напишите — обязательно отвечу.",
     },
     'en': {
@@ -169,6 +236,13 @@ TEXT = {
         'contact_headline_pre': "Let's build something",
         'contact_headline_em': 'together',
         'contact_headline_post': '.',
+        'nav_services': 'Services',
+        'services_title': 'Services',
+        'services_desc': "Telegram bots, websites and student projects — real-project experience, independent troubleshooting and on-time delivery. Price is negotiable.",
+        'group_title': "IT VA AI XIZMATLAR community",
+        'group_desc': "Join our community of teammates and clients — ask questions, place an order and stay up to date.",
+        'group_btn': "Join the group",
+        'meta_desc': "Dostonbek Suyunov — Python Backend Developer (Django, DRF, FastAPI). Telegram bots, websites and IT services for students.",
         'contact_desc': "Got a project or collaboration in mind? Reach out — I'll get back to you.",
     },
 }

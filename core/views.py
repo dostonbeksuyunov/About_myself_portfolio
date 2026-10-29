@@ -1,7 +1,9 @@
 from django.shortcuts import render
 
 from .content import (
+    CONTACT,
     PROJECTS,
+    SERVICES,
     SKILLS,
     SKILL_CATEGORY_LABELS,
     TEXT,
@@ -40,6 +42,11 @@ def home(request):
         for t in TIMELINE
     ]
 
+    services = [
+        {'icon': s['icon'], 'title': s['title'][lang], 'desc': s['desc'][lang]}
+        for s in SERVICES
+    ]
+
     skills = {
         SKILL_CATEGORY_LABELS[lang][key]: items
         for key, items in SKILLS.items()
@@ -53,6 +60,8 @@ def home(request):
         'skills': skills,
         'all_skills': all_skills,
         'projects': projects,
+        'services': services,
+        'contact': CONTACT,
         'timeline': timeline,
     }
     return render(request, 'core/home.html', context)
