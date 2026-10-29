@@ -42,6 +42,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // "Menga yozing" dropdown: close on outside click / Escape
+  const hireMenu = document.getElementById('hire-menu');
+  if (hireMenu) {
+    document.addEventListener('click', (e) => {
+      if (!hireMenu.contains(e.target)) hireMenu.removeAttribute('open');
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') hireMenu.removeAttribute('open');
+    });
+    hireMenu.querySelectorAll('.hire-dropdown a').forEach(a => {
+      a.addEventListener('click', () => hireMenu.removeAttribute('open'));
+    });
+  }
+
   // Custom cursor
   const cursorDot = document.getElementById('cursor-dot');
   const cursorRing = document.getElementById('cursor-ring');

@@ -41,3 +41,8 @@ class HomeViewTests(TestCase):
     def test_meta_description_is_rendered(self):
         response = self.client.get('/')
         self.assertContains(response, '<meta name="description"')
+
+    def test_hire_menu_offers_personal_and_group_links(self):
+        response = self.client.get('/')
+        self.assertContains(response, 'id="hire-menu"')
+        self.assertNotContains(response, 'TELEGRAM GROUP')
