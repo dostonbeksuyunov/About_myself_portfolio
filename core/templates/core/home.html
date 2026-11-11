@@ -148,38 +148,50 @@
     <h2 class="contact-headline reveal">{{ t.contact_headline_pre }} <em>{{ t.contact_headline_em }}</em>{{ t.contact_headline_post }}</h2>
     <p class="section-intro reveal">{{ t.contact_desc }}</p>
 
-    <div class="contact-grid">
-      <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ contact.email }}" target="_blank" rel="noopener noreferrer" class="contact-card reveal">
-        <svg class="icon contact-card-icon" aria-hidden="true"><use href="#i-mail"/></svg>
-        <p class="contact-card-label">EMAIL</p>
-        <p class="contact-card-value">{{ contact.email }}</p>
-      </a>
-      <a href="tel:{{ contact.phone }}" class="contact-card reveal">
-        <svg class="icon contact-card-icon" aria-hidden="true"><use href="#i-phone"/></svg>
-        <p class="contact-card-label">PHONE</p>
-        <p class="contact-card-value">{{ contact.phone_display }}</p>
-      </a>
-      <a href="{% static 'core/resume.pdf' %}" download="Dostonbek_Suyunov_CV.pdf" class="contact-card reveal">
-        <svg class="icon contact-card-icon" aria-hidden="true"><use href="#i-file"/></svg>
-        <p class="contact-card-label">RESUME</p>
-        <p class="contact-card-value">Dostonbek_Suyunov_CV.pdf</p>
-      </a>
-      <a href="{{ contact.github }}" target="_blank" rel="noopener noreferrer" class="contact-card reveal">
-        <svg class="icon contact-card-icon" aria-hidden="true"><use href="#i-github"/></svg>
-        <p class="contact-card-label">GITHUB</p>
-        <p class="contact-card-value">{{ contact.github_handle }}</p>
-      </a>
-      <a href="{{ contact.linkedin }}" target="_blank" rel="noopener noreferrer" class="contact-card reveal">
-        <svg class="icon contact-card-icon" aria-hidden="true"><use href="#i-linkedin"/></svg>
-        <p class="contact-card-label">LINKEDIN</p>
-        <p class="contact-card-value">{{ contact.linkedin_handle }}</p>
-      </a>
-      <a href="{{ contact.telegram }}" target="_blank" rel="noopener noreferrer" class="contact-card reveal">
-        <svg class="icon contact-card-icon" aria-hidden="true"><use href="#i-telegram"/></svg>
-        <p class="contact-card-label">TELEGRAM</p>
-        <p class="contact-card-value">{{ contact.telegram_handle }}</p>
-      </a>
-    </div>
+    <ul class="link-list">
+      <li class="reveal"><a class="link-row" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ contact.email }}" target="_blank" rel="noopener noreferrer">
+        <svg class="icon link-row-icon" aria-hidden="true"><use href="#i-mail"/></svg>
+        <span class="link-row-name">Email</span>
+        <span class="link-row-value">{{ contact.email }}</span>
+        <svg class="icon link-row-arrow" aria-hidden="true"><use href="#i-external"/></svg>
+      </a></li>
+      <li class="reveal"><a class="link-row" href="tel:{{ contact.phone }}">
+        <svg class="icon link-row-icon" aria-hidden="true"><use href="#i-phone"/></svg>
+        <span class="link-row-name">{{ t.contact_phone }}</span>
+        <span class="link-row-value">{{ contact.phone_display }}</span>
+        <svg class="icon link-row-arrow" aria-hidden="true"><use href="#i-external"/></svg>
+      </a></li>
+      <li class="reveal"><a class="link-row" href="{% static 'core/resume.pdf' %}" download="Dostonbek_Suyunov_CV.pdf">
+        <svg class="icon link-row-icon" aria-hidden="true"><use href="#i-file"/></svg>
+        <span class="link-row-name">{{ t.contact_resume }}</span>
+        <span class="link-row-value">Dostonbek_Suyunov_CV.pdf</span>
+        <svg class="icon link-row-arrow" aria-hidden="true"><use href="#i-external"/></svg>
+      </a></li>
+      <li class="reveal"><a class="link-row" href="{{ contact.github }}" target="_blank" rel="noopener noreferrer">
+        <svg class="icon link-row-icon" aria-hidden="true"><use href="#i-github"/></svg>
+        <span class="link-row-name">GitHub</span>
+        <span class="link-row-value">{{ contact.github_handle }}</span>
+        <svg class="icon link-row-arrow" aria-hidden="true"><use href="#i-external"/></svg>
+      </a></li>
+      <li class="reveal"><a class="link-row" href="{{ contact.linkedin }}" target="_blank" rel="noopener noreferrer">
+        <svg class="icon link-row-icon" aria-hidden="true"><use href="#i-linkedin"/></svg>
+        <span class="link-row-name">LinkedIn</span>
+        <span class="link-row-value">{{ contact.linkedin_handle }}</span>
+        <svg class="icon link-row-arrow" aria-hidden="true"><use href="#i-external"/></svg>
+      </a></li>
+      <li class="reveal"><a class="link-row" href="{{ contact.telegram }}" target="_blank" rel="noopener noreferrer">
+        <svg class="icon link-row-icon" aria-hidden="true"><use href="#i-telegram"/></svg>
+        <span class="link-row-name">Telegram</span>
+        <span class="link-row-value">{{ contact.telegram_handle }}</span>
+        <svg class="icon link-row-arrow" aria-hidden="true"><use href="#i-external"/></svg>
+      </a></li>
+      <li class="reveal"><a class="link-row" href="{{ contact.instagram }}" target="_blank" rel="noopener noreferrer">
+        <svg class="icon link-row-icon" aria-hidden="true"><use href="#i-instagram"/></svg>
+        <span class="link-row-name">Instagram</span>
+        <span class="link-row-value">{{ contact.instagram_handle }}</span>
+        <svg class="icon link-row-arrow" aria-hidden="true"><use href="#i-external"/></svg>
+      </a></li>
+    </ul>
   </div>
 </section>
 {% endblock %}

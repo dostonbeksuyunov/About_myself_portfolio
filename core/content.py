@@ -13,6 +13,8 @@ CONTACT = {
     'linkedin_handle': 'dostonbek-suyunov',
     'telegram': 'https://t.me/Dostonbek_Suyunov',
     'telegram_handle': '@Dostonbek_Suyunov',
+    'instagram': 'https://www.instagram.com/suyunov.dev_',
+    'instagram_handle': '@suyunov.dev_',
     'group': 'https://t.me/IT_vs_AI_XIZMATLAR_Uz',
     'group_handle': '@IT_vs_AI_XIZMATLAR_Uz',
 }
@@ -237,6 +239,8 @@ _STRINGS = {
         "Этот проект под NDA — подробности при личной беседе.",
         "This project is under NDA — details are shared in conversation.",
     ),
+    'contact_phone': ('Telefon', 'Телефон', 'Phone'),
+    'contact_resume': ('Resume', 'Резюме', 'Résumé'),
     'present': ('hozirgacha', 'по настоящее время', 'present'),
     'lightbox_close': ('Yopish', 'Закрыть', 'Close'),
     'lightbox_prev': ('Oldingi rasm', 'Предыдущее фото', 'Previous image'),

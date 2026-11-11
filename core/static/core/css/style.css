@@ -319,23 +319,38 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; letter-spacing
 /* ===== Aloqa ===== */
 .contact-headline { font-size: clamp(30px, 5vw, 50px); font-weight: 800; margin-bottom: 18px; }
 .contact-headline em { font-style: normal; color: var(--accent); }
-.contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 880px; margin: 0 auto; text-align: left; }
-.contact-card {
-  position: relative; display: block; background: var(--bg-elev); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 20px 22px; min-height: 44px;
-  transition: border-color .2s, transform .2s, opacity .6s ease;
+.link-list {
+  list-style: none; max-width: 980px; margin: 0 auto; text-align: left;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 64px;
 }
-.contact-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-.contact-card-icon { width: 22px; height: 22px; color: var(--accent); }
-.contact-card-label { font-family: var(--font-mono); font-size: 12px; letter-spacing: 1px; color: var(--text-muted); margin: 10px 0 4px; }
-.contact-card-value { font-size: 15px; font-weight: 600; word-break: break-word; }
+.link-row {
+  position: relative; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 14px 4px;
+  border-bottom: 1px solid var(--border); font-size: 17px; font-weight: 600; cursor: pointer;
+  transition: color .2s ease, padding .25s ease;
+}
+.link-row::after {
+  content: ''; position: absolute; left: 0; bottom: -1px; height: 2px; width: 0; background: var(--accent);
+  transition: width .3s ease;
+}
+.link-row-icon { width: 22px; height: 22px; color: var(--text-muted); transition: color .2s; }
+.link-row-name { flex: 0 0 auto; }
+.link-row-value { margin-left: auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: 14px; font-weight: 400; color: var(--text-muted); font-family: var(--font-mono); transition: color .2s; }
+.link-row-arrow { width: 18px; height: 18px; color: var(--text-muted); transition: transform .25s ease, color .2s; }
+.link-row:hover, .link-row:focus-visible { color: var(--accent); padding-left: 10px; }
+.link-row:hover::after, .link-row:focus-visible::after { width: 100%; }
+.link-row:hover .link-row-icon, .link-row:hover .link-row-arrow,
+.link-row:focus-visible .link-row-icon, .link-row:focus-visible .link-row-arrow { color: var(--accent); }
+.link-row:hover .link-row-value, .link-row:focus-visible .link-row-value { color: var(--text); }
+.link-row:hover .link-row-arrow, .link-row:focus-visible .link-row-arrow { transform: translate(3px, -3px); }
+.link-row:focus-visible { outline-offset: -2px; }
 
 /* ===== Footer ===== */
 .footer { padding: 40px 0; border-top: 1px solid var(--border); font-size: 14px; }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 6px 22px; }
 .footer-links a { color: var(--text-muted); padding: 8px 0; transition: color .2s; }
-.footer-links a:hover { color: var(--accent); }
+.footer-links a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
 .footer-location { color: var(--text-muted); font-family: var(--font-mono); font-size: 12.5px; }
 
 /* ===== Loyihalar ro'yxati ===== */
@@ -445,7 +460,7 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; letter-spacing
 }
 @media (max-width: 760px) {
   .section { padding: 64px 0; }
-  .contact-grid { grid-template-columns: repeat(2, 1fr); }
+  .link-list { grid-template-columns: minmax(0, 1fr); }
   .group-cta { flex-direction: column; align-items: flex-start; }
   .filter-label { width: 100%; }
 }
@@ -455,7 +470,7 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; letter-spacing
   .lang-switch a { min-width: 30px; font-size: 11px; }
   .hire-menu summary { padding-inline: 12px; }
   .hero { padding-top: 40px; }
-  .contact-grid { grid-template-columns: 1fr; }
+  .link-row-value { font-size: 12.5px; }
   .case-nav a { max-width: 48%; }
   .lightbox[open] { padding: 12px; gap: 4px; }
   .lightbox img { max-width: 78vw; }

@@ -408,3 +408,21 @@ class ScopeTests(PortfolioTestCase):
         import_module('core.migrations.0003_trim_projects').remove_projects(apps, None)
         self.assertFalse(Project.objects.filter(slug='shajara').exists())
         self.assertEqual(Project.objects.count(), len(self.ALLOWED))
+
+
+class ContactListTests(PortfolioTestCase):
+    def test_instagram_is_in_contact_list_and_footer(self):
+        response = self.client.get('/')
+        self.assertContains(response, 'href="https://www.instagram.com/suyunov.dev_"', count=2)
+        self.assertContains(response, '@suyunov.dev_')
+
+    def test_contact_section_is_a_clickable_link_list(self):
+        response = self.client.get('/')
+        self.assertContains(response, 'class="link-list"')
+        self.assertContains(response, 'link-row-arrow', count=7)
+        self.assertNotContains(response, 'contact-card')
+
+    def test_contact_list_has_all_channels(self):
+        response = self.client.get('/?lang=en')
+        for label in ('Email', 'Phone', 'Résumé', 'GitHub', 'LinkedIn', 'Telegram', 'Instagram'):
+            self.assertContains(response, f'<span class="link-row-name">{label}</span>')
