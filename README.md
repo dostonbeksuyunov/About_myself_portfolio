@@ -27,8 +27,10 @@ alohida (`short_uz/ru/en`, `problem_*`, `solution_*`, `result_*`, `highlights_*`
 `order` kichik bo'lsa — yuqorida. `is_published` o'chirilsa — sahifa 404 beradi.
 
 **2-yo'l — fixture orqali** (tavsiya: ma'lumot git'da saqlanadi):
-1. `scripts/projects_data.py` ga yangi obyektni **ro'yxat oxiriga** qo'shing (tartib raqami = pk, shuning uchun
-   mavjudlarni qayta tartiblamang).
+1. `scripts/projects_data.py` ga yangi obyektni qo'shing va unga **yangi `pk`** bering (ishlatilmagan eng katta raqamdan keyingi).
+   `pk` barqaror: loyiha o'chirilsa boshqalarniki o'zgarmaydi. Loyihani butunlay olib tashlash uchun: obyektni ro'yxatdan
+   o'chiring, `core/static/core/projects/<slug>/` papkasini o'chiring va slug'ni o'chiruvchi data-migratsiya yozing
+   (namuna: `core/migrations/0002_remove_online_book_store.py`) — `loaddata` mavjud qatorni o'chirmaydi.
 2. `python scripts/build_covers.py --only <slug>` — cover (`cover.webp`, `cover-800.webp`) va `og.jpg` yasaydi.
 3. (ixtiyoriy) galereya rasmlarini `core/static/core/projects/<slug>/gallery-1.webp, gallery-2.webp…` ga qo'ying
    yoki `scripts/build_screens.py` ga ochiq URL / mockup qo'shing.

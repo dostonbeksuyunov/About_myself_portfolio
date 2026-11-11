@@ -285,3 +285,83 @@ class AdminTests(PortfolioTestCase):
     def test_change_form_renders(self):
         project = Project.objects.get(slug='lumarcos')
         self.assertEqual(self.client.get(f'/admin/core/project/{project.pk}/change/').status_code, 200)
+
+
+class ProjectUpdateTests(PortfolioTestCase):
+    """Qo'shimcha o'zgarishlar: kitob do'koni olib tashlandi, UzStroyMarket, SaveClip, Ustudy modullari."""
+
+    def test_online_book_store_is_gone_everywhere(self):
+        self.assertFalse(Project.objects.filter(slug='online-book-store').exists())
+        self.assertEqual(self.client.get('/projects/online-book-store/').status_code, 404)
+        for url in ('/', '/projects/', '/sitemap.xml'):
+            body = self.client.get(url).content.decode().lower()
+            self.assertNotIn('book store', body)
+            self.assertNotIn('online-book-store', body)
+        static_root = Path(__file__).resolve().parent / 'static' / 'core' / 'projects'
+        self.assertFalse((static_root / 'online-book-store').exists())
+
+    def test_uzstroymarket_is_first_among_personal_and_client_projects(self):
+        project = Project.objects.get(slug='uzstroymarket')
+        self.assertEqual(project.kind, 'personal')
+        self.assertTrue(project.is_featured)
+        self.assertEqual(project.status, 'live')
+        self.assertEqual(project.live_url, 'https://uzstroymarket.uz')
+        self.assertEqual(sorted(project.category_list), ['backend', 'web'])
+        others = Project.objects.filter(kind__in=('personal', 'client'), is_featured=True).exclude(pk=project.pk)
+        self.assertTrue(all(project.order < o.order for o in others))
+        home = self.client.get('/').context['other_projects']
+        self.assertEqual(home[0]['slug'], 'uzstroymarket')
+
+    def test_uzstroymarket_page_content(self):
+        response = self.client.get('/projects/uzstroymarket/?lang=en')
+        self.assertContains(response, 'https://uzstroymarket.uz')
+        for fact in ('idempotent', 'audit', 'Fastify 5', 'grammY', 'Next.js 15', 'AWS'):
+            self.assertContains(response, fact)
+        self.assertNotContains(response, 'github.com/dostonbeksuyunov/stroymarkett')
+        self.assertContains(response, 'Code is private')
+
+    def test_server_ip_is_never_published(self):
+        for url in ('/', '/projects/', '/projects/uzstroymarket/', '/sitemap.xml'):
+            self.assertNotContains(self.client.get(url), '13.48.135.120')
+        for project in Project.objects.all():
+            self.assertNotIn('13.48.135.120', ' '.join(str(v) for v in vars(project).values()))
+
+    def test_saveclip_description_is_up_to_date(self):
+        for lang in LANGS:
+            body = self.client.get(f'/projects/saveclip/?lang={lang}').content.decode().lower()
+            for forbidden in ('youtube', 'facebook', 'siqish', 'сжат', 'compress', 'lower the quality'):
+                with self.subTest(lang=lang, word=forbidden):
+                    self.assertNotIn(forbidden, body)
+        page = self.client.get('/projects/saveclip/?lang=en')
+        for fact in ('Instagram', 'TikTok', 'Twitter/X', 'Pinterest', '4K', 'MP3', 'group'):
+            self.assertContains(page, fact)
+
+    def test_saveclip_gallery_and_stack_do_not_mention_removed_platforms(self):
+        project = Project.objects.get(slug='saveclip')
+        blob = ' '.join(str(v) for v in vars(project).values()).lower()
+        self.assertNotIn('youtube', blob)
+        self.assertNotIn('facebook', blob)
+
+    def test_ustudy_course_has_twelve_modules_everywhere(self):
+        self.assertContains(self.client.get('/?lang=uz'), '12 modulli')
+        self.assertContains(self.client.get('/?lang=ru'), '12 модулей')
+        self.assertContains(self.client.get('/?lang=en'), '12-module')
+        for lang in LANGS:
+            body = self.client.get(f'/?lang={lang}').content.decode()
+            self.assertNotIn('10 modul', body)
+            self.assertNotIn('10-module', body)
+            self.assertNotIn('10 модул', body)
+
+    def test_resume_file_matches_source_and_is_hashed_for_download(self):
+        resume = Path(__file__).resolve().parent / 'static' / 'core' / 'resume.pdf'
+        self.assertTrue(resume.exists())
+        self.assertTrue(resume.read_bytes().startswith(b'%PDF'))
+        self.assertContains(self.client.get('/'), 'download="Dostonbek_Suyunov_CV.pdf"')
+
+    def test_removal_migration_deletes_existing_row(self):
+        from importlib import import_module
+        from django.apps import apps
+        Project.objects.create(slug='online-book-store', title='x', year_start=2026, short_uz='a', short_ru='a', short_en='a')
+        migration = import_module('core.migrations.0002_remove_online_book_store')
+        migration.remove_book_store(apps, None)
+        self.assertFalse(Project.objects.filter(slug='online-book-store').exists())

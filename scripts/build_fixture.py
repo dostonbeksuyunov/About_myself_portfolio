@@ -1,7 +1,7 @@
 """scripts/projects_data.py dan core/fixtures/projects.json yig'adi.
 
 Ishlatish:  python scripts/build_fixture.py
-Keyin:      python manage.py loaddata projects     (idempotent: pk slug tartibiga bog'liq emas, qayta yuklash xavfsiz)
+Keyin:      python manage.py loaddata projects     (idempotent). Yangi loyihaga yangi (ishlatilmagan) pk bering.
 """
 import json
 import sys
@@ -25,7 +25,9 @@ def gallery_for(slug):
 
 def build():
     rows = []
-    for pk, p in enumerate(PROJECTS, start=1):
+    assert len({p['pk'] for p in PROJECTS}) == len(PROJECTS), 'pk lar takrorlanmasligi kerak'
+    for p in PROJECTS:
+        pk = p['pk']  # barqaror: loyiha o'chirilsa yoki qo'shilsa boshqalarning pk si o'zgarmaydi
         slug = p['slug']
         fields = {
             'slug': slug,

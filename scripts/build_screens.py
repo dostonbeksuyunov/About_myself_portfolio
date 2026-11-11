@@ -23,6 +23,64 @@ LIVE = {
     'lumarc-sayt': [('https://lumarc.uz', 1440, 900), ('https://lumarc.uz', 390, 844)],
 }
 
+STROY = 'https://uzstroymarket.uz'
+STROY_THEME_KEY = 'stroymarkett.theme'  # saytning o'z mavzu kaliti (localStorage)
+
+
+def phone_frame(shot):
+    """Mobil skrinshotni gradient fon ustida telefon ramkasiga joylaydi (1600x1000)."""
+    from PIL import ImageDraw
+    canvas = Image.new('RGB', (1600, 1000), '#0b1226')
+    grad = Image.new('RGB', (1600, 1000))
+    px = grad.load()
+    for y in range(1000):
+        for x in range(0, 1600, 8):
+            t = (x / 1600 + y / 1000) / 2
+            color = (int(11 + 17 * t), int(18 + 29 * t), int(38 + 82 * t))
+            for dx in range(8):
+                px[x + dx, y] = color
+    canvas.paste(grad)
+    height = 860
+    width = round(shot.width * height / shot.height)
+    shot = shot.resize((width, height), Image.LANCZOS).convert('RGB')
+    mask = Image.new('L', shot.size, 0)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, width, height), radius=34, fill=255)
+    x, y = (1600 - width) // 2, (1000 - height) // 2
+    ImageDraw.Draw(canvas).rounded_rectangle((x - 12, y - 12, x + width + 12, y + height + 12), radius=46, fill='#1d2a3d')
+    canvas.paste(shot, (x, y), mask)
+    return canvas
+
+
+def capture_stroy(browser):
+    """Faqat ochiq sahifalar: bosh sahifa va kirish sahifasi (kunduzgi/tungi) hamda mobil ko'rinish.
+    Katalog, mahsulot va panellar login talab qiladi — olinmaydi."""
+    images = []
+
+    def snap(path, w, h, theme):
+        ctx = browser.new_context(viewport={'width': w, 'height': h}, reduced_motion='reduce', color_scheme=theme)
+        ctx.add_init_script(f"try{{localStorage.setItem('{STROY_THEME_KEY}','{theme}')}}catch(e){{}}")
+        page = ctx.new_page()
+        try:
+            page.goto(STROY + path, wait_until='load', timeout=45000)
+            page.wait_for_timeout(3500)
+            raw = Image.open(io.BytesIO(page.screenshot(type='png')))
+            return phone_frame(raw) if w < 600 else fit(raw)
+        except Exception as exc:
+            print(f'  ! {STROY}{path} ({w}px, {theme}): {type(exc).__name__}')
+            return None
+        finally:
+            ctx.close()
+
+    shots = [('/', 1440, 900, 'light'), ('/', 1440, 900, 'dark'), ('/login', 1440, 900, 'light'),
+             ('/login', 1440, 900, 'dark'), ('/', 390, 844, 'light'), ('/', 390, 844, 'dark')]
+    for path, w, h, theme in shots:
+        img = snap(path, w, h, theme)
+        if img is not None:
+            images.append(img)
+    return images
+
+
+
 FONTS = ('<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600'
          '&family=JetBrains+Mono:wght@500&family=Manrope:wght@700;800&display=swap" rel="stylesheet">')
 
@@ -83,10 +141,10 @@ MOCKUPS = {
         ('bot', '✅ Saved'),
     ]),
     'saveclip': phone_html('SaveClip', 'bot', [
-        ('bot', "👋 <b>Salom!</b>\n\nMen <b>SaveClip</b> — video yuklovchi botman. 🎬\nMenga havola yuboring, men uni yuklab beraman."),
-        ('me', 'https://youtu.be/…  (namuna havola)'),
+        ('bot', "👋 <b>Salom!</b>\n\nMen <b>SaveClip</b> — video yuklovchi botman. 🎬\nMenga havola yuboring, men uni yuklab beraman.\n\n<b>Qo'llab-quvvatlanadi:</b> Instagram, TikTok, Twitter/X, Pinterest"),
+        ('me', 'https://www.instagram.com/reel/…  (namuna havola)'),
         ('bot', '🔎 Havola tekshirilmoqda...'),
-        ('bot', '🎞 <b>Video nomi</b>\n⏱ davomiyligi\n\nSifatni tanlang:', ['720p', '480p', '360p', '🎵 MP3']),
+        ('bot', '🎞 <b>Video</b>\n\nSifatni tanlang:', ['HD', '2K', '4K', "🎵 Qo'shiqni yuklab olish"]),
     ]),
     'e-auksion-radar': phone_html('Тошкент лот радари', 'telegram', [
         ('bot', '🏙 <b>Тошкент — янги лотлар</b>\n\n📌 Бу сафар: N та лот'),
@@ -137,11 +195,13 @@ def main():
     with sync_playwright() as p:
         browser = p.chromium.launch()
         results = {}
-        slugs = set(LIVE) | set(MOCKUPS) | set(DIAGRAMS)
+        slugs = set(LIVE) | set(MOCKUPS) | set(DIAGRAMS) | {'uzstroymarket'}
         for slug in sorted(slugs):
             if args.only and slug != args.only:
                 continue
             images = []
+            if slug == 'uzstroymarket':
+                images += capture_stroy(browser)
             for url, w, h in LIVE.get(slug, []):
                 ctx = browser.new_context(viewport={'width': w, 'height': h}, reduced_motion='reduce')
                 page = ctx.new_page()

@@ -1,7 +1,7 @@
 # CLAUDE.md — portfolio (Django 5.2)
 
 ## Buyruqlar
-- Test: `python manage.py test` (50 ta; `projects` fixture'ini ishlatadi) · Tekshiruv: `python manage.py check`
+- Test: `python manage.py test` (59 ta; `projects` fixture'ini ishlatadi) · Tekshiruv: `python manage.py check`
 - Lokal: `python manage.py migrate && python manage.py loaddata projects && python manage.py runserver 8010`
 - Prod-ga o'xshash tekshiruv: `DEBUG=False SECURE_SSL_REDIRECT=False python manage.py collectstatic --noinput` so'ng runserver
 - Havolalar: `python scripts/check_links.py http://127.0.0.1:8010`
@@ -13,7 +13,7 @@
 - `core/context_processors.py` — til (`?lang=` > sessiya > uz), `t`, canonical/hreflang, `SITE_URL`.
 - `core/templates/core/` — base, home, project_list, project_detail, `_project_card`, `_icons` (SVG sprite).
 - `core/static/core/css/style.css` — faqat CSS tokenlari (`:root[data-theme=light|dark]`); qattiq yozilgan rang qo'shmang.
-- `scripts/projects_data.py` → `core/fixtures/projects.json` (pk = ro'yxat tartibi; yangisini OXIRIGA qo'shing).
+- `scripts/projects_data.py` → `core/fixtures/projects.json` (har loyihada barqaror `pk`; yangisiga yangi pk bering; o'chirish — data-migratsiya bilan).
 
 ## Qoidalar
 - Loyiha matnlarida faqat haqiqiy faktlar (README/CLAUDE.md/kod asosida); raqam, foydalanuvchi soni, tezlik o'ylab topilmaydi.

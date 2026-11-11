@@ -111,9 +111,9 @@ TIMELINE = [
         'org': {'uz': 'Ustudy Academy, IT Park Uzbekistan', 'ru': 'Ustudy Academy, IT Park Uzbekistan', 'en': 'Ustudy Academy, IT Park Uzbekistan'},
         'period': {'uz': '2025-sentyabr — 2026-sentyabr', 'ru': 'сентябрь 2025 — сентябрь 2026', 'en': 'September 2025 – September 2026'},
         'desc': {
-            'uz': "Python, PostgreSQL, Django/DRF, Celery/Channels, Docker/CI-CD bo'yicha 10 modulli intensiv kurs. Tugatilgan.",
-            'ru': "Интенсивный курс из 10 модулей: Python, PostgreSQL, Django/DRF, Celery/Channels, Docker/CI-CD. Завершён.",
-            'en': "Intensive 10-module course covering Python, PostgreSQL, Django/DRF, Celery/Channels and Docker/CI-CD. Completed.",
+            'uz': "Python, PostgreSQL, Django/DRF, Celery/Channels, Docker/CI-CD bo'yicha 12 modulli intensiv kurs. Tugatilgan.",
+            'ru': "Интенсивный курс из 12 модулей: Python, PostgreSQL, Django/DRF, Celery/Channels, Docker/CI-CD. Завершён.",
+            'en': "Intensive 12-module course covering Python, PostgreSQL, Django/DRF, Celery/Channels and Docker/CI-CD. Completed.",
         },
     },
     {

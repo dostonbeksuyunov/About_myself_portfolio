@@ -14,7 +14,7 @@ LEARNING = 'learning'
 PROJECTS = [
     # ------------------------------------------------------------ ISH — LUMARC
     dict(
-        slug='lumarc-sayt', title='Lumarc', kind=LUMARC, order=10, featured=True,
+        pk=1, slug='lumarc-sayt', title='Lumarc', kind=LUMARC, order=10, featured=True,
         categories='web,3d', year_start=2026, ongoing=True, status='live',
         stack='Next.js 16, React 19, TypeScript, NestJS 11, Prisma, PostgreSQL, Three.js, Photo Sphere Viewer',
         role=("Fullstack dasturchi", "Fullstack-разработчик", "Fullstack Developer"),
@@ -45,7 +45,7 @@ PROJECTS = [
         ),
     ),
     dict(
-        slug='lumarcos', title='Lumarcos', kind=LUMARC, order=20, featured=True,
+        pk=2, slug='lumarcos', title='Lumarcos', kind=LUMARC, order=20, featured=True,
         categories='ai,web,backend', year_start=2026, ongoing=True, status='live',
         live_url='https://lumarcos.uz',
         stack='Next.js 16, React 19, NestJS 11, Prisma, PostgreSQL, BullMQ, Redis, MinIO, Docker Compose, Caddy, Gemini / Vertex AI, fal.ai',
@@ -77,7 +77,7 @@ PROJECTS = [
         ),
     ),
     dict(
-        slug='e-auksion-radar', title="E-auksion lot radari", kind=LUMARC, order=30, featured=True,
+        pk=3, slug='e-auksion-radar', title="E-auksion lot radari", kind=LUMARC, order=30, featured=True,
         categories='bot,automation,backend', year_start=2026, ongoing=True, status='live',
         stack='Python (standart kutubxona), SQLite, Telegram Bot API, unittest',
         role=("Fullstack dasturchi", "Fullstack-разработчик", "Fullstack Developer"),
@@ -108,7 +108,7 @@ PROJECTS = [
         ),
     ),
     dict(
-        slug='lumarcode', title='Lumarcode', kind=LUMARC, order=40, featured=True,
+        pk=4, slug='lumarcode', title='Lumarcode', kind=LUMARC, order=40, featured=True,
         categories='ai,backend,automation', year_start=2026, ongoing=True, status='live',
         live_url='https://akromin.uz',
         stack='Claude, Docker, Caddy, Telegram bot, Linux',
@@ -140,7 +140,7 @@ PROJECTS = [
         ),
     ),
     dict(
-        slug='akromind', title='Akromind', kind=LUMARC, order=50, featured=True,
+        pk=5, slug='akromind', title='Akromind', kind=LUMARC, order=50, featured=True,
         categories='web', year_start=2026, ongoing=True, status='in_development',
         live_url='https://akromind.uz',
         stack='Next.js, React, TypeScript, Tailwind CSS, Docker',
@@ -173,7 +173,7 @@ PROJECTS = [
     ),
     # ------------------------------------------------------------ BOTLAR (shaxsiy)
     dict(
-        slug='moneyflow', title='MoneyFlow', kind=PERSONAL, order=60, featured=True,
+        pk=6, slug='moneyflow', title='MoneyFlow', kind=PERSONAL, order=60, featured=True,
         categories='bot,backend', year_start=2026, status='live',
         telegram_url='https://t.me/moneyflow_uz_bot',
         stack='Python, python-telegram-bot, PostgreSQL, SQLAlchemy, Alembic, pandas, openpyxl, ReportLab, Docker',
@@ -205,71 +205,71 @@ PROJECTS = [
         ),
     ),
     dict(
-        slug='saveclip', title='SaveClip', kind=PERSONAL, order=70, featured=True,
+        pk=7, slug='saveclip', title='SaveClip', kind=PERSONAL, order=70, featured=True,
         categories='bot,automation', year_start=2026, status='live',
         telegram_url='https://t.me/saveclipuz_bot',
         stack='Python, python-telegram-bot, yt-dlp, ffmpeg, SQLite, APScheduler, Docker',
         role=("Dasturchi (yakka)", "Разработчик (соло)", "Solo developer"),
         short=(
-            "YouTube, Instagram, TikTok, X, Facebook va Pinterest havolalaridan video yuklab beruvchi Telegram bot.",
-            "Telegram-бот, скачивающий видео по ссылкам YouTube, Instagram, TikTok, X, Facebook и Pinterest.",
-            "A Telegram bot that downloads videos from YouTube, Instagram, TikTok, X, Facebook and Pinterest links.",
+            "Instagram, TikTok, Twitter/X va Pinterest havolalaridan video va rasmlarni sifatini buzmasdan yuklab beruvchi Telegram bot.",
+            "Telegram-бот, скачивающий видео и изображения по ссылкам Instagram, TikTok, Twitter/X и Pinterest без потери качества.",
+            "A Telegram bot that downloads videos and images from Instagram, TikTok, Twitter/X and Pinterest links without losing quality.",
         ),
         problem=(
-            "Video yuklash uchun saytlar reklamaga to'la, Telegram chegarasi (50 MB) esa katta fayllarga to'sqinlik qiladi.",
-            "Сайты для скачивания видео забиты рекламой, а лимит Telegram (50 МБ) мешает большим файлам.",
-            "Video download sites are full of ads, and Telegram's 50 MB limit gets in the way of large files.",
+            "Video yuklash uchun saytlar reklamaga to'la, katta videolar esa sifati tushirilib yoki bo'laklab yuboriladi.",
+            "Сайты для скачивания видео забиты рекламой, а большие видео приходят в сниженном качестве или по частям.",
+            "Video download sites are full of ads, and large videos arrive in reduced quality or in pieces.",
         ),
         solution=(
-            "Havola yuboriladi — bot yuklab, sifat tanlovini (720p / 480p / 360p / MP3) beradi. 50 MB dan oshsa sifatni tushiradi, ffmpeg bilan siqadi yoki to'g'ridan-to'g'ri havola beradi; bir xil havola file_id keshi bilan darhol qayta yuboriladi.",
-            "Отправляете ссылку — бот скачивает и предлагает выбор качества (720p / 480p / 360p / MP3). Если больше 50 МБ — снижает качество, сжимает через ffmpeg или даёт прямую ссылку; повторная ссылка отдаётся мгновенно из кэша file_id.",
-            "Send a link and the bot downloads it and offers a quality choice (720p / 480p / 360p / MP3). Above 50 MB it lowers the quality, compresses with ffmpeg or returns a direct link; the same link is re-sent instantly from a file_id cache.",
+            "Havola yuboriladi — bot uni yuklab, HD / 2K / 4K sifatlarda yuboradi; 50 MB dan katta videolar ham sifati buzilmasdan keladi. Har bir videoga «Qo'shiqni yuklab olish» (MP3) tugmasi qo'shiladi. Botni guruhga qo'shsangiz, tashlangan havolani o'zi yuklab beradi.",
+            "Отправляете ссылку — бот скачивает и присылает видео в HD / 2K / 4K; большие видео, включая файлы больше 50 МБ, приходят без потери качества. К каждому видео добавляется кнопка «Скачать песню» (MP3). Если добавить бота в группу, он сам скачивает присланные ссылки.",
+            "Send a link and the bot downloads it and returns the video in HD / 2K / 4K; large videos, including files over 50 MB, arrive without quality loss. Every video gets a “Download the song” (MP3) button. Add the bot to a group and it downloads any link posted there.",
         ),
         result=(
-            "Bot jonli ishlaydi: tezlik cheklovi, majburiy kanal obunasi, admin panel va ommaviy xabar, SSRF himoyasi bilan.",
-            "Бот работает: ограничение частоты, обязательная подписка на канал, админ-панель и рассылка, защита от SSRF.",
-            "The bot is live with rate limiting, mandatory channel subscription, an admin panel with broadcast, and SSRF protection.",
+            "Bot jonli ishlaydi: tezlik cheklovi, majburiy kanal obunasi, admin panel va ommaviy xabar, SSRF himoyasi bilan; uz, ru va en tillarida.",
+            "Бот работает: ограничение частоты, обязательная подписка на канал, админ-панель и рассылка, защита от SSRF; интерфейс на uz, ru и en.",
+            "The bot is live with rate limiting, mandatory channel subscription, an admin panel with broadcast and SSRF protection; the interface is available in uz, ru and en.",
         ),
         highlights=(
-            ["6 ta platforma: YouTube, Instagram, TikTok (suvsiz belgi), X, Facebook, Pinterest", "50 MB chegarasi uchun avtomatik yechimlar", "file_id keshi, tezlik cheklovi, bir vaqtda bitta yuklash", "Domen ruxsat ro'yxati (SSRF himoyasi), vaqtinchalik fayllarni tozalash", "Admin panel, ban, ommaviy xabar"],
-            ["6 платформ: YouTube, Instagram, TikTok (без водяного знака), X, Facebook, Pinterest", "Автоматические решения для лимита 50 МБ", "Кэш file_id, ограничение частоты, одна активная загрузка на пользователя", "Белый список доменов (защита от SSRF), очистка временных файлов", "Админ-панель, баны, рассылка"],
-            ["6 platforms: YouTube, Instagram, TikTok (no watermark), X, Facebook, Pinterest", "Automatic handling of the 50 MB limit", "file_id cache, rate limit, one active download per user", "Domain allowlist (SSRF protection), temp-file cleanup", "Admin panel, bans, broadcast"],
+            ["Instagram (Reels, post, karusel), TikTok (suv belgisiz), Twitter/X, Pinterest (rasmlar asl sifatda)", "50 MB dan katta videolar ham sifati buzilmasdan yuboriladi", "HD / 2K / 4K sifatlar va har videoga MP3 («Qo'shiqni yuklab olish») tugmasi", "Guruhga qo'shib ishlatish: havola tashlansa bot o'zi yuklab beradi", "Tezroq ishlaydi; uz / ru / en tillari"],
+            ["Instagram (Reels, пост, карусель), TikTok (без водяного знака), Twitter/X, Pinterest (изображения в оригинальном качестве)", "Большие видео, в том числе больше 50 МБ, приходят без потери качества", "Качество HD / 2K / 4K и кнопка MP3 («Скачать песню») у каждого видео", "Работа в группе: бот сам скачивает присланные ссылки", "Быстрее работает; языки uz / ru / en"],
+            ["Instagram (Reels, posts, carousels), TikTok (no watermark), Twitter/X, Pinterest (images in original quality)", "Large videos, including files over 50 MB, arrive without quality loss", "HD / 2K / 4K quality and an MP3 (“Download the song”) button on every video", "Group mode: the bot downloads links posted in the chat", "Runs faster; uz / ru / en languages"],
         ),
     ),
-    # ------------------------------------------------------------ MIJOZ / BOSHQALAR
     dict(
-        slug='uzstroymarket', title='UzStroyMarket', kind=CLIENT, order=80, featured=True,
-        categories='web,bot,backend', year_start=2026, status='live',
-        stack='Next.js, TypeScript, Fastify, Prisma, PostgreSQL, grammY (Telegram), npm workspaces',
+        pk=8, slug='uzstroymarket', title='UzStroyMarket', kind=PERSONAL, order=55, featured=True,
+        categories='web,backend', year_start=2026, status='live',
+        live_url='https://uzstroymarket.uz',
+        stack='Next.js 15, React 19, TypeScript, Fastify 5, Prisma, PostgreSQL, grammY, AWS',
         role=("Fullstack dasturchi", "Fullstack-разработчик", "Fullstack Developer"),
         short=(
-            "Qurilish materiallari marketplace: xaridor sayti, sotuvchi va bosh admin panellari hamda Telegram bot.",
-            "Маркетплейс строительных материалов: сайт покупателя, панели продавца и главного администратора и Telegram-бот.",
-            "A construction-materials marketplace: customer site, seller and head-admin panels, and a Telegram bot.",
+            "Qurilish materiallari uchun ko'p sotuvchili marketplace: xaridor sayti, sotuvchi va bosh admin panellari hamda Telegram orqali telefonni tasdiqlash boti.",
+            "Мультивендорный маркетплейс строительных материалов: сайт покупателя, панели продавца и главного администратора и Telegram-бот подтверждения телефона.",
+            "A multi-vendor marketplace for construction materials: customer site, seller and head-admin panels, and a Telegram bot that verifies phone numbers.",
         ),
         problem=(
-            "Qurilish materiallarini topish, do'konlar takliflarini solishtirish va buyurtma berish tarqoq kanallarda yuradi.",
-            "Поиск стройматериалов, сравнение предложений магазинов и заказ разбросаны по разным каналам.",
-            "Finding construction materials, comparing store offers and ordering are scattered across channels.",
+            "Qurilish materiallarini topish, do'konlar takliflarini solishtirish va buyurtma berish tarqoq kanallarda yuradi; bir nechta sotuvchi bilan ishlaganda qoldiq va buyurtmalarni to'g'ri yuritish qiyin.",
+            "Поиск стройматериалов, сравнение предложений магазинов и заказ разбросаны по разным каналам; при работе с несколькими продавцами сложно корректно вести остатки и заказы.",
+            "Finding construction materials, comparing store offers and ordering are scattered across channels, and keeping stock and orders correct across several sellers is hard.",
         ),
         solution=(
-            "Xaridor, sotuvchi va administrator bitta tizimda: katalog, savat va buyurtmalar tarixi; bir nechta do'kondan tuzilgan savat har bir sotuvchi uchun alohida buyurtmaga ajratiladi. Umumiy PostgreSQL API sayt, panellar va botga xizmat qiladi.",
-            "Покупатель, продавец и администратор в одной системе: каталог, корзина и история заказов; корзина из нескольких магазинов делится на отдельные заказы для каждого продавца. Общий API на PostgreSQL обслуживает сайт, панели и бота.",
-            "Buyer, seller and administrator live in one system: catalog, cart and order history; a cart built from several stores is split into a separate order per seller. A shared PostgreSQL-backed API serves the site, the panels and the bot.",
+            "Xaridor, sotuvchi va administrator bitta tizimda ishlaydi. Checkout'da qoldiq tranzaksiya ichida tekshiriladi va band qilinadi, takroriy so'rov bir xil kalit bilan yangi buyurtma yaratmaydi, bir nechta do'kondan tuzilgan savat har bir sotuvchi uchun alohida buyurtmaga ajratiladi. Admin o'zgarishlari audit yozuvlari bilan saqlanadi.",
+            "Покупатель, продавец и администратор работают в одной системе. При оформлении заказа остаток проверяется и резервируется внутри транзакции, повторный запрос с тем же ключом не создаёт новый заказ, корзина из нескольких магазинов делится на отдельные заказы по продавцам. Изменения администратора сохраняются в журнале аудита.",
+            "Buyer, seller and administrator work in one system. At checkout, stock is checked and reserved inside a transaction, a repeated request with the same key does not create a new order, and a cart built from several stores is split into a separate order per seller. Admin changes are kept in audit records.",
         ),
         result=(
-            "Platforma AWS serverda ishlaydi; uz/ru/en tillari va kunduz/tun rejimi mavjud. Alohida domen hali ulanmagan.",
-            "Платформа работает на сервере AWS; доступны uz/ru/en и дневной/ночной режим. Отдельный домен пока не подключён.",
-            "The platform runs on an AWS server with uz/ru/en and day/night themes. A dedicated domain is not connected yet.",
+            "Platforma uzstroymarket.uz da jonli ishlaydi (uz / ru / en, kunduz va tun rejimi). Ro'yxatdan o'tishda telefon raqami Telegram boti orqali olti xonali kod bilan tasdiqlanadi.",
+            "Платформа работает на uzstroymarket.uz (uz / ru / en, дневной и ночной режим). При регистрации телефон подтверждается через Telegram-бота шестизначным кодом.",
+            "The platform runs live at uzstroymarket.uz (uz / ru / en, day and night themes). During sign-up the phone number is verified through a Telegram bot with a six-digit code.",
         ),
         highlights=(
-            ["Uch rol: xaridor, sotuvchi, bosh admin", "Ko'p do'konli savat → sotuvchi bo'yicha alohida buyurtmalar", "Telegram bot orqali ro'yxatdan o'tishni tasdiqlash", "Uch til va kunduz/tun rejimi", "Monorepo: api, web, bot, umumiy db va i18n paketlari"],
-            ["Три роли: покупатель, продавец, главный админ", "Корзина из нескольких магазинов → отдельные заказы по продавцам", "Подтверждение регистрации через Telegram-бота", "Три языка и дневной/ночной режим", "Монорепозиторий: api, web, bot, общие пакеты db и i18n"],
-            ["Three roles: buyer, seller, head admin", "Multi-store cart → separate orders per seller", "Registration confirmation through a Telegram bot", "Three languages and a day/night theme", "Monorepo: api, web, bot, shared db and i18n packages"],
+            ["Uch rol: xaridor, sotuvchi (alohida kabinet), bosh admin", "Tranzaksiyada qoldiqni band qilish va idempotent checkout", "Ko'p do'konli savat → sotuvchi bo'yicha alohida buyurtmalar", "Admin o'zgarishlari uchun audit yozuvlari", "Telegram boti orqali telefonni tasdiqlash, uz/ru/en, kunduz/tun rejimi"],
+            ["Три роли: покупатель, продавец (отдельный кабинет), главный админ", "Резервирование остатка в транзакции и идемпотентный checkout", "Корзина из нескольких магазинов → отдельные заказы по продавцам", "Журнал аудита изменений администратора", "Подтверждение телефона через Telegram-бота, uz/ru/en, дневной/ночной режим"],
+            ["Three roles: buyer, seller (own dashboard), head admin", "Stock reservation in a transaction and idempotent checkout", "Multi-store cart → separate orders per seller", "Audit records for admin changes", "Telegram phone verification, uz/ru/en, day/night theme"],
         ),
     ),
     dict(
-        slug='tashkent-3d-residence', title='Tashkent City Residence', kind=PERSONAL, order=90, featured=True,
+        pk=9, slug='tashkent-3d-residence', title='Tashkent City Residence', kind=PERSONAL, order=90, featured=True,
         categories='3d,web', year_start=2026, status='concept',
         stack='Next.js 16, React 19, React Three Fiber, three.js, zustand, Tailwind CSS 4, Framer Motion, GSAP',
         role=("Fullstack dasturchi", "Fullstack-разработчик", "Fullstack Developer"),
@@ -300,7 +300,7 @@ PROJECTS = [
         ),
     ),
     dict(
-        slug='bahober', title='Bahober', kind=CLIENT, order=100, featured=False,
+        pk=10, slug='bahober', title='Bahober', kind=CLIENT, order=100, featured=False,
         categories='web,backend', year_start=2026, status='live',
         live_url='https://bahober.uz',
         stack='Go, React, Vite, MUI, Redux, Expo (React Native), PostgreSQL, nginx, Docker',
@@ -332,7 +332,7 @@ PROJECTS = [
         ),
     ),
     dict(
-        slug='yuridik-yordam', title='YuridikYordam', kind=PERSONAL, order=110, featured=False,
+        pk=11, slug='yuridik-yordam', title='YuridikYordam', kind=PERSONAL, order=110, featured=False,
         categories='web,backend', year_start=2026, status='concept',
         stack='Python, Django, SQLite, Django templates',
         role=("Dasturchi (yakka)", "Разработчик (соло)", "Solo developer"),
@@ -363,7 +363,7 @@ PROJECTS = [
         ),
     ),
     dict(
-        slug='shajara', title='Shajara', kind=PERSONAL, order=120, featured=False,
+        pk=12, slug='shajara', title='Shajara', kind=PERSONAL, order=120, featured=False,
         categories='web', year_start=2026, status='live',
         stack='JavaScript (vanilla), HTML, CSS, Python (bundle)',
         role=("Dasturchi (yakka)", "Разработчик (соло)", "Solo developer"),
@@ -394,7 +394,7 @@ PROJECTS = [
         ),
     ),
     dict(
-        slug='language-bot', title="Til o'rganish hamrohi", kind=PERSONAL, order=130, featured=False,
+        pk=13, slug='language-bot', title="Til o'rganish hamrohi", kind=PERSONAL, order=130, featured=False,
         categories='bot,ai', year_start=2026, status='archived',
         stack='Python, aiogram 3, SQLAlchemy, SQLite, Groq (LLM, Whisper, TTS)',
         role=("Dasturchi (yakka)", "Разработчик (соло)", "Solo developer"),
@@ -425,7 +425,7 @@ PROJECTS = [
         ),
     ),
     dict(
-        slug='buy-a-ticket-bot', title='Buy a Ticket Bot', kind=PERSONAL, order=140, featured=False,
+        pk=14, slug='buy-a-ticket-bot', title='Buy a Ticket Bot', kind=PERSONAL, order=140, featured=False,
         categories='bot,backend', year_start=2026, status='archived',
         stack='Python, Django, python-telegram-bot, Django Admin, QR',
         role=("Dasturchi (yakka)", "Разработчик (соло)", "Solo developer"),
@@ -456,7 +456,7 @@ PROJECTS = [
         ),
     ),
     dict(
-        slug='gym-management', title='Gym Management', kind=PERSONAL, order=150, featured=False,
+        pk=15, slug='gym-management', title='Gym Management', kind=PERSONAL, order=150, featured=False,
         categories='bot,backend', year_start=2026, status='archived',
         stack='Python, Django, Django REST Framework, aiogram, PostgreSQL, Docker',
         role=("Dasturchi (yakka)", "Разработчик (соло)", "Solo developer"),
@@ -487,7 +487,7 @@ PROJECTS = [
         ),
     ),
     dict(
-        slug='hunarmandlar-tarmogi', title="Hunarmandlar tarmog'i", kind=PERSONAL, order=160, featured=False,
+        pk=16, slug='hunarmandlar-tarmogi', title="Hunarmandlar tarmog'i", kind=PERSONAL, order=160, featured=False,
         categories='web,backend', year_start=2026, status='archived',
         stack='Python, Flask, SQLite',
         role=("Dasturchi (yakka)", "Разработчик (соло)", "Solo developer"),
@@ -518,7 +518,7 @@ PROJECTS = [
         ),
     ),
     dict(
-        slug='umumiy-sayt', title='Umumiy sayt (hub)', kind=PERSONAL, order=170, featured=False,
+        pk=17, slug='umumiy-sayt', title='Umumiy sayt (hub)', kind=PERSONAL, order=170, featured=False,
         categories='web,backend', year_start=2026, status='concept',
         stack='Python, Flask, Nginx, systemd',
         role=("Dasturchi (yakka)", "Разработчик (соло)", "Solo developer"),
@@ -549,19 +549,7 @@ PROJECTS = [
         ),
     ),
     dict(
-        slug='online-book-store', title='Online Book Store', kind=LEARNING, order=300, featured=False,
-        categories='backend', year_start=2026, status='archived',
-        stack='Python, Django, DRF, PostgreSQL',
-        role=("O'quv loyiha", "Учебный проект", "Learning project"),
-        short=(
-            "Onlayn kitob do'koni uchun backend API: kitoblar katalogi bo'yicha CRUD, PostgreSQL sxemasi.",
-            "Backend API онлайн-магазина книг: CRUD для каталога книг, схема PostgreSQL.",
-            "A backend API for an online book store: CRUD for the book catalog, a PostgreSQL schema.",
-        ),
-        highlights=(["DRF orqali CRUD", "PostgreSQL sxemasi"], ["CRUD через DRF", "Схема PostgreSQL"], ["CRUD with DRF", "PostgreSQL schema"]),
-    ),
-    dict(
-        slug='u13-task-manager', title='Task Manager API', kind=LEARNING, order=310, featured=False,
+        pk=19, slug='u13-task-manager', title='Task Manager API', kind=LEARNING, order=310, featured=False,
         categories='backend', year_start=2026, status='archived',
         github_url='https://github.com/dostonbeksuyunov/U13_task_manager',
         stack='Python, Django, DRF',
@@ -574,7 +562,7 @@ PROJECTS = [
         highlights=(["DRF API", "Ochiq kod GitHub'da"], ["DRF API", "Открытый код на GitHub"], ["DRF API", "Open source on GitHub"]),
     ),
     dict(
-        slug='normativ-drf', title='Normativ API', kind=LEARNING, order=320, featured=False,
+        pk=20, slug='normativ-drf', title='Normativ API', kind=LEARNING, order=320, featured=False,
         categories='backend', year_start=2026, status='archived',
         github_url='https://github.com/dostonbeksuyunov/DRF-normativ',
         stack='Python, Django, DRF',
@@ -587,7 +575,7 @@ PROJECTS = [
         highlights=(["Serializer va view'lar", "Testlar", "Ochiq kod GitHub'da"], ["Сериализаторы и представления", "Тесты", "Открытый код на GitHub"], ["Serializers and views", "Tests", "Open source on GitHub"]),
     ),
     dict(
-        slug='stadium-booking', title='Stadium Booking', kind=LEARNING, order=330, featured=False,
+        pk=21, slug='stadium-booking', title='Stadium Booking', kind=LEARNING, order=330, featured=False,
         categories='web,backend', year_start=2026, status='archived',
         stack='Python, Django',
         role=("O'quv loyiha", "Учебный проект", "Learning project"),
@@ -599,7 +587,7 @@ PROJECTS = [
         highlights=(["Django modellari va admin", "Bron mantiqi"], ["Модели Django и админка", "Логика бронирования"], ["Django models and admin", "Booking logic"]),
     ),
     dict(
-        slug='taxi-trips', title='Taxi Trips', kind=LEARNING, order=340, featured=False,
+        pk=22, slug='taxi-trips', title='Taxi Trips', kind=LEARNING, order=340, featured=False,
         categories='backend', year_start=2026, status='archived',
         stack='Python, Django',
         role=("O'quv loyiha", "Учебный проект", "Learning project"),
