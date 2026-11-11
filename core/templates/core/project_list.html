@@ -22,7 +22,7 @@
 
     {% if main_projects %}
     <div class="project-grid project-grid-3">
-      {% for c in main_projects %}{% include "core/_project_card.html" %}{% endfor %}
+      {% for c in main_projects %}{% include "core/_project_card.html" with h2=True eager=forloop.first %}{% endfor %}
     </div>
     {% endif %}
 

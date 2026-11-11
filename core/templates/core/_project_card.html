@@ -1,7 +1,7 @@
 {% load static ui %}
 <article class="project-card reveal">
   <div class="project-cover">
-    {% if c.cover %}<img src="{% static c.cover %}" alt="" width="1600" height="1000" loading="lazy" decoding="async">
+    {% if c.cover %}<img src="{% static c.cover_small %}" srcset="{% static c.cover_small %} 800w, {% static c.cover %} 1600w" sizes="(max-width: 700px) 92vw, 380px" alt="" width="800" height="500"{% if eager %} fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async">
     {% else %}<div class="project-cover-fallback" aria-hidden="true">{{ c.title|slice:":1" }}</div>{% endif %}
   </div>
   <div class="project-body">
@@ -9,7 +9,7 @@
       <span class="badge badge-kind badge-kind-{{ c.kind }}">{% ui t "kind_" c.kind %}</span>
       <span class="badge badge-status badge-status-{{ c.status }}">{% ui t "status_" c.status %}</span>
     </div>
-    <h3><a class="stretched" href="{% url 'project_detail' c.slug %}">{{ c.title }}</a></h3>
+    {% if h2 %}<h2 class="card-title"><a class="stretched" href="{% url 'project_detail' c.slug %}">{{ c.title }}</a></h2>{% else %}<h3 class="card-title"><a class="stretched" href="{% url 'project_detail' c.slug %}">{{ c.title }}</a></h3>{% endif %}
     <p class="project-short">{{ c.short }}</p>
     <ul class="chips" aria-label="{{ t.case_stack }}">{% for s in c.stack %}<li class="chip">{{ s }}</li>{% endfor %}</ul>
     <span class="card-link">{{ t.open_case }}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>

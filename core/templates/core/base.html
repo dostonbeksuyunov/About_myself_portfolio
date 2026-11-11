@@ -56,7 +56,7 @@
 
 <header class="nav" id="top">
   <div class="nav-inner">
-    <a href="{% url 'home' %}" class="nav-brand" aria-label="{{ t.nav_home }}">{{ t.initials }}</a>
+    <a href="{% url 'home' %}" class="nav-brand" aria-label="{{ t.initials }} {{ t.nav_home }}">{{ t.initials }}</a>
     <button class="nav-toggle" id="nav-toggle" type="button" aria-label="{{ t.menu_label }}" aria-expanded="false" aria-controls="nav-links">
       <span></span><span></span><span></span>
     </button>

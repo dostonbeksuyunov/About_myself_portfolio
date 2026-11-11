@@ -103,6 +103,10 @@ class Project(models.Model):
         return [ln.strip() for ln in self.gallery.splitlines() if ln.strip()]
 
     @property
+    def cover_small(self):
+        return self.cover.replace('cover.webp', 'cover-800.webp')
+
+    @property
     def og_image(self):
         return f'core/projects/{self.slug}/og.jpg'
 

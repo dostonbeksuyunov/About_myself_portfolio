@@ -238,7 +238,7 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; letter-spacing
   font-family: var(--font-display); font-weight: 800; font-size: 64px; color: var(--accent); background: var(--accent-soft);
 }
 .project-body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-.project-body h3 { font-size: 21px; font-weight: 700; }
+.project-body .card-title { font-size: 21px; font-weight: 700; }
 .stretched::after { content: ''; position: absolute; inset: 0; z-index: 1; }
 .project-short { color: var(--text-muted); font-size: 15px; }
 .card-link { margin-top: auto; padding-top: 6px; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14.5px; color: var(--accent); }

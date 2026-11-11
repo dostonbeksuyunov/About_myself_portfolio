@@ -43,6 +43,7 @@ def _card(project, lang):
         'kind': project.kind,
         'status': project.status,
         'cover': project.cover,
+        'cover_small': project.cover_small,
         'stack': project.stack_list[:5],
         'categories': project.category_list,
         'year': project.year_start,

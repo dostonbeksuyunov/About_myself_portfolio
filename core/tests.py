@@ -264,3 +264,24 @@ class FixtureTests(PortfolioTestCase):
         for project in Project.objects.all():
             for path in ([project.cover] if project.cover else []) + project.gallery_list:
                 self.assertTrue((static_root / path).exists(), path)
+
+
+class AdminTests(PortfolioTestCase):
+    def setUp(self):
+        from django.contrib.auth import get_user_model
+        user = get_user_model().objects.create_superuser('admin', 'a@example.test', 'pass-12345')
+        self.client.force_login(user)
+
+    def test_changelist_with_filters(self):
+        for query in ('', '?kind=work', '?category=bot', '?status=live', '?is_featured__exact=1'):
+            with self.subTest(query=query):
+                self.assertEqual(self.client.get(f'/admin/core/project/{query}').status_code, 200)
+
+    def test_category_filter_matches_only_exact_tokens(self):
+        response = self.client.get('/admin/core/project/?category=3d')
+        self.assertContains(response, 'Tashkent City Residence')
+        self.assertNotContains(response, 'SaveClip')
+
+    def test_change_form_renders(self):
+        project = Project.objects.get(slug='lumarcos')
+        self.assertEqual(self.client.get(f'/admin/core/project/{project.pk}/change/').status_code, 200)

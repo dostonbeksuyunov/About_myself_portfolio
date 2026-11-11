@@ -123,7 +123,9 @@ def main():
                 continue
             folder = PROJECTS_DIR / project['slug']
             folder.mkdir(parents=True, exist_ok=True)
-            save_webp(shot(page, cover_html(project, 1600, 1000), 1600, 1000), folder / 'cover.webp')
+            cover = shot(page, cover_html(project, 1600, 1000), 1600, 1000)
+            save_webp(cover, folder / 'cover.webp')
+            save_webp(cover.resize((800, 500), Image.LANCZOS), folder / 'cover-800.webp', max_kb=120)
             og = shot(page, cover_html(project, 1200, 630), 1200, 630).convert('RGB')
             og.save(folder / 'og.jpg', 'JPEG', quality=85, optimize=True)
             print('cover:', project['slug'])
