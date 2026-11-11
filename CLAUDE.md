@@ -1,7 +1,7 @@
 # CLAUDE.md — portfolio (Django 5.2)
 
 ## Buyruqlar
-- Test: `python manage.py test` (59 ta; `projects` fixture'ini ishlatadi) · Tekshiruv: `python manage.py check`
+- Test: `python manage.py test` (65 ta; `projects` fixture'ini ishlatadi) · Tekshiruv: `python manage.py check`
 - Lokal: `python manage.py migrate && python manage.py loaddata projects && python manage.py runserver 8010`
 - Prod-ga o'xshash tekshiruv: `DEBUG=False SECURE_SSL_REDIRECT=False python manage.py collectstatic --noinput` so'ng runserver
 - Havolalar: `python scripts/check_links.py http://127.0.0.1:8010`
@@ -17,7 +17,7 @@
 
 ## Qoidalar
 - Loyiha matnlarida faqat haqiqiy faktlar (README/CLAUDE.md/kod asosida); raqam, foydalanuvchi soni, tezlik o'ylab topilmaydi.
-- GitHub havolasi faqat repo ochiq bo'lsa (hozir: About_myself_portfolio, U13_task_manager, DRF-normativ). Yopiq repo → "Kod yopiq" belgisi.
+- Ish loyihalari uchun GitHub havolasi qo'yilmaydi. Boshqa loyihada faqat repo ochiq bo'lsa (curl 200) qo'yiladi; yopiq repo → "Kod yopiq" belgisi.
 - Live havola qo'yishdan oldin ochilishini tekshiring. Maxfiy loyihada `confidential=True`.
 - Ish shartnomasi, bandlik turi, sinov muddati haqida saytda yozilmaydi (faqat lavozim, firma, sana, ishlar).
 - "vibe coding" iborasi ishlatilmaydi.

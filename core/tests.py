@@ -141,10 +141,19 @@ class ProjectListTests(PortfolioTestCase):
         for project in Project.objects.exclude(kind='learning'):
             self.assertContains(response, f'/projects/{project.slug}/')
 
-    def test_learning_projects_are_in_separate_block(self):
+    def test_learning_block_and_filters_only_show_what_exists(self):
+        response = self.client.get('/projects/')
+        self.assertNotContains(response, 'learning-list')
+        self.assertNotContains(response, 'kind=learning')
+        self.assertNotContains(response, 'kind=client')
+        self.assertContains(response, 'kind=work')
+        self.assertContains(response, 'cat=automation')
+
+    def test_learning_projects_still_render_in_separate_block_when_present(self):
+        Project.objects.filter(slug='moneyflow').update(kind='learning')
         response = self.client.get('/projects/')
         self.assertContains(response, 'learning-list')
-        self.assertContains(response, '/projects/u13-task-manager/')
+        self.assertContains(response, 'kind=learning')
 
     def test_kind_filter(self):
         response = self.client.get('/projects/?kind=work')
@@ -152,9 +161,9 @@ class ProjectListTests(PortfolioTestCase):
         self.assertNotContains(response, '/projects/moneyflow/')
 
     def test_category_filter(self):
-        response = self.client.get('/projects/?cat=3d')
-        self.assertContains(response, '/projects/tashkent-3d-residence/')
-        self.assertNotContains(response, '/projects/saveclip/')
+        response = self.client.get('/projects/?cat=ai')
+        self.assertContains(response, '/projects/lumarcos/')
+        self.assertNotContains(response, '/projects/moneyflow/')
 
     def test_combined_filter(self):
         response = self.client.get('/projects/?kind=work&cat=bot')
@@ -209,12 +218,11 @@ class ProjectDetailTests(PortfolioTestCase):
         self.assertNotContains(response, 'data-lightbox')
         self.assertContains(response, 'NDA')
 
-    def test_github_link_only_when_repo_is_public(self):
-        self.assertContains(self.client.get('/projects/u13-task-manager/'),
-                            'github.com/dostonbeksuyunov/U13_task_manager')
-        closed = self.client.get('/projects/lumarcos/')
-        self.assertNotContains(closed, 'github.com/dostonbeksuyunov/lumarcos')
-        self.assertContains(closed, 'Kod yopiq')
+    def test_no_github_links_on_project_pages(self):
+        for project in Project.objects.all():
+            page = self.client.get(f'/projects/{project.slug}/').content.decode()
+            self.assertNotIn('github.com/dostonbeksuyunov/', page)
+            self.assertIn('Kod yopiq', page)
 
     def test_prev_next_navigation(self):
         self.assertContains(self.client.get('/projects/lumarcos/'), 'case-nav-next')
@@ -252,10 +260,7 @@ class FixtureTests(PortfolioTestCase):
             self.assertNotIn('vibe coding', blob)
 
     def test_github_urls_only_for_known_public_repos(self):
-        allowed = {
-            'https://github.com/dostonbeksuyunov/U13_task_manager',
-            'https://github.com/dostonbeksuyunov/DRF-normativ',
-        }
+        allowed = set()  # ish loyihalari uchun GitHub havolasi qo'yilmaydi
         urls = set(Project.objects.exclude(github_url='').values_list('github_url', flat=True))
         self.assertTrue(urls <= allowed)
 
@@ -278,9 +283,9 @@ class AdminTests(PortfolioTestCase):
                 self.assertEqual(self.client.get(f'/admin/core/project/{query}').status_code, 200)
 
     def test_category_filter_matches_only_exact_tokens(self):
-        response = self.client.get('/admin/core/project/?category=3d')
-        self.assertContains(response, 'Tashkent City Residence')
-        self.assertNotContains(response, 'SaveClip')
+        response = self.client.get('/admin/core/project/?category=bot')
+        self.assertContains(response, 'SaveClip')
+        self.assertNotContains(response, 'Lumarcos')
 
     def test_change_form_renders(self):
         project = Project.objects.get(slug='lumarcos')
@@ -365,3 +370,41 @@ class ProjectUpdateTests(PortfolioTestCase):
         migration = import_module('core.migrations.0002_remove_online_book_store')
         migration.remove_book_store(apps, None)
         self.assertFalse(Project.objects.filter(slug='online-book-store').exists())
+
+
+class ScopeTests(PortfolioTestCase):
+    """Saytda faqat tasdiqlangan loyihalar bo'ladi."""
+
+    ALLOWED = {'lumarc-sayt', 'lumarcos', 'e-auksion-radar', 'lumarcode', 'akromind', 'moneyflow', 'saveclip',
+               'uzstroymarket'}
+    REMOVED = ('tashkent-3d-residence', 'bahober', 'yuridik-yordam', 'shajara', 'language-bot', 'buy-a-ticket-bot',
+               'gym-management', 'hunarmandlar-tarmogi', 'umumiy-sayt', 'u13-task-manager', 'normativ-drf',
+               'stadium-booking', 'taxi-trips', 'online-book-store')
+
+    def test_only_approved_projects_exist(self):
+        self.assertEqual(set(Project.objects.values_list('slug', flat=True)), self.ALLOWED)
+
+    def test_removed_projects_return_404_and_have_no_media(self):
+        media = Path(__file__).resolve().parent / 'static' / 'core' / 'projects'
+        for slug in self.REMOVED:
+            with self.subTest(slug=slug):
+                self.assertEqual(self.client.get(f'/projects/{slug}/').status_code, 404)
+                self.assertFalse((media / slug).exists())
+
+    def test_3d_project_is_not_shown_anywhere(self):
+        for url in ('/', '/projects/', '/sitemap.xml'):
+            body = self.client.get(url).content.decode().lower()
+            self.assertNotIn('tashkent city residence', body)
+            self.assertNotIn('tashkent-3d', body)
+
+    def test_lumarc_site_has_live_link(self):
+        self.assertContains(self.client.get('/projects/lumarc-sayt/'), 'https://lumarc.uz')
+        self.assertEqual(Project.objects.get(slug='lumarc-sayt').status, 'live')
+
+    def test_trim_migration_removes_rows(self):
+        from importlib import import_module
+        from django.apps import apps
+        Project.objects.create(slug='shajara', title='x', year_start=2026, short_uz='a', short_ru='a', short_en='a')
+        import_module('core.migrations.0003_trim_projects').remove_projects(apps, None)
+        self.assertFalse(Project.objects.filter(slug='shajara').exists())
+        self.assertEqual(Project.objects.count(), len(self.ALLOWED))

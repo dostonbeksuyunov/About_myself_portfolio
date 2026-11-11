@@ -130,6 +130,11 @@ def project_list(request):
     main = [_card(p, lang) for p in projects if p.kind != Project.Kind.LEARNING]
     learning = [_card(p, lang) for p in projects if p.kind == Project.Kind.LEARNING]
 
+    # Faqat mavjud loyihalari bor tur va yo'nalishlar filtrda ko'rsatiladi
+    all_published = list(Project.objects.filter(is_published=True))
+    present_kinds = {p.kind for p in all_published}
+    present_categories = {c for p in all_published for c in p.category_list}
+
     t = TEXT[lang]
     return render(request, 'core/project_list.html', {
         'page_title': f"{t['projects_title']} — {t['name_first']} {t['name_last']}",
@@ -139,8 +144,8 @@ def project_list(request):
         'learning_projects': learning,
         'kind': kind,
         'cat': cat,
-        'kinds': Project.Kind.values,
-        'categories': CATEGORY_KEYS,
+        'kinds': [k for k in KIND_KEYS if k in present_kinds],
+        'categories': [c for c in CATEGORY_KEYS if c in present_categories],
         'total': len(main) + len(learning),
         'canonical_override': f'{settings.SITE_URL}{request.path}?lang={lang}',
     })
