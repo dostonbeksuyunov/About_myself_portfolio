@@ -1,0 +1,17 @@
+{% load static ui %}
+<article class="project-card reveal">
+  <div class="project-cover">
+    {% if c.cover %}<img src="{% static c.cover %}" alt="" width="1600" height="1000" loading="lazy" decoding="async">
+    {% else %}<div class="project-cover-fallback" aria-hidden="true">{{ c.title|slice:":1" }}</div>{% endif %}
+  </div>
+  <div class="project-body">
+    <div class="badges">
+      <span class="badge badge-kind badge-kind-{{ c.kind }}">{% ui t "kind_" c.kind %}</span>
+      <span class="badge badge-status badge-status-{{ c.status }}">{% ui t "status_" c.status %}</span>
+    </div>
+    <h3><a class="stretched" href="{% url 'project_detail' c.slug %}">{{ c.title }}</a></h3>
+    <p class="project-short">{{ c.short }}</p>
+    <ul class="chips" aria-label="{{ t.case_stack }}">{% for s in c.stack %}<li class="chip">{{ s }}</li>{% endfor %}</ul>
+    <span class="card-link">{{ t.open_case }}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+  </div>
+</article>

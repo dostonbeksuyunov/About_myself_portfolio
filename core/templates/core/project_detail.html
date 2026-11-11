@@ -1,0 +1,79 @@
+{% extends "core/base.html" %}
+{% load static ui %}
+{% block content %}
+<article class="section page-head case">
+  <div class="container">
+    <p class="route"><a href="{% url 'project_list' %}">{{ t.case_back }}</a></p>
+    <div class="badges">
+      <span class="badge badge-kind badge-kind-{{ project.kind }}">{% ui t "kind_" project.kind %}</span>
+      <span class="badge badge-status badge-status-{{ project.status }}">{% ui t "status_" project.status %}</span>
+      {% for c in categories %}<span class="badge badge-cat">{% ui t "cat_" c %}</span>{% endfor %}
+    </div>
+    <h1 class="page-title">{{ project.title }}</h1>
+    <p class="case-lead">{{ short }}</p>
+
+    <dl class="case-meta">
+      {% if role %}<div><dt>{{ t.case_role }}</dt><dd>{{ role }}</dd></div>{% endif %}
+      <div><dt>{{ t.case_year }}</dt><dd>{% project_period project.year_start project.ongoing t.present project.year_end %}</dd></div>
+      <div><dt>{{ t.case_status }}</dt><dd>{% ui t "status_" project.status %}</dd></div>
+      <div><dt>{{ t.case_type }}</dt><dd>{% ui t "kind_" project.kind %}</dd></div>
+    </dl>
+
+    <div class="case-actions">
+      {% if project.show_links %}
+        {% if project.live_url %}<a class="btn btn-primary" href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer">{{ t.link_live }}<svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>{% endif %}
+        {% if project.telegram_url %}<a class="btn btn-primary" href="{{ project.telegram_url }}" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-telegram"/></svg>{{ t.link_telegram }}</a>{% endif %}
+        {% if project.github_url %}<a class="btn btn-outline" href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>{{ t.link_github }}</a>{% endif %}
+      {% endif %}
+      {% if project.confidential %}<p class="note">{{ t.nda_note }}</p>
+      {% elif project.code_is_closed %}<p class="note">{{ t.code_closed }}</p>{% endif %}
+    </div>
+
+    {% if project.cover %}
+    <figure class="case-cover">
+      <img src="{% static project.cover %}" alt="{{ project.title }}" width="1600" height="1000" decoding="async">
+    </figure>
+    {% endif %}
+
+    <div class="case-grid">
+      <div class="case-main">
+        {% if problem %}<section><h2>{{ t.case_problem }}</h2><p>{{ problem }}</p></section>{% endif %}
+        {% if solution %}<section><h2>{{ t.case_solution }}</h2><p>{{ solution }}</p></section>{% endif %}
+        {% if result %}<section><h2>{{ t.case_result }}</h2><p>{{ result }}</p></section>{% endif %}
+        {% if highlights %}
+        <section><h2>{{ t.case_highlights }}</h2>
+          <ul class="highlights">{% for h in highlights %}<li>{{ h }}</li>{% endfor %}</ul>
+        </section>
+        {% endif %}
+      </div>
+      <aside class="case-side">
+        <h2>{{ t.case_stack }}</h2>
+        <ul class="chips">{% for s in stack %}<li class="chip">{{ s }}</li>{% endfor %}</ul>
+      </aside>
+    </div>
+
+    {% if gallery %}
+    <section class="gallery-section">
+      <h2>{{ t.case_gallery }}</h2>
+      <ul class="gallery" id="gallery">
+        {% for img in gallery %}
+        <li><a href="{% static img %}" data-lightbox><img src="{% static img %}" alt="{{ project.title }} — {{ forloop.counter }}" width="1600" height="1000" loading="lazy" decoding="async"></a></li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    <nav class="case-nav" aria-label="{{ t.projects_title }}">
+      {% if prev_project %}<a class="case-nav-prev" href="{% url 'project_detail' prev_project.0 %}"><small>{{ t.case_prev }}</small><strong>{{ prev_project.1 }}</strong></a>{% else %}<span></span>{% endif %}
+      {% if next_project %}<a class="case-nav-next" href="{% url 'project_detail' next_project.0 %}"><small>{{ t.case_next }}</small><strong>{{ next_project.1 }}</strong></a>{% endif %}
+    </nav>
+  </div>
+</article>
+
+<dialog class="lightbox" id="lightbox" aria-label="{{ t.case_gallery }}">
+  <button type="button" class="lightbox-btn lightbox-close" data-lb-close aria-label="{{ t.lightbox_close }}"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+  <button type="button" class="lightbox-btn lightbox-prev" data-lb-prev aria-label="{{ t.lightbox_prev }}"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+  <img src="" alt="" id="lightbox-img">
+  <button type="button" class="lightbox-btn lightbox-next" data-lb-next aria-label="{{ t.lightbox_next }}"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+</dialog>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+{% block content %}
+<section class="section error-page">
+  <div class="container center">
+    <p class="route route-center">HTTP 404</p>
+    <h1 class="page-title">{{ t.e404_title }}</h1>
+    <p class="section-intro">{{ t.e404_text }}</p>
+    <p><a href="{% url 'home' %}" class="btn btn-primary">{{ t.back_home }}</a></p>
+  </div>
+</section>
+{% endblock %}

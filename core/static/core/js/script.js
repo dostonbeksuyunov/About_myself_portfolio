@@ -1,60 +1,44 @@
 document.addEventListener('DOMContentLoaded', function () {
+  const root = document.documentElement;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Preloader
-  const preloader = document.getElementById('preloader');
-  const bar = document.getElementById('preloader-bar');
-  const percent = document.getElementById('preloader-percent');
-  if (preloader) {
-    // Fail-safe: never let it block the page forever
-    setTimeout(() => preloader.classList.add('hidden'), 4000);
-
-    if (reduceMotion) {
-      preloader.classList.add('hidden');
-    } else {
-      let p = 0;
-      const interval = setInterval(() => {
-        p += Math.random() * 18 + 6;
-        if (p >= 100) {
-          p = 100;
-          clearInterval(interval);
-          setTimeout(() => preloader.classList.add('hidden'), 300);
-        }
-        if (bar) bar.style.width = p + '%';
-        if (percent) percent.textContent = Math.floor(p) + '%';
-      }, 140);
-    }
-  }
-
-  // Mobile nav toggle
-  const navToggle = document.getElementById('nav-toggle');
-  const navLinksMobile = document.getElementById('nav-links');
-  if (navToggle && navLinksMobile) {
-    navToggle.addEventListener('click', () => {
-      navToggle.classList.toggle('open');
-      navLinksMobile.classList.toggle('open');
-    });
-    navLinksMobile.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        navToggle.classList.remove('open');
-        navLinksMobile.classList.remove('open');
-      });
-    });
-  }
-
-  // Theme switcher: cosmic (default) -> light -> night
+  // Mavzu: kunduzgi <-> tungi (boshlang'ich holatni <head> dagi skript qo'yadi)
   const themeToggle = document.getElementById('theme-toggle');
+  const themeColorMeta = document.getElementById('meta-theme-color');
+  function syncThemeUi() {
+    const dark = root.getAttribute('data-theme') === 'dark';
+    if (themeToggle) {
+      const label = dark ? themeToggle.dataset.labelToLight : themeToggle.dataset.labelToDark;
+      themeToggle.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      themeToggle.setAttribute('aria-label', label);
+      themeToggle.setAttribute('title', label);
+    }
+    if (themeColorMeta) themeColorMeta.setAttribute('content', dark ? '#0b0f17' : '#fafaf7');
+  }
+  syncThemeUi();
   if (themeToggle) {
-    const themes = ['cosmic', 'light', 'night'];
     themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') || 'cosmic';
-      const next = themes[(themes.indexOf(current) + 1) % themes.length];
-      document.documentElement.setAttribute('data-theme', next);
-      try { localStorage.setItem('theme', next); } catch (e) {}
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) { /* saqlab bo'lmasa ham ishlayveradi */ }
+      syncThemeUi();
     });
   }
 
-  // "Menga yozing" dropdown: close on outside click / Escape
+  // Mobil menyu
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+  if (navToggle && navLinks) {
+    const setOpen = (open) => {
+      navToggle.classList.toggle('open', open);
+      navLinks.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    navToggle.addEventListener('click', () => setOpen(!navLinks.classList.contains('open')));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+  }
+
+  // "Menga yozing" dropdown: tashqariga bosilsa yoki Escape bosilsa yopiladi
   const hireMenu = document.getElementById('hire-menu');
   if (hireMenu) {
     document.addEventListener('click', (e) => {
@@ -68,53 +52,45 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Custom cursor
-  const cursorDot = document.getElementById('cursor-dot');
-  const cursorRing = document.getElementById('cursor-ring');
-  if (cursorDot && cursorRing && window.matchMedia('(pointer: fine)').matches) {
-    let ringX = 0, ringY = 0, mouseX = 0, mouseY = 0;
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX; mouseY = e.clientY;
-      cursorDot.style.left = mouseX + 'px';
-      cursorDot.style.top = mouseY + 'px';
-    });
-    function animateRing() {
-      ringX += (mouseX - ringX) * 0.18;
-      ringY += (mouseY - ringY) * 0.18;
-      cursorRing.style.left = ringX + 'px';
-      cursorRing.style.top = ringY + 'px';
-      requestAnimationFrame(animateRing);
-    }
-    animateRing();
-    document.querySelectorAll('a, button, .btn').forEach(el => {
-      el.addEventListener('mouseenter', () => cursorRing.classList.add('active'));
-      el.addEventListener('mouseleave', () => cursorRing.classList.remove('active'));
-    });
-  } else if (cursorDot && cursorRing) {
-    cursorDot.style.display = 'none';
-    cursorRing.style.display = 'none';
-  }
-
-  // Scroll reveal
+  // Scroll reveal (JS ishlamasa elementlar ko'rinaveradi — .reveal faqat JS bor paytda yashiriladi)
   const revealEls = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  revealEls.forEach(el => observer.observe(el));
-
-  // Scroll progress bar
-  const progressBar = document.getElementById('progress-bar');
-  function updateProgress() {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    if (progressBar) progressBar.style.width = progress + '%';
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(el => el.classList.add('visible'));
+  } else {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
   }
-  window.addEventListener('scroll', updateProgress, { passive: true });
-  updateProgress();
+
+  // Galereya lightbox
+  const lightbox = document.getElementById('lightbox');
+  const links = Array.from(document.querySelectorAll('[data-lightbox]'));
+  if (lightbox && links.length && typeof lightbox.showModal === 'function') {
+    const img = document.getElementById('lightbox-img');
+    let index = 0;
+    const show = (i) => {
+      index = (i + links.length) % links.length;
+      img.src = links[index].getAttribute('href');
+      img.alt = links[index].querySelector('img').alt;
+    };
+    links.forEach((a, i) => a.addEventListener('click', (e) => {
+      e.preventDefault();
+      show(i);
+      lightbox.showModal();
+    }));
+    lightbox.querySelector('[data-lb-close]').addEventListener('click', () => lightbox.close());
+    lightbox.querySelector('[data-lb-prev]').addEventListener('click', () => show(index - 1));
+    lightbox.querySelector('[data-lb-next]').addEventListener('click', () => show(index + 1));
+    lightbox.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(index - 1);
+      if (e.key === 'ArrowRight') show(index + 1);
+    });
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.close(); });
+  }
 });

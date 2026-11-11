@@ -1,0 +1,118 @@
+{% load static %}<!DOCTYPE html>
+<html lang="{{ current_lang }}" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page_title }}</title>
+<meta name="description" content="{{ meta_description }}">
+<link rel="canonical" href="{% if canonical_override %}{{ canonical_override }}{% else %}{{ canonical_url }}{% endif %}">
+{% for code, url in alternates %}<link rel="alternate" hreflang="{{ code }}" href="{{ url }}">
+{% endfor %}<link rel="alternate" hreflang="x-default" href="{{ x_default_url }}">
+<meta property="og:type" content="{{ og_type|default:'website' }}">
+<meta property="og:title" content="{{ page_title }}">
+<meta property="og:description" content="{{ meta_description }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:image" content="{{ og_image }}">
+<meta property="og:locale" content="{{ og_locale }}">
+<meta property="og:site_name" content="{{ t.name_first }} {{ t.name_last }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ page_title }}">
+<meta name="twitter:description" content="{{ meta_description }}">
+<meta name="twitter:image" content="{{ og_image }}">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" id="meta-theme-color" content="#fafaf7">
+<link rel="icon" href="{% static 'core/favicon.svg' %}" type="image/svg+xml">
+<link rel="icon" href="{% static 'core/favicon-32.png' %}" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="{% static 'core/apple-touch-icon.png' %}">
+<link rel="manifest" href="{% static 'core/site.webmanifest' %}">
+<script>
+  // Mavzuni CSS yuklanishidan oldin qo'llash — "miltillash" bo'lmasligi uchun
+  (function () {
+    var theme = 'light';
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') theme = saved;
+      else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) theme = 'dark';
+    } catch (e) {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) theme = 'dark';
+    }
+    document.documentElement.setAttribute('data-theme', theme);
+    if ('IntersectionObserver' in window && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      document.documentElement.classList.add('js-reveal');
+    }
+    var meta = document.getElementById('meta-theme-color');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f17' : '#fafaf7');
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+{% if jsonld %}<script type="application/ld+json">{{ jsonld }}</script>{% endif %}
+</head>
+<body>
+{% include "core/_icons.html" %}
+<a class="skip-link" href="#main">{{ t.skip_link }}</a>
+
+<header class="nav" id="top">
+  <div class="nav-inner">
+    <a href="{% url 'home' %}" class="nav-brand" aria-label="{{ t.nav_home }}">{{ t.initials }}</a>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-label="{{ t.menu_label }}" aria-expanded="false" aria-controls="nav-links">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" id="nav-links" aria-label="{{ t.menu_label }}">
+      <a href="{% url 'home' %}#about">{{ t.nav_about }}</a>
+      <a href="{% url 'project_list' %}">{{ t.nav_projects }}</a>
+      <a href="{% url 'home' %}#skills">{{ t.nav_skills }}</a>
+      <a href="{% url 'home' %}#services">{{ t.nav_services }}</a>
+      <a href="{% url 'home' %}#experience">{{ t.nav_experience }}</a>
+      <a href="{% url 'home' %}#contact">{{ t.nav_contact }}</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language">
+        {% for code, url in lang_urls.items %}<a href="{{ url }}" hreflang="{{ code }}" lang="{{ code }}" {% if current_lang == code %}class="active" aria-current="true"{% endif %}>{{ code|upper }}</a>{% endfor %}
+      </div>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false"
+              data-label-to-dark="{{ t.theme_to_dark }}" data-label-to-light="{{ t.theme_to_light }}"
+              aria-label="{{ t.theme_to_dark }}" title="{{ t.theme_to_dark }}">
+        <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+        <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+      </button>
+      <details class="hire-menu" id="hire-menu">
+        <summary class="btn btn-primary btn-sm">{{ t.btn_hire }}<svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+        <div class="hire-dropdown">
+          <a href="{{ contact.telegram }}" target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-telegram"/></svg>
+            <span><strong>{{ t.hire_personal }}</strong><small>{{ contact.telegram_handle }}</small></span>
+          </a>
+          <a href="{{ contact.group }}" target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-users"/></svg>
+            <span><strong>{{ t.hire_group }}</strong><small>{{ contact.group_handle }}</small></span>
+          </a>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+{% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">© 2026 {{ t.name_first }} {{ t.name_last }}. {{ t.footer_rights }}</p>
+    <div class="footer-links">
+      <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ contact.email }}" target="_blank" rel="noopener noreferrer">Email</a>
+      <a href="{{ contact.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="{{ contact.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="{{ contact.telegram }}" target="_blank" rel="noopener noreferrer">Telegram</a>
+      <a href="{{ contact.group }}" target="_blank" rel="noopener noreferrer">IT &amp; AI</a>
+    </div>
+    <p class="footer-location">{{ t.badge_location }}</p>
+  </div>
+</footer>
+
+<script src="{% static 'core/js/script.js' %}" defer></script>
+</body>
+</html>

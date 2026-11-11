@@ -30,6 +30,9 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='', cast=Csv())
 
+# Kanonik URL, sitemap va Open Graph uchun (domen qattiq yozilmaydi)
+SITE_URL = config('SITE_URL', default='http://127.0.0.1:8010').rstrip('/')
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -65,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.site',
             ],
         },
     },

@@ -1,0 +1,49 @@
+{% extends "core/base.html" %}
+{% load static ui %}
+{% block content %}
+<section class="section page-head">
+  <div class="container">
+    <p class="route">GET /projects</p>
+    <h1 class="page-title">{{ t.projects_title }} <span class="count">{{ total }}</span></h1>
+    <p class="section-intro">{{ t.projects_intro }}</p>
+
+    <form class="filters" method="get" aria-label="{{ t.projects_title }}">
+      <div class="filter-row" role="group" aria-label="{{ t.filter_kind }}">
+        <span class="filter-label">{{ t.filter_kind }}</span>
+        <a class="filter-chip{% if not kind %} active{% endif %}" href="?{% if cat %}cat={{ cat }}{% endif %}"{% if not kind %} aria-current="true"{% endif %}>{{ t.filter_all }}</a>
+        {% for k in kinds %}<a class="filter-chip{% if kind == k %} active{% endif %}" href="?kind={{ k }}{% if cat %}&amp;cat={{ cat }}{% endif %}"{% if kind == k %} aria-current="true"{% endif %}>{% ui t "kind_" k %}</a>{% endfor %}
+      </div>
+      <div class="filter-row" role="group" aria-label="{{ t.filter_category }}">
+        <span class="filter-label">{{ t.filter_category }}</span>
+        <a class="filter-chip{% if not cat %} active{% endif %}" href="?{% if kind %}kind={{ kind }}{% endif %}"{% if not cat %} aria-current="true"{% endif %}>{{ t.filter_all }}</a>
+        {% for c in categories %}<a class="filter-chip{% if cat == c %} active{% endif %}" href="?{% if kind %}kind={{ kind }}&amp;{% endif %}cat={{ c }}"{% if cat == c %} aria-current="true"{% endif %}>{% ui t "cat_" c %}</a>{% endfor %}
+      </div>
+    </form>
+
+    {% if main_projects %}
+    <div class="project-grid project-grid-3">
+      {% for c in main_projects %}{% include "core/_project_card.html" %}{% endfor %}
+    </div>
+    {% endif %}
+
+    {% if learning_projects %}
+    <h2 class="block-title learning-title">{{ t.learning_title }}</h2>
+    <ul class="learning-list">
+      {% for c in learning_projects %}
+      <li>
+        <a href="{% url 'project_detail' c.slug %}">
+          <strong>{{ c.title }}</strong>
+          <span>{{ c.short }}</span>
+          <ul class="chips">{% for s in c.stack %}<li class="chip">{{ s }}</li>{% endfor %}</ul>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if not main_projects and not learning_projects %}
+    <p class="empty">{{ t.filter_empty }}</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
