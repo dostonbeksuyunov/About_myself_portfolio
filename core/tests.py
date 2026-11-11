@@ -410,22 +410,65 @@ class ScopeTests(PortfolioTestCase):
         self.assertEqual(Project.objects.count(), len(self.ALLOWED))
 
 
-class ContactListTests(PortfolioTestCase):
-    def test_instagram_is_in_contact_list_and_footer(self):
-        response = self.client.get('/')
-        self.assertContains(response, 'href="https://www.instagram.com/suyunov.dev_"', count=2)
-        self.assertContains(response, '@suyunov.dev_')
+class ContactAndFooterTests(PortfolioTestCase):
+    def _cta(self, lang='uz'):
+        body = self.client.get(f'/?lang={lang}').content.decode()
+        start = body.index('class="cta-panel')
+        return body[start:body.index('</section>', start)]
 
-    def test_contact_section_is_a_clickable_link_list(self):
-        response = self.client.get('/')
-        self.assertContains(response, 'class="link-list"')
-        self.assertContains(response, 'link-row-arrow', count=7)
-        self.assertNotContains(response, 'contact-card')
+    def _footer(self, lang='uz'):
+        body = self.client.get(f'/?lang={lang}').content.decode()
+        return body[body.index('<footer'):body.index('</footer>')]
 
-    def test_contact_list_has_all_channels(self):
-        response = self.client.get('/?lang=en')
-        for label in ('Email', 'Phone', 'Résumé', 'GitHub', 'LinkedIn', 'Telegram', 'Instagram'):
-            self.assertContains(response, f'<span class="link-row-name">{label}</span>')
+    def test_cta_block_has_only_four_channels_in_order(self):
+        cta = self._cta()
+        order = [cta.index(x) for x in ('tel:+998775353104', 'https://t.me/Dostonbek_Suyunov',
+                                        'https://www.instagram.com/suyunov.dev_', 'to=dostonbeksuyunov444@gmail.com')]
+        self.assertEqual(order, sorted(order))
+        self.assertEqual(cta.count('class="cta-item"'), 4)
+        for forbidden in ('github.com', 'linkedin.com', 'resume.pdf', 'IT_vs_AI'):
+            self.assertNotIn(forbidden, cta)
+
+    def test_footer_has_four_columns(self):
+        footer = self._footer()
+        for cls in ('footer-brand', 'footer-col', 'footer-plain', 'footer-social', 'footer-bottom'):
+            self.assertIn(cls, footer)
+        self.assertEqual(footer.count('class="footer-col"'), 3)
+
+    def test_footer_social_order_and_content(self):
+        footer = self._footer()
+        social = footer[footer.index('class="footer-social"'):]
+        order = [social.index(x) for x in ('https://t.me/Dostonbek_Suyunov', 'https://t.me/IT_vs_AI_XIZMATLAR_Uz',
+                                           'https://www.instagram.com/suyunov.dev_', 'linkedin.com/in/dostonbek-suyunov')]
+        self.assertEqual(order, sorted(order))
+        self.assertNotIn('github.com', footer)
+        self.assertNotIn('resume', footer.lower())
+
+    def test_footer_contact_column_has_phone_email_location(self):
+        footer = self._footer()
+        self.assertIn('tel:+998775353104', footer)
+        self.assertIn('dostonbeksuyunov444@gmail.com', footer)
+        self.assertIn('TOSHKENT', footer)
+
+    def test_github_and_resume_live_in_about_section(self):
+        body = self.client.get('/').content.decode()
+        about = body[body.index('id="about"'):body.index('id="projects"')]
+        self.assertIn('https://github.com/dostonbeksuyunov', about)
+        self.assertIn('download="Dostonbek_Suyunov_CV.pdf"', about)
+
+    def test_instagram_appears_in_cta_and_footer(self):
+        self.assertContains(self.client.get('/'), 'href="https://www.instagram.com/suyunov.dev_"', count=2)
+
+    def test_footer_and_cta_are_translated(self):
+        self.assertIn('Ijtimoiy tarmoqlar', self._footer('uz'))
+        self.assertIn('Соцсети', self._footer('ru'))
+        self.assertIn('Social', self._footer('en'))
+        self.assertIn('Message on Telegram', self._cta('en'))
+
+    def test_old_contact_list_and_footer_bar_are_gone(self):
+        response = self.client.get('/')
+        for old in ('link-list', 'contact-card', 'footer-inner', 'footer-links'):
+            self.assertNotContains(response, old)
 
 
 class AiStackTests(PortfolioTestCase):

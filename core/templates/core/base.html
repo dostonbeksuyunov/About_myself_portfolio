@@ -100,17 +100,42 @@
 </main>
 
 <footer class="footer">
-  <div class="container footer-inner">
-    <p class="footer-copy">© 2026 {{ t.name_first }} {{ t.name_last }}. {{ t.footer_rights }}</p>
-    <div class="footer-links">
-      <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ contact.email }}" target="_blank" rel="noopener noreferrer">Email</a>
-      <a href="{{ contact.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="{{ contact.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="{{ contact.telegram }}" target="_blank" rel="noopener noreferrer">Telegram</a>
-      <a href="{{ contact.instagram }}" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a href="{{ contact.group }}" target="_blank" rel="noopener noreferrer">IT &amp; AI</a>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <p class="footer-logo">{{ t.name_first }} {{ t.name_last }}</p>
+        <p class="footer-about">{{ t.footer_about }}</p>
+      </div>
+      <nav class="footer-col" aria-label="{{ t.footer_links }}">
+        <p class="footer-title">{{ t.footer_links }}</p>
+        <ul class="footer-plain">
+          <li><a href="{% url 'project_list' %}">{{ t.nav_projects }}</a></li>
+          <li><a href="{% url 'home' %}#services">{{ t.nav_services }}</a></li>
+          <li><a href="{% url 'home' %}#skills">{{ t.nav_skills }}</a></li>
+          <li><a href="{% url 'home' %}#experience">{{ t.nav_experience }}</a></li>
+          <li><a href="{% url 'home' %}#about">{{ t.nav_about }}</a></li>
+          <li><a href="{% url 'home' %}#contact">{{ t.nav_contact }}</a></li>
+        </ul>
+      </nav>
+      <div class="footer-col">
+        <p class="footer-title">{{ t.footer_contact }}</p>
+        <ul class="footer-plain">
+          <li><a href="tel:{{ contact.phone }}">{{ contact.phone_display }}</a></li>
+          <li><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ contact.email }}" target="_blank" rel="noopener noreferrer">{{ contact.email }}</a></li>
+          <li class="footer-location">{{ t.badge_location }}</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">{{ t.footer_social }}</p>
+        <ul class="footer-social">
+          <li><a class="link-row" href="{{ contact.telegram }}" target="_blank" rel="noopener noreferrer"><svg class="icon link-row-icon" aria-hidden="true"><use href="#i-telegram"/></svg><span class="link-row-name">{{ t.footer_personal }}</span><svg class="icon link-row-arrow" aria-hidden="true"><use href="#i-external"/></svg></a></li>
+          <li><a class="link-row" href="{{ contact.group }}" target="_blank" rel="noopener noreferrer"><svg class="icon link-row-icon" aria-hidden="true"><use href="#i-users"/></svg><span class="link-row-name">{{ t.footer_group }}</span><svg class="icon link-row-arrow" aria-hidden="true"><use href="#i-external"/></svg></a></li>
+          <li><a class="link-row" href="{{ contact.instagram }}" target="_blank" rel="noopener noreferrer"><svg class="icon link-row-icon" aria-hidden="true"><use href="#i-instagram"/></svg><span class="link-row-name">Instagram</span><svg class="icon link-row-arrow" aria-hidden="true"><use href="#i-external"/></svg></a></li>
+          <li><a class="link-row" href="{{ contact.linkedin }}" target="_blank" rel="noopener noreferrer"><svg class="icon link-row-icon" aria-hidden="true"><use href="#i-linkedin"/></svg><span class="link-row-name">LinkedIn</span><svg class="icon link-row-arrow" aria-hidden="true"><use href="#i-external"/></svg></a></li>
+        </ul>
+      </div>
     </div>
-    <p class="footer-location">{{ t.badge_location }}</p>
+    <p class="footer-bottom">© 2026 {{ t.name_first }} {{ t.name_last }}. {{ t.footer_rights }}.</p>
   </div>
 </footer>
 
