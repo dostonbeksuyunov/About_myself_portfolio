@@ -426,3 +426,12 @@ class ContactListTests(PortfolioTestCase):
         response = self.client.get('/?lang=en')
         for label in ('Email', 'Phone', 'Résumé', 'GitHub', 'LinkedIn', 'Telegram', 'Instagram'):
             self.assertContains(response, f'<span class="link-row-name">{label}</span>')
+
+
+class AiStackTests(PortfolioTestCase):
+    def test_kie_ai_is_listed_and_fal_ai_is_not(self):
+        for url in ('/', '/projects/lumarcos/?lang=en', '/projects/lumarcos/?lang=ru', '/projects/lumarcos/?lang=uz'):
+            body = self.client.get(url).content.decode().lower()
+            self.assertNotIn('fal.ai', body)
+        self.assertContains(self.client.get('/projects/lumarcos/?lang=en'), 'Kie.ai')
+        self.assertContains(self.client.get('/'), 'Kie.ai')

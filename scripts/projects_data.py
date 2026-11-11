@@ -49,7 +49,7 @@ PROJECTS = [
         pk=2, slug='lumarcos', title='Lumarcos', kind=LUMARC, order=20, featured=True,
         categories='ai,web,backend', year_start=2026, ongoing=True, status='live',
         live_url='https://lumarcos.uz',
-        stack='Next.js 16, React 19, NestJS 11, Prisma, PostgreSQL, BullMQ, Redis, MinIO, Docker Compose, Caddy, Gemini / Vertex AI, fal.ai',
+        stack='Next.js 16, React 19, NestJS 11, Prisma, PostgreSQL, BullMQ, Redis, MinIO, Docker Compose, Caddy, Gemini / Vertex AI, Kie.ai',
         role=("Fullstack dasturchi", "Fullstack-разработчик", "Fullstack Developer"),
         short=(
             "Arxitektorlar uchun AI platforma: renderlarga post-production, Image Studio va rasm/video generatsiya.",
@@ -72,9 +72,9 @@ PROJECTS = [
             "The platform runs live at lumarcos.uz with sign-in (OTP / email), credits and payments (Payme, Click), an admin panel and CI (lint, build, tests, e2e).",
         ),
         highlights=(
-            ["pnpm monorepo: NestJS API, Next.js web va umumiy paket", "Gemini / Vertex AI va fal.ai integratsiyasi", "BullMQ navbati, MinIO (S3) ombor, sharp bilan rasm ishlov", "Kredit va to'lov (Payme, Click), admin panel", "Docker Compose + Caddy (HTTPS), deploy skripti; Playwright e2e smoke"],
-            ["pnpm-монорепо: NestJS API, Next.js web и общий пакет", "Интеграция Gemini / Vertex AI и fal.ai", "Очередь BullMQ, хранилище MinIO (S3), обработка изображений sharp", "Кредиты и оплата (Payme, Click), админ-панель", "Docker Compose + Caddy (HTTPS), скрипт деплоя; Playwright e2e smoke"],
-            ["pnpm monorepo: NestJS API, Next.js web and a shared package", "Gemini / Vertex AI and fal.ai integration", "BullMQ queue, MinIO (S3) storage, image processing with sharp", "Credits and payments (Payme, Click), admin panel", "Docker Compose + Caddy (HTTPS), deploy script; Playwright e2e smoke"],
+            ["pnpm monorepo: NestJS API, Next.js web va umumiy paket", "Gemini / Vertex AI va Kie.ai integratsiyasi", "BullMQ navbati, MinIO (S3) ombor, sharp bilan rasm ishlov", "Kredit va to'lov (Payme, Click), admin panel", "Docker Compose + Caddy (HTTPS), deploy skripti; Playwright e2e smoke"],
+            ["pnpm-монорепо: NestJS API, Next.js web и общий пакет", "Интеграция Gemini / Vertex AI и Kie.ai", "Очередь BullMQ, хранилище MinIO (S3), обработка изображений sharp", "Кредиты и оплата (Payme, Click), админ-панель", "Docker Compose + Caddy (HTTPS), скрипт деплоя; Playwright e2e smoke"],
+            ["pnpm monorepo: NestJS API, Next.js web and a shared package", "Gemini / Vertex AI and Kie.ai integration", "BullMQ queue, MinIO (S3) storage, image processing with sharp", "Credits and payments (Payme, Click), admin panel", "Docker Compose + Caddy (HTTPS), deploy script; Playwright e2e smoke"],
         ),
     ),
     dict(

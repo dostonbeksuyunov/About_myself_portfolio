@@ -57,7 +57,7 @@
    "status": "live",
    "confidential": false,
    "title": "Lumarcos",
-   "stack": "Next.js 16, React 19, NestJS 11, Prisma, PostgreSQL, BullMQ, Redis, MinIO, Docker Compose, Caddy, Gemini / Vertex AI, fal.ai",
+   "stack": "Next.js 16, React 19, NestJS 11, Prisma, PostgreSQL, BullMQ, Redis, MinIO, Docker Compose, Caddy, Gemini / Vertex AI, Kie.ai",
    "live_url": "https://lumarcos.uz",
    "telegram_url": "",
    "github_url": "",
@@ -68,19 +68,19 @@
    "problem_uz": "Arxitektorlar render natijalarini qo'lda qayta ishlashga ko'p vaqt sarflaydi; generativ AI vositalari esa tarqoq.",
    "solution_uz": "Bitta platformada Post-Pro (render ishlov), Image Studio va Generate bo'limlari: AI so'rovlari navbat (BullMQ + Redis) orqali bajariladi, fayllar S3-mos omborda saqlanadi, foydalanish kredit tizimi va to'lov orqali boshqariladi.",
    "result_uz": "Platforma lumarcos.uz da jonli ishlaydi: kirish (OTP / email), kredit va to'lov (Payme, Click), admin panel va CI (lint, build, test, e2e) bilan.",
-   "highlights_uz": "pnpm monorepo: NestJS API, Next.js web va umumiy paket\nGemini / Vertex AI va fal.ai integratsiyasi\nBullMQ navbati, MinIO (S3) ombor, sharp bilan rasm ishlov\nKredit va to'lov (Payme, Click), admin panel\nDocker Compose + Caddy (HTTPS), deploy skripti; Playwright e2e smoke",
+   "highlights_uz": "pnpm monorepo: NestJS API, Next.js web va umumiy paket\nGemini / Vertex AI va Kie.ai integratsiyasi\nBullMQ navbati, MinIO (S3) ombor, sharp bilan rasm ishlov\nKredit va to'lov (Payme, Click), admin panel\nDocker Compose + Caddy (HTTPS), deploy skripti; Playwright e2e smoke",
    "role_ru": "Fullstack-разработчик",
    "short_ru": "AI-платформа для архитекторов: постпродакшн рендеров, Image Studio и генерация изображений и видео.",
    "problem_ru": "Архитекторы тратят много времени на ручную доработку рендеров, а инструменты генеративного ИИ разрознены.",
    "solution_ru": "В одной платформе разделы Post-Pro (обработка рендеров), Image Studio и Generate: AI-запросы выполняются через очередь (BullMQ + Redis), файлы хранятся в S3-совместимом хранилище, использование регулируется кредитами и оплатой.",
    "result_ru": "Платформа работает на lumarcos.uz: вход (OTP / email), кредиты и оплата (Payme, Click), админ-панель и CI (lint, build, тесты, e2e).",
-   "highlights_ru": "pnpm-монорепо: NestJS API, Next.js web и общий пакет\nИнтеграция Gemini / Vertex AI и fal.ai\nОчередь BullMQ, хранилище MinIO (S3), обработка изображений sharp\nКредиты и оплата (Payme, Click), админ-панель\nDocker Compose + Caddy (HTTPS), скрипт деплоя; Playwright e2e smoke",
+   "highlights_ru": "pnpm-монорепо: NestJS API, Next.js web и общий пакет\nИнтеграция Gemini / Vertex AI и Kie.ai\nОчередь BullMQ, хранилище MinIO (S3), обработка изображений sharp\nКредиты и оплата (Payme, Click), админ-панель\nDocker Compose + Caddy (HTTPS), скрипт деплоя; Playwright e2e smoke",
    "role_en": "Fullstack Developer",
    "short_en": "An AI platform for architects: render post-production, Image Studio and image/video generation.",
    "problem_en": "Architects spend a lot of time retouching renders by hand, and generative AI tools are scattered.",
    "solution_en": "One platform with Post-Pro (render processing), Image Studio and Generate sections: AI requests run through a queue (BullMQ + Redis), files live in S3-compatible storage, and usage is governed by a credit and payment system.",
    "result_en": "The platform runs live at lumarcos.uz with sign-in (OTP / email), credits and payments (Payme, Click), an admin panel and CI (lint, build, tests, e2e).",
-   "highlights_en": "pnpm monorepo: NestJS API, Next.js web and a shared package\nGemini / Vertex AI and fal.ai integration\nBullMQ queue, MinIO (S3) storage, image processing with sharp\nCredits and payments (Payme, Click), admin panel\nDocker Compose + Caddy (HTTPS), deploy script; Playwright e2e smoke"
+   "highlights_en": "pnpm monorepo: NestJS API, Next.js web and a shared package\nGemini / Vertex AI and Kie.ai integration\nBullMQ queue, MinIO (S3) storage, image processing with sharp\nCredits and payments (Payme, Click), admin panel\nDocker Compose + Caddy (HTTPS), deploy script; Playwright e2e smoke"
   }
  },
  {

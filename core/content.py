@@ -30,7 +30,7 @@ SKILLS = {
     'devops': ['Docker', 'Docker Compose', 'Nginx', 'Caddy', 'Linux', 'Git / GitHub', 'CI/CD',
                'pytest', 'Jest', 'Vitest', 'Playwright'],
     'ai': ['AI-assisted development (Claude Code)', 'Generativ AI API integratsiyasi',
-           'Gemini / Vertex AI', 'fal.ai', 'Kie.ai', 'Claude API', 'Prompt engineering'],
+           'Gemini / Vertex AI', 'Kie.ai', 'Claude API', 'Prompt engineering'],
 }
 
 SKILL_CATEGORY_LABELS = {
