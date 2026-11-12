@@ -669,3 +669,19 @@ class ContactCopyTests(PortfolioTestCase):
         tagline = tagline[:tagline.index('</p>')]
         self.assertNotIn('ishlab chiqaman', tagline)
         self.assertIn('ishlab chiqish', tagline)
+
+
+class SectionLabelTests(PortfolioTestCase):
+    def test_no_technical_endpoint_labels_remain(self):
+        for url in ('/', '/projects/', '/yoq-sahifa/'):
+            body = self.client.get(url).content.decode()
+            for technical in ('GET /', 'POST /', 'HTTP 404', '200 OK'):
+                with self.subTest(url=url, text=technical):
+                    self.assertNotIn(technical, body)
+
+    def test_sections_have_numbered_plain_labels(self):
+        body = self.client.get('/?lang=uz').content.decode()
+        for label in ('01 — Profil', '02 — Portfolio', '03 — Texnologiyalar', '04 — Hamkorlik', '05 — Karyera', '06 — Aloqa'):
+            self.assertIn(label, body)
+        self.assertIn('02 — Портфолио', self.client.get('/?lang=ru').content.decode())
+        self.assertIn('06 — Contact', self.client.get('/?lang=en').content.decode())

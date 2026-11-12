@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="hero-card" aria-hidden="true">
-      <div class="hero-card-bar"><span></span><span></span><span></span><b>GET /me</b><i>200 OK</i></div>
+      <div class="hero-card-bar"><span></span><span></span><span></span><b>profile.json</b><i>{{ t.status_live }}</i></div>
 <pre>{
   "name": "{{ t.name_first }} {{ t.name_last }}",
   "role": "{{ t.hero_role }}",
@@ -41,7 +41,7 @@
 
 <section class="section" id="about">
   <div class="container">
-    <p class="route reveal">01 — GET /about</p>
+    <p class="route reveal">01 — {{ t.eyebrow_about }}</p>
     <h2 class="reveal">{{ t.about_title }}</h2>
     <div class="about-text reveal">{{ t.about_text|linebreaks }}</div>
     <div class="about-edu reveal">
@@ -61,7 +61,7 @@
 
 <section class="section section-alt" id="projects">
   <div class="container">
-    <p class="route reveal">02 — GET /projects</p>
+    <p class="route reveal">02 — {{ t.eyebrow_projects }}</p>
     <h2 class="reveal">{{ t.projects_title }}</h2>
     <p class="section-intro reveal">{{ t.projects_intro }}</p>
 
@@ -85,7 +85,7 @@
 
 <section class="section" id="skills">
   <div class="container">
-    <p class="route reveal">03 — GET /skills</p>
+    <p class="route reveal">03 — {{ t.eyebrow_skills }}</p>
     <h2 class="reveal">{{ t.skills_title }}</h2>
     <div class="skills-grid">
       {% for category, items in skills.items %}
@@ -101,7 +101,7 @@
 
 <section class="section section-alt" id="services">
   <div class="container">
-    <p class="route reveal">04 — GET /services</p>
+    <p class="route reveal">04 — {{ t.eyebrow_services }}</p>
     <h2 class="reveal">{{ t.services_title }}</h2>
     <p class="section-intro reveal">{{ t.services_desc }}</p>
     <div class="services-grid">
@@ -123,7 +123,7 @@
 
 <section class="section" id="experience">
   <div class="container">
-    <p class="route reveal">05 — GET /experience</p>
+    <p class="route reveal">05 — {{ t.eyebrow_experience }}</p>
     <h2 class="reveal">{{ t.experience_title }}</h2>
     <ol class="timeline">
       {% for item in timeline %}
@@ -152,7 +152,7 @@
 <section class="section cta-section" id="contact">
   <div class="container">
     <div class="cta-panel reveal">
-      <p class="route route-center">06 — POST /contact</p>
+      <p class="route route-center">06 — {{ t.eyebrow_contact }}</p>
       <h2 class="contact-headline">{{ t.contact_headline }}</h2>
       <p class="cta-desc">{{ t.contact_desc }}</p>
       <ul class="cta-grid">
