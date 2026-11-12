@@ -164,9 +164,9 @@ _STRINGS = {
     'badge_location': ("TOSHKENT, O'ZBEKISTON", 'ТАШКЕНТ, УЗБЕКИСТАН', 'TASHKENT, UZBEKISTAN'),
     'hero_role': ('Fullstack dasturchi', 'Fullstack-разработчик', 'Fullstack Developer'),
     'hero_tagline': (
-        "Python/Django va Next.js asosida veb-mahsulotlarni g'oyadan ishga tushirishgacha to'liq ishlab chiqaman.",
-        "Разрабатываю веб-продукты на Python/Django и Next.js — от идеи до запуска.",
-        "I build web products with Python/Django and Next.js — from idea to launch.",
+        "Python/Django va Next.js asosida veb-mahsulotlar ishlab chiqish: g'oyadan ishga tushirishgacha.",
+        "Разработка веб-продуктов на Python/Django и Next.js: от идеи до запуска.",
+        "Web product development with Python/Django and Next.js: from idea to launch.",
     ),
     'btn_projects': ("Loyihalarni ko'rish", 'Смотреть проекты', 'View projects'),
     'btn_contact': (
@@ -361,21 +361,15 @@ _STRINGS = {
         "Выполненные проекты",
         "Delivered projects",
     ),
-    'contact_headline_pre': (
-        "Keling,",
-        "Давайте",
-        "Let's",
+    'contact_headline': (
+        "Hamkorlik uchun murojaat qiling",
+        "Обратитесь по вопросам сотрудничества",
+        "Get in touch about a project or collaboration",
     ),
-    'contact_headline_em': (
-        "hamkorlik qilaylik",
-        "сотрудничать",
-        "work together",
-    ),
-    'contact_headline_post': ('.', '.', '.'),
     'contact_desc': (
-        "Loyiha yoki hamkorlik bo'yicha takliflaringiz bo'lsa, murojaat qiling. Tez orada javob beraman.",
-        "Если у вас есть предложение по проекту или сотрудничеству, свяжитесь со мной. Отвечу в ближайшее время.",
-        "If you have a project or collaboration proposal, get in touch. I will reply shortly.",
+        "Loyiha va hamkorlik bo'yicha takliflar jamoa tomonidan ko'rib chiqiladi, murojaatlarga tez orada javob beriladi.",
+        "Предложения по проектам и сотрудничеству рассматриваются командой, на обращения отвечают в ближайшее время.",
+        "Project and collaboration proposals are reviewed by the team, and enquiries are answered promptly.",
     ),
     'footer_rights': ('Barcha huquqlar himoyalangan', 'Все права защищены', 'All rights reserved'),
     'meta_desc': (

@@ -344,7 +344,6 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; letter-spacing
 .cta-panel .route { color: inherit; opacity: .85; margin-bottom: 14px; }
 .cta-panel .route::before { background: currentColor; }
 .cta-panel .contact-headline { margin-bottom: 14px; }
-.cta-panel .contact-headline em { color: inherit; font-style: italic; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 8px; }
 .cta-desc { max-width: 560px; margin: 0 auto 34px; font-size: 17px; opacity: .9; }
 .cta-grid { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; text-align: left; max-width: 780px; margin: 0 auto; }
 .cta-item {

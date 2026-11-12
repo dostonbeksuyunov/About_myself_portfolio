@@ -568,7 +568,7 @@ class OrthographyTests(PortfolioTestCase):
 
     def test_other_languages_keep_their_apostrophes(self):
         en = self._visible_text('/?lang=en')
-        self.assertIn("Let&#x27;s", self.client.get('/?lang=en').content.decode())
+        self.assertIn("Suyunov&#x27;s projects", self.client.get('/projects/?lang=en').content.decode())
         self.assertNotIn('\u02bb', en)
 
     def test_project_texts_are_normalised_even_if_stored_with_ascii(self):
@@ -639,3 +639,33 @@ class LocalisedTitlesTests(PortfolioTestCase):
             for term in ('marketplace', 'checkout', 'dry-run', 'Monorepo', 'Landing page'):
                 with self.subTest(slug=slug, term=term):
                     self.assertNotIn(term, body)
+
+
+class ContactCopyTests(PortfolioTestCase):
+    def _cta(self, lang):
+        body = self.client.get(f'/?lang={lang}').content.decode()
+        start = body.index('class="cta-panel')
+        return body[start:body.index('</section>', start)]
+
+    def test_headline_is_plain_single_style(self):
+        for lang in LANGS:
+            with self.subTest(lang=lang):
+                cta = self._cta(lang)
+                head = cta[cta.index('<h2 class="contact-headline">'):cta.index('</h2>')]
+                self.assertNotIn('<em', head)
+        self.assertIn('Hamkorlik uchun murojaat qiling', self._cta('uz'))
+
+    def test_contact_copy_is_impersonal(self):
+        uz = self._cta('uz')
+        self.assertIn('javob beriladi', uz)
+        for first_person in ('javob beraman', 'Yozib qoling', 'quraylik', 'qilaylik'):
+            self.assertNotIn(first_person, uz)
+        self.assertIn('reviewed by the team', self._cta('en'))
+        self.assertIn('рассматриваются командой', self._cta('ru'))
+
+    def test_hero_tagline_has_no_first_person_in_uzbek(self):
+        body = self.client.get('/?lang=uz').content.decode()
+        tagline = body[body.index('class="hero-tagline"'):]
+        tagline = tagline[:tagline.index('</p>')]
+        self.assertNotIn('ishlab chiqaman', tagline)
+        self.assertIn('ishlab chiqish', tagline)
