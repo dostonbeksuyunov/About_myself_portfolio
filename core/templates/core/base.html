@@ -67,9 +67,12 @@
       <a href="{% url 'home' %}#services">{{ t.nav_services }}</a>
       <a href="{% url 'home' %}#experience">{{ t.nav_experience }}</a>
       <a href="{% url 'home' %}#contact">{{ t.nav_contact }}</a>
+      <div class="lang-switch lang-switch-mobile" role="group" aria-label="Language">
+        {% for code, url in lang_urls.items %}<a href="{{ url }}" hreflang="{{ code }}" lang="{{ code }}" {% if current_lang == code %}class="active" aria-current="true"{% endif %}>{{ code|upper }}</a>{% endfor %}
+      </div>
     </nav>
     <div class="nav-right">
-      <div class="lang-switch" role="group" aria-label="Language">
+      <div class="lang-switch lang-switch-desktop" role="group" aria-label="Language">
         {% for code, url in lang_urls.items %}<a href="{{ url }}" hreflang="{{ code }}" lang="{{ code }}" {% if current_lang == code %}class="active" aria-current="true"{% endif %}>{{ code|upper }}</a>{% endfor %}
       </div>
       <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false"
