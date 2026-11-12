@@ -44,9 +44,9 @@
     if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0f17' : '#fafaf7');
   })();
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="{% static 'core/fonts/inter-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{% static 'core/fonts/manrope-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{% static 'core/css/fonts.css' %}">
 <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
 {% if jsonld %}<script type="application/ld+json">{{ jsonld }}</script>{% endif %}
 </head>
@@ -56,7 +56,7 @@
 
 <header class="nav" id="top">
   <div class="nav-inner">
-    <a href="{% url 'home' %}" class="nav-brand" aria-label="{{ t.initials }} {{ t.nav_home }}">{{ t.initials }}</a>
+    <a href="{% url 'home' %}" class="nav-brand"><span class="nav-logo">{{ t.initials }}</span><span class="nav-tagline">{{ t.hero_role }}</span></a>
     <button class="nav-toggle" id="nav-toggle" type="button" aria-label="{{ t.menu_label }}" aria-expanded="false" aria-controls="nav-links">
       <span></span><span></span><span></span>
     </button>

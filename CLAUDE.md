@@ -23,4 +23,5 @@
 - "vibe coding" iborasi ishlatilmaydi.
 - `.env`, token, server IP/kalitlar commit qilinmaydi; domen faqat `SITE_URL` env orqali.
 - Media: WebP ≤ 250 KB; `{% static %}` yo'llari; rasmlarda `width/height` va `loading="lazy"` (birinchi ekrandagi rasmdan tashqari).
+- Shriftlar o'z serverimizda (`core/static/core/fonts`, `css/fonts.css`); yangilash: `python scripts/fetch_fonts.py`. Google Fonts'ga tashqi so'rov qo'shmang.
 - Mavzu faqat 2 ta: light / dark. `<head>` dagi inline skript `data-theme` ni CSS dan oldin qo'yadi (FOUC yo'q).

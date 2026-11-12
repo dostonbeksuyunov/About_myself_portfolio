@@ -48,7 +48,7 @@
   --font-display: 'Manrope', 'Inter', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
-  --nav-h: 68px;
+  --nav-h: 92px;
 }
 
 /* ===== Asos ===== */
@@ -97,40 +97,43 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; letter-spacing
 .btn-ghost { color: var(--text-muted); }
 .btn-ghost:hover { color: var(--accent); }
 
-/* ===== Navigatsiya ===== */
-.nav {
-  position: sticky; top: 0; z-index: 100;
-  background: color-mix(in srgb, var(--bg) 86%, transparent);
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border);
-}
+/* ===== Navigatsiya: yuzib turuvchi kapsula (Lumarc uslubi) ===== */
+.nav { position: sticky; top: 0; z-index: 100; padding-top: 14px; pointer-events: none; }
 .nav-inner {
-  width: min(1120px, 100% - 32px); margin-inline: auto; min-height: var(--nav-h);
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  pointer-events: auto; position: relative;
+  width: min(1120px, 100% - 32px); margin-inline: auto; min-height: 64px; padding: 8px 12px 8px 28px;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  background: color-mix(in srgb, var(--bg-elev) 80%, transparent);
+  backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid var(--border); border-radius: 999px; box-shadow: var(--shadow);
 }
-.nav-brand { font-family: var(--font-display); font-weight: 800; font-size: 20px; letter-spacing: 0.5px; }
-.nav-links { display: flex; gap: 24px; font-size: 14.5px; font-weight: 500; }
-.nav-links a { color: var(--text-muted); padding: 6px 0; transition: color .2s; }
-.nav-links a:hover { color: var(--text); }
-.nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav-brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 20px; letter-spacing: 0.5px; }
+.nav-tagline { display: none; font-size: 14px; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+.nav-tagline::before { content: '\00b7'; margin-right: 10px; }
+@media (min-width: 1240px) { .nav-tagline { display: inline; } }
+.nav-links { display: flex; gap: 22px; font-size: 14.5px; font-weight: 500; }
+.nav-links a { color: color-mix(in srgb, var(--text) 80%, transparent); padding: 6px 0; white-space: nowrap; transition: color .2s; }
+.nav-links a:hover, .nav-links a:focus-visible { color: var(--accent); }
+.nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .nav-toggle { display: none; }
-.lang-switch-mobile { display: none; }
+.lang-switch.lang-switch-mobile { display: none; }
 
-.lang-switch { display: flex; gap: 2px; font-family: var(--font-mono); font-size: 12px; }
+.lang-switch { display: flex; gap: 4px; font-size: 13px; font-weight: 600; letter-spacing: .4px; }
 .lang-switch a {
-  min-width: 36px; min-height: 36px; display: inline-flex; align-items: center; justify-content: center;
-  border-radius: 999px; color: var(--text-muted); transition: color .2s, background-color .2s;
+  min-width: 32px; min-height: 30px; padding: 0 4px; display: inline-flex; align-items: center; justify-content: center;
+  color: var(--text-muted); border-bottom: 2px solid transparent; border-radius: 0; transition: color .2s, border-color .2s;
 }
 .lang-switch a:hover { color: var(--text); }
-.lang-switch a.active { background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+.lang-switch a.active { color: var(--text); border-bottom-color: var(--accent); }
 
 .theme-toggle {
   position: relative; width: 44px; height: 44px; border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center;
-  background: var(--bg-elev); border: 1px solid var(--border); color: var(--text); cursor: pointer;
-  transition: border-color .2s, color .2s;
+  background: transparent; border: 1px solid transparent; color: var(--text); cursor: pointer;
+  transition: background-color .2s, color .2s;
 }
-.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.theme-toggle:hover { background: var(--accent-soft); color: var(--accent); }
 .theme-toggle .icon { position: absolute; width: 20px; height: 20px; transition: transform .35s ease, opacity .25s ease; }
 :root[data-theme="light"] .theme-toggle .icon-sun { opacity: 0; transform: rotate(-90deg) scale(.5); }
 :root[data-theme="light"] .theme-toggle .icon-moon { opacity: 1; transform: none; }
@@ -475,22 +478,25 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; letter-spacing
   .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .nav-toggle.open span:nth-child(2) { opacity: 0; }
   .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav { padding-top: 10px; }
+  .nav-inner { padding: 6px 6px 6px 20px; gap: 8px; }
   .nav-links {
-    position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0;
-    background: var(--bg); border-bottom: 1px solid var(--border);
+    position: absolute; top: calc(100% + 10px); left: 0; right: 0; flex-direction: column; gap: 0;
+    background: var(--bg-elev); border: 1px solid transparent; border-radius: 24px; box-shadow: var(--shadow);
     max-height: 0; overflow: hidden; visibility: hidden;
-    transition: max-height .3s ease, visibility .3s;
+    transition: max-height .3s ease, visibility .3s, border-color .3s;
   }
-  .nav-links.open { max-height: 520px; visibility: visible; }
+  .nav-links.open { max-height: 520px; visibility: visible; border-color: var(--border); }
+  .nav-links a { color: var(--text); }
   .nav-links a { padding: 14px 24px; min-height: 44px; }
   /* Mobil sarlavha: bitta qator — chapda logo, o'ngda mavzu, "Menga yozing" va menyu */
   .nav-inner { flex-wrap: nowrap; }
   .nav-brand { order: 0; }
   .nav-right { order: 1; margin-left: auto; gap: 8px; }
-  .nav-toggle { order: 2; margin-right: -8px; }
+  .nav-toggle { order: 2; margin-right: 0; }
   .lang-switch-desktop { display: none; }
-  .lang-switch-mobile { display: flex; justify-content: center; gap: 8px; padding: 14px 24px 18px; }
-  .nav-links .lang-switch-mobile a { width: auto; min-width: 52px; min-height: 44px; padding: 0 14px; border: 1px solid var(--border); }
+  .lang-switch.lang-switch-mobile { display: flex; justify-content: center; gap: 8px; padding: 14px 24px 18px; }
+  .nav-links .lang-switch-mobile a { width: auto; min-width: 52px; min-height: 44px; padding: 0 14px; border: 1px solid var(--border); border-radius: 999px; }
   .nav-links .lang-switch-mobile a.active { border-color: var(--accent); }
 }
 @media (max-width: 760px) {
@@ -502,8 +508,8 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; letter-spacing
   .cta-grid { grid-template-columns: minmax(0, 1fr); }
   .footer-grid { grid-template-columns: minmax(0, 1fr); }
   .cta-section { padding: 56px 0; }
-  .nav-inner { gap: 4px; }
-  .nav-right { gap: 6px; }
+  .nav-inner { gap: 4px; padding-left: 16px; }
+  .nav-right { gap: 4px; }
   .hire-menu summary { padding-inline: 14px; }
   .hero { padding-top: 40px; }
   .case-nav a { max-width: 48%; }
