@@ -33,6 +33,17 @@ SKILLS = {
            'Gemini / Vertex AI', 'Kie.ai', 'Claude API', 'Prompt engineering'],
 }
 
+# Ba'zi ko'nikmalar nomi tilga qarab tarjima qilinadi (texnologiya nomlari o'zgarmaydi)
+SKILL_ITEM_LABELS = {
+    'AI-assisted development (Claude Code)': {
+        'uz': "AI yordamida dasturlash (Claude Code)", 'ru': "Разработка с помощью AI (Claude Code)",
+        'en': 'AI-assisted development (Claude Code)'},
+    'Generativ AI API integratsiyasi': {
+        'uz': 'Generativ AI API integratsiyasi', 'ru': 'Интеграция API генеративного AI',
+        'en': 'Generative AI API integration'},
+    'Prompt engineering': {'uz': 'Prompt muhandisligi', 'ru': 'Промпт-инжиниринг', 'en': 'Prompt engineering'},
+}
+
 SKILL_CATEGORY_LABELS = {
     'uz': {'languages': 'Tillar', 'frontend': 'Frontend', 'backend': 'Backend',
            'data': "Ma'lumotlar", 'devops': 'DevOps va test', 'ai': 'AI'},
@@ -56,7 +67,7 @@ SERVICES = [
         'icon': 'web',
         'title': {'uz': 'Veb-saytlar', 'ru': 'Веб-сайты', 'en': 'Websites'},
         'desc': {
-            'uz': "Landing page, korporativ sayt va onlayn-do'kon: tezkor, SEO talablariga mos, ko'p tilli.",
+            'uz': "Bir sahifali (landing) sayt, korporativ sayt va onlayn-do'kon: tezkor, SEO talablariga mos, ko'p tilli.",
             'ru': "Лендинги, корпоративные сайты и интернет-магазины: быстрые, с SEO и поддержкой нескольких языков.",
             'en': "Landing pages, corporate sites and online stores: fast, SEO-ready and multilingual.",
         },
@@ -94,7 +105,7 @@ SERVICES = [
 TIMELINE = [
     {
         'kind': 'work',
-        'title': {'uz': 'Fullstack Developer', 'ru': 'Fullstack Developer', 'en': 'Fullstack Developer'},
+        'title': {'uz': 'Fullstack dasturchi', 'ru': 'Fullstack-разработчик', 'en': 'Fullstack Developer'},
         'org': {'uz': "Lumarc — arxitektura va dizayn studiyasi, Toshkent",
                 'ru': 'Lumarc — архитектурно-дизайнерская студия, Ташкент',
                 'en': 'Lumarc — architecture and design studio, Tashkent'},
@@ -109,8 +120,8 @@ TIMELINE = [
     },
     {
         'kind': 'study',
-        'title': {'uz': 'Python Backend Development Program', 'ru': 'Python Backend Development Program', 'en': 'Python Backend Development Program'},
-        'org': {'uz': 'Ustudy Academy, IT Park Uzbekistan', 'ru': 'Ustudy Academy, IT Park Uzbekistan', 'en': 'Ustudy Academy, IT Park Uzbekistan'},
+        'title': {'uz': 'Python Backend dasturlash dasturi', 'ru': 'Программа Python Backend-разработки', 'en': 'Python Backend Development Program'},
+        'org': {'uz': "Ustudy Academy, IT Park O'zbekiston", 'ru': 'Ustudy Academy, IT Park Узбекистан', 'en': 'Ustudy Academy, IT Park Uzbekistan'},
         'period': {'uz': '2025-yil sentabr — 2026-yil sentabr', 'ru': 'сентябрь 2025 — сентябрь 2026', 'en': 'September 2025 – September 2026'},
         'desc': {
             'uz': "Python, PostgreSQL, Django/DRF, Celery/Channels va Docker/CI-CD bo'yicha 12 modulli intensiv dastur. Yakunlangan.",
@@ -120,14 +131,14 @@ TIMELINE = [
     },
     {
         'kind': 'study',
-        'title': {'uz': 'Prompt Engineering for AI Systems', 'ru': 'Prompt Engineering for AI Systems', 'en': 'Prompt Engineering for AI Systems'},
+        'title': {'uz': "Sun'iy intellekt tizimlari uchun prompt muhandisligi", 'ru': 'Промпт-инжиниринг для систем искусственного интеллекта', 'en': 'Prompt Engineering for AI Systems'},
         'org': {'uz': "Five Million AI Leaders (O'zbekiston va BAA)", 'ru': 'Five Million AI Leaders (Узбекистан и ОАЭ)', 'en': 'Five Million AI Leaders (Uzbekistan & UAE)'},
         'period': {'uz': '2026-yil mart', 'ru': 'март 2026', 'en': 'March 2026'},
         'desc': {'uz': '', 'ru': '', 'en': ''},
     },
     {
         'kind': 'study',
-        'title': {'uz': 'Meta Back-End Developer Professional Certificate', 'ru': 'Meta Back-End Developer Professional Certificate', 'en': 'Meta Back-End Developer Professional Certificate'},
+        'title': {'uz': 'Meta Back-End dasturchi professional sertifikati', 'ru': 'Профессиональный сертификат Meta по Back-End разработке', 'en': 'Meta Back-End Developer Professional Certificate'},
         'org': {'uz': 'Coursera (Meta)', 'ru': 'Coursera (Meta)', 'en': 'Coursera (Meta)'},
         'period': {'uz': '2025-yil iyun', 'ru': 'июнь 2025', 'en': 'June 2025'},
         'desc': {
@@ -138,7 +149,7 @@ TIMELINE = [
     },
     {
         'kind': 'study',
-        'title': {'uz': 'Computer Science and Programming Technologies — Bakalavr', 'ru': 'Computer Science and Programming Technologies — бакалавр', 'en': "Computer Science and Programming Technologies — Bachelor's Degree"},
+        'title': {'uz': 'Kompyuter ilmlari va dasturlash texnologiyalari — Bakalavr', 'ru': 'Компьютерные науки и технологии программирования — бакалавр', 'en': "Computer Science and Programming Technologies — Bachelor's Degree"},
         'org': {'uz': "O'zbekiston Milliy Universiteti", 'ru': 'Национальный университет Узбекистана', 'en': 'National University of Uzbekistan'},
         'period': {'uz': '2022 — 2026', 'ru': '2022 — 2026', 'en': '2022 — 2026'},
         'desc': {'uz': '', 'ru': '', 'en': ''},
@@ -193,12 +204,12 @@ _STRINGS = {
     'nav_contact': ("Aloqa", 'Контакты', 'Contact'),
     'about_title': ('Men haqimda', 'Обо мне', 'About me'),
     'about_text': (
-        "Python/Django texnologiyalari asosida backend dasturlash, shuningdek, Next.js, React va TypeScript texnologiyalaridan foydalangan holda frontend ishlab chiqish yo'nalishlarida faoliyat yurituvchi Fullstack dasturchiman.\n\n2026-yil sentabr oyidan buyon Lumarc studiyasida faoliyat yuritib kelmoqdaman. Faoliyatim davomida kompaniyaning rasmiy veb-sayti, sun'iy intellekt asosidagi platformasi, biznes jarayonlarini avtomatlashtirish boti hamda ichki foydalanish uchun mo'ljallangan AI vositasini ishlab chiqishda ishtirok etganman.\n\nMa'lumotim bo'yicha Computer Science yo'nalishi bakalavr darajasiga egaman. Shuningdek, Ustudy Academy (IT Park) tomonidan tashkil etilgan Python Backend dasturini tamomlaganman hamda Meta Back-End Developer professional sertifikatiga egaman.",
-        "Я Fullstack-разработчик: занимаюсь backend-разработкой на технологиях Python/Django, а также frontend-разработкой на Next.js, React и TypeScript.\n\nС сентября 2026 года работаю в студии Lumarc. За это время принимал участие в разработке официального сайта компании, платформы на основе искусственного интеллекта, бота для автоматизации бизнес-процессов и внутреннего AI-инструмента.\n\nИмею степень бакалавра по направлению Computer Science. Также окончил программу Python Backend, организованную Ustudy Academy (IT Park), и являюсь обладателем профессионального сертификата Meta Back-End Developer.",
+        "Python/Django texnologiyalari asosida backend dasturlash, shuningdek, Next.js, React va TypeScript texnologiyalaridan foydalangan holda frontend ishlab chiqish yo'nalishlarida faoliyat yurituvchi Fullstack dasturchiman.\n\n2026-yil sentabr oyidan buyon Lumarc studiyasida faoliyat yuritib kelmoqdaman. Faoliyatim davomida kompaniyaning rasmiy veb-sayti, sun'iy intellekt asosidagi platformasi, biznes jarayonlarini avtomatlashtirish boti hamda ichki foydalanish uchun mo'ljallangan AI vositasini ishlab chiqishda ishtirok etganman.\n\nMa'lumotim bo'yicha Kompyuter ilmlari yo'nalishi bakalavr darajasiga egaman. Shuningdek, Ustudy Academy (IT Park) tomonidan tashkil etilgan Python Backend dasturini tamomlaganman hamda Meta kompaniyasining Back-End dasturchi professional sertifikatiga egaman.",
+        "Я Fullstack-разработчик: занимаюсь backend-разработкой на технологиях Python/Django, а также frontend-разработкой на Next.js, React и TypeScript.\n\nС сентября 2026 года работаю в студии Lumarc. За это время принимал участие в разработке официального сайта компании, платформы на основе искусственного интеллекта, бота для автоматизации бизнес-процессов и внутреннего AI-инструмента.\n\nИмею степень бакалавра по направлению «Компьютерные науки». Также окончил программу Python Backend, организованную Ustudy Academy (IT Park), и являюсь обладателем профессионального сертификата Meta Back-End Developer.",
         "I am a Fullstack developer working on backend development with Python/Django and on frontend development with Next.js, React and TypeScript.\n\nI have been working at the Lumarc studio since September 2026. During this time I have taken part in building the company's official website, an artificial-intelligence-based platform, a bot for automating business processes and an AI tool for internal use.\n\nI hold a Bachelor's degree in Computer Science. I have also completed the Python Backend program organised by Ustudy Academy (IT Park) and hold the Meta Back-End Developer professional certificate.",
     ),
     'edu_label': ("Ta'lim", 'Образование', 'Education'),
-    'edu_degree': ('Computer Science and Programming Technologies — Bakalavr', 'Computer Science and Programming Technologies — бакалавр', "Computer Science and Programming Technologies — Bachelor's Degree"),
+    'edu_degree': ('Kompyuter ilmlari va dasturlash texnologiyalari — Bakalavr', 'Компьютерные науки и технологии программирования — бакалавр', "Computer Science and Programming Technologies — Bachelor's Degree"),
     'edu_org': ("O'zbekiston Milliy Universiteti · 2022–2026", 'Национальный университет Узбекистана · 2022–2026', 'National University of Uzbekistan · 2022–2026'),
     'stat_projects': ('loyiha', 'проектов', 'projects'),
     'stat_live': (
@@ -403,6 +414,8 @@ from .orthography import uz_latin, uz_latin_deep  # noqa: E402
 
 TEXT['uz'] = uz_latin_deep(TEXT['uz'])
 SKILL_CATEGORY_LABELS['uz'] = uz_latin_deep(SKILL_CATEGORY_LABELS['uz'])
+for _label in SKILL_ITEM_LABELS.values():
+    _label['uz'] = uz_latin(_label['uz'])
 for _service in SERVICES:
     _service['title']['uz'] = uz_latin(_service['title']['uz'])
     _service['desc']['uz'] = uz_latin(_service['desc']['uz'])

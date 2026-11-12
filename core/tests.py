@@ -516,8 +516,8 @@ class AboutSectionTests(PortfolioTestCase):
         about = self._about('uz')
         for phrase in ('Fullstack dasturchiman', '2026-yil sentabr oyidan buyon Lumarc studiyasida',
                        'sun\u02bciy intellekt asosidagi platformasi', 'ishtirok etganman',
-                       'Computer Science yo\u02bbnalishi bakalavr darajasiga egaman',
-                       'Ustudy Academy (IT Park)', 'Meta Back-End Developer professional sertifikatiga egaman'):
+                       'Kompyuter ilmlari yo\u02bbnalishi bakalavr darajasiga egaman',
+                       'Ustudy Academy (IT Park)', 'Back-End dasturchi professional sertifikatiga egaman'):
             self.assertIn(phrase, about)
 
     def test_about_other_languages(self):
@@ -600,3 +600,42 @@ class FormalWordingTests(PortfolioTestCase):
             for word in ('Menga yozing', 'quraylik', 'Keysni', 'jonli', 'sentyabr', 'deployigacha', 'Yozib qoling'):
                 with self.subTest(url=url, word=word):
                     self.assertNotIn(word, body)
+
+
+class LocalisedTitlesTests(PortfolioTestCase):
+    """Til tanlanganda sarlavhalar ham shu tilda chiqadi (texnologiya va brend nomlaridan tashqari)."""
+
+    def test_uzbek_page_has_uzbek_titles(self):
+        body = self.client.get('/?lang=uz').content.decode()
+        for phrase in ('Kompyuter ilmlari va dasturlash texnologiyalari', 'Python Backend dasturlash dasturi',
+                       'prompt muhandisligi', 'Meta Back-End dasturchi professional sertifikati',
+                       'Fullstack dasturchi', 'AI yordamida dasturlash', 'Prompt muhandisligi'):
+            self.assertIn(phrase, body)
+        for english in ('Computer Science and Programming', 'Development Program', 'Prompt Engineering for AI Systems',
+                        'Professional Certificate', 'Fullstack Developer', 'Prompt engineering<'):
+            self.assertNotIn(english, body)
+
+    def test_russian_page_has_russian_titles(self):
+        body = self.client.get('/?lang=ru').content.decode()
+        for phrase in ('Компьютерные науки и технологии программирования', 'Программа Python Backend-разработки',
+                       'Промпт-инжиниринг для систем искусственного интеллекта', 'Fullstack-разработчик',
+                       'Интеграция API генеративного AI'):
+            self.assertIn(phrase, body)
+        for english in ('Computer Science and Programming', 'Development Program', 'Prompt Engineering for AI Systems',
+                        'Professional Certificate', 'Generativ AI'):
+            self.assertNotIn(english, body)
+
+    def test_english_page_keeps_original_titles(self):
+        body = self.client.get('/?lang=en').content.decode()
+        for phrase in ('Computer Science and Programming Technologies', 'Python Backend Development Program',
+                       'Prompt Engineering for AI Systems', 'Meta Back-End Developer Professional Certificate',
+                       'Generative AI API integration'):
+            self.assertIn(phrase, body)
+        self.assertNotIn('Generativ AI', body)
+
+    def test_uzbek_project_texts_have_no_leftover_english_terms(self):
+        for slug in ('uzstroymarket', 'e-auksion-radar', 'lumarcos'):
+            body = self.client.get(f'/projects/{slug}/?lang=uz').content.decode()
+            for term in ('marketplace', 'checkout', 'dry-run', 'Monorepo', 'Landing page'):
+                with self.subTest(slug=slug, term=term):
+                    self.assertNotIn(term, body)

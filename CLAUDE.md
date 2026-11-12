@@ -1,7 +1,7 @@
 # CLAUDE.md — portfolio (Django 5.2)
 
 ## Buyruqlar
-- Test: `python manage.py test` (89 ta; `projects` fixture'ini ishlatadi) · Tekshiruv: `python manage.py check`
+- Test: `python manage.py test` (93 ta; `projects` fixture'ini ishlatadi) · Tekshiruv: `python manage.py check`
 - Lokal: `python manage.py migrate && python manage.py loaddata projects && python manage.py runserver 8010`
 - Prod-ga o'xshash tekshiruv: `DEBUG=False SECURE_SSL_REDIRECT=False python manage.py collectstatic --noinput` so'ng runserver
 - Havolalar: `python scripts/check_links.py http://127.0.0.1:8010`

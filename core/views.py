@@ -12,6 +12,7 @@ from .content import (
     LANGUAGES,
     SERVICES,
     SKILL_CATEGORY_LABELS,
+    SKILL_ITEM_LABELS,
     SKILLS,
     TEXT,
     TIMELINE,
@@ -79,7 +80,10 @@ def home(request):
         'years': max(date.today().year - EXPERIENCE_SINCE, 1),
     }
 
-    skills = {SKILL_CATEGORY_LABELS[lang][key]: items for key, items in SKILLS.items()}
+    skills = {
+        SKILL_CATEGORY_LABELS[lang][key]: [SKILL_ITEM_LABELS.get(item, {}).get(lang, item) for item in items]
+        for key, items in SKILLS.items()
+    }
     services = [{'icon': s['icon'], 'title': s['title'][lang], 'desc': s['desc'][lang]} for s in SERVICES]
 
     t = TEXT[lang]

@@ -72,8 +72,8 @@ PROJECTS = [
             "The platform runs at lumarcos.uz with OTP and email sign-in, credits and payments (Payme, Click), an admin panel and CI.",
         ),
         highlights=(
-            ["Monorepo: NestJS API, Next.js veb-ilova, umumiy paket", "Gemini / Vertex AI va Kie.ai integratsiyasi", "BullMQ navbati, MinIO (S3) ombori", "Kredit va to'lov tizimi, boshqaruv paneli", "Docker Compose va Caddy (HTTPS), e2e testlar"],
-            ["Монорепозиторий: NestJS API, веб-приложение Next.js, общий пакет", "Интеграция Gemini / Vertex AI и Kie.ai", "Очередь BullMQ, хранилище MinIO (S3)", "Кредиты и оплата, панель управления", "Docker Compose и Caddy (HTTPS), e2e-тесты"],
+            ["Yagona repozitoriy: NestJS API, Next.js veb-ilova, umumiy paket", "Gemini / Vertex AI va Kie.ai integratsiyasi", "BullMQ navbati, MinIO (S3) ombori", "Kredit va to'lov tizimi, boshqaruv paneli", "Docker Compose va Caddy (HTTPS), avtomatik end-to-end testlar"],
+            ["Монорепозиторий: NestJS API, веб-приложение Next.js, общий пакет", "Интеграция Gemini / Vertex AI и Kie.ai", "Очередь BullMQ, хранилище MinIO (S3)", "Кредиты и оплата, панель управления", "Docker Compose и Caddy (HTTPS), автоматические end-to-end тесты"],
             ["Monorepo: NestJS API, Next.js web app and a shared package", "Gemini / Vertex AI and Kie.ai integration", "BullMQ queue and MinIO (S3) storage", "Credit and payment system, admin panel", "Docker Compose and Caddy (HTTPS), e2e tests"],
         ),
     ),
@@ -103,7 +103,7 @@ PROJECTS = [
             "The program runs on a server on a schedule. The code relies only on the Python standard library and is covered by 200+ automated tests.",
         ),
         highlights=(
-            ["Mezonlar JSON faylida belgilanadi", "Narxlarni solishtirish va ball tizimi", "Takroriy lotlarni SQLite orqali filtrlash", "Sinov (dry-run) rejimi va jurnal; tashqi bog'liqliklarsiz"],
+            ["Mezonlar JSON faylida belgilanadi", "Narxlarni solishtirish va ball tizimi", "Takroriy lotlarni SQLite orqali filtrlash", "Sinov rejimi va jurnal yuritish; tashqi bog'liqliklarsiz"],
             ["Критерии задаются в JSON-файле", "Сравнение цен и система баллов", "Фильтрация повторных лотов через SQLite", "Режим проверки (dry-run) и журнал; без внешних зависимостей"],
             ["Criteria defined in a JSON file", "Price comparison and a scoring system", "Duplicate-lot filtering through SQLite", "Dry-run mode and logging; no external dependencies"],
         ),
@@ -244,7 +244,7 @@ PROJECTS = [
         stack='Next.js 15, React 19, TypeScript, Fastify 5, Prisma, PostgreSQL, grammY, AWS',
         role=("Fullstack dasturchi", "Fullstack-разработчик", "Fullstack Developer"),
         short=(
-            "Qurilish materiallari uchun ko'p sotuvchili marketplace: xaridor sayti, sotuvchi va bosh administrator panellari hamda Telegram orqali telefon raqamini tasdiqlash boti.",
+            "Qurilish materiallari uchun ko'p sotuvchili onlayn savdo platformasi: xaridor sayti, sotuvchi va bosh administrator panellari hamda Telegram orqali telefon raqamini tasdiqlash boti.",
             "Мультивендорный маркетплейс стройматериалов: сайт покупателя, панели продавца и главного администратора и Telegram-бот подтверждения телефона.",
             "A multi-vendor marketplace for construction materials: customer site, seller and head-admin panels, and a Telegram bot that verifies phone numbers.",
         ),
@@ -264,8 +264,8 @@ PROJECTS = [
             "The platform runs at uzstroymarket.uz (uz, ru, en; day and night themes). During sign-up the phone number is verified through a Telegram bot with a six-digit code.",
         ),
         highlights=(
-            ["Uch rol: xaridor, sotuvchi (alohida kabinet), bosh administrator", "Qoldiqni tranzaksiyada band qilish va idempotent checkout", "Ko'p do'konli savat sotuvchilar bo'yicha alohida buyurtmalarga ajratiladi", "Administrator o'zgarishlari uchun audit yozuvlari", "Telegram orqali telefonni tasdiqlash, uch til, kunduzgi va tungi rejim"],
-            ["Три роли: покупатель, продавец (отдельный кабинет), главный администратор", "Резервирование остатка в транзакции и идемпотентный checkout", "Корзина из нескольких магазинов делится на заказы по продавцам", "Журнал аудита изменений администратора", "Подтверждение телефона через Telegram, три языка, дневной и ночной режим"],
+            ["Uch rol: xaridor, sotuvchi (alohida kabinet), bosh administrator", "Qoldiqni tranzaksiyada band qilish va buyurtmani takroriy yuborishdan himoyalash", "Ko'p do'konli savat sotuvchilar bo'yicha alohida buyurtmalarga ajratiladi", "Administrator o'zgarishlari uchun audit yozuvlari", "Telegram orqali telefonni tasdiqlash, uch til, kunduzgi va tungi rejim"],
+            ["Три роли: покупатель, продавец (отдельный кабинет), главный администратор", "Резервирование остатка в транзакции и защита от повторной отправки заказа", "Корзина из нескольких магазинов делится на заказы по продавцам", "Журнал аудита изменений администратора", "Подтверждение телефона через Telegram, три языка, дневной и ночной режим"],
             ["Three roles: buyer, seller (own dashboard), head administrator", "Stock reservation in a transaction and idempotent checkout", "A multi-store cart is split into orders per seller", "Audit records for admin changes", "Telegram phone verification, three languages, day and night theme"],
         ),
     ),
