@@ -17,7 +17,6 @@ PROJECTS = ROOT / 'core' / 'static' / 'core' / 'projects'
 
 LIVE = {
     'lumarcos': [('https://lumarcos.uz', 1440, 900), ('https://lumarcos.uz', 390, 844)],
-    'akromind': [('https://akromind.uz', 1440, 900), ('https://akromind.uz', 390, 844)],
     'lumarcode': [('https://akromin.uz', 1440, 900)],
     'bahober': [('https://bahober.uz', 1440, 900), ('https://bahober.uz', 390, 844)],
     'lumarc-sayt': [('https://lumarc.uz', 1440, 900), ('https://lumarc.uz', 390, 844)],
@@ -49,6 +48,28 @@ def phone_frame(shot):
     ImageDraw.Draw(canvas).rounded_rectangle((x - 12, y - 12, x + width + 12, y + height + 12), radius=46, fill='#1d2a3d')
     canvas.paste(shot, (x, y), mask)
     return canvas
+
+
+AKROMIND = 'https://akromind.uz'
+
+
+def capture_akromind(browser):
+    """Akromind: bosh sahifa (kunduzgi va tungi rejim), loyihalar sahifasi va mobil ko'rinish."""
+    images = []
+    shots = [('/', 1440, 900, 'light'), ('/', 1440, 900, 'dark'), ('/loyihalar', 1440, 900, 'light'), ('/', 390, 844, 'light')]
+    for path, w, h, mode in shots:
+        ctx = browser.new_context(viewport={'width': w, 'height': h}, reduced_motion='reduce')
+        ctx.add_init_script(f"try{{localStorage.setItem('akromind-mode','{mode}')}}catch(e){{}}")
+        page = ctx.new_page()
+        try:
+            page.goto(AKROMIND + path, wait_until='domcontentloaded', timeout=45000)
+            page.wait_for_timeout(4500)
+            raw = Image.open(io.BytesIO(page.screenshot(type='png')))
+            images.append(phone_frame(raw) if w < 600 else fit(raw))
+        except Exception as exc:
+            print(f'  ! {AKROMIND}{path} ({w}px, {mode}): {type(exc).__name__}')
+        ctx.close()
+    return images
 
 
 def capture_stroy(browser):
@@ -195,13 +216,15 @@ def main():
     with sync_playwright() as p:
         browser = p.chromium.launch()
         results = {}
-        slugs = set(LIVE) | set(MOCKUPS) | set(DIAGRAMS) | {'uzstroymarket'}
+        slugs = set(LIVE) | set(MOCKUPS) | set(DIAGRAMS) | {'uzstroymarket', 'akromind'}
         for slug in sorted(slugs):
             if args.only and slug != args.only:
                 continue
             images = []
             if slug == 'uzstroymarket':
                 images += capture_stroy(browser)
+            if slug == 'akromind':
+                images += capture_akromind(browser)
             for url, w, h in LIVE.get(slug, []):
                 ctx = browser.new_context(viewport={'width': w, 'height': h}, reduced_motion='reduce')
                 page = ctx.new_page()

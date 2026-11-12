@@ -685,3 +685,30 @@ class SectionLabelTests(PortfolioTestCase):
             self.assertIn(label, body)
         self.assertIn('02 — Портфолио', self.client.get('/?lang=ru').content.decode())
         self.assertIn('06 — Contact', self.client.get('/?lang=en').content.decode())
+
+
+class AkromindAndInteractionTests(PortfolioTestCase):
+    def test_akromind_reflects_the_updated_site(self):
+        project = Project.objects.get(slug='akromind')
+        self.assertEqual(project.status, 'live')
+        self.assertEqual(project.live_url, 'https://akromind.uz')
+        self.assertIn('Next.js 14', project.stack)
+        body = self.client.get('/projects/akromind/?lang=en').content.decode()
+        for fact in ('Three languages', 'project registry', 'contact form', 'news'):
+            self.assertIn(fact, body)
+        self.assertEqual(len(project.gallery_list), 4)
+
+    def test_buttons_use_sweep_hover_and_magnet(self):
+        css = (Path(__file__).resolve().parent / 'static' / 'core' / 'css' / 'style.css').read_text(encoding='utf-8')
+        js = (Path(__file__).resolve().parent / 'static' / 'core' / 'js' / 'script.js').read_text(encoding='utf-8')
+        self.assertIn('.btn::before', css)
+        self.assertIn('transform: scaleX(0)', css)
+        self.assertIn('.btn:active', css)
+        self.assertIn('.theme-toggle:hover', css)
+        self.assertIn('rotate(14deg)', css)
+        self.assertIn('data-mag-on', js)
+        self.assertIn('(hover: hover) and (pointer: fine)', js)
+
+    def test_arrow_buttons_have_sliding_arrow_class(self):
+        body = self.client.get('/').content.decode()
+        self.assertIn('class="icon arr"', body)

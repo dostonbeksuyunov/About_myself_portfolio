@@ -142,14 +142,14 @@ PROJECTS = [
     ),
     dict(
         pk=5, slug='akromind', title='Akromind', kind=LUMARC, order=50, featured=True,
-        categories='web', year_start=2026, ongoing=True, status='in_development',
+        categories='web', year_start=2026, ongoing=True, status='live',
         live_url='https://akromind.uz',
-        stack='Next.js, React, TypeScript, Tailwind CSS, Docker',
+        stack='Next.js 14, React 18, TypeScript, Tailwind CSS, Docker',
         role=("Fullstack dasturchi", "Fullstack-разработчик", "Fullstack Developer"),
         short=(
-            "IT va AI yechimlari kompaniyasining veb-sayti: xizmatlar, portfolio, maqolalar va aloqa.",
-            "Сайт компании IT- и AI-решений: услуги, портфолио, статьи и контакты.",
-            "Website of an IT and AI solutions company: services, portfolio, articles and contact.",
+            "IT va AI yechimlari kompaniyasining veb-sayti: xizmatlar, loyihalar reestri, yangiliklar va aloqa; uch tilda, kunduzgi va tungi rejimda.",
+            "Сайт компании IT- и AI-решений: услуги, реестр проектов, новости и контакты; на трёх языках, с дневным и ночным режимом.",
+            "Website of an IT and AI solutions company: services, a project registry, news and contact; in three languages with day and night themes.",
         ),
         problem=(
             "Kompaniyaga xizmat va loyihalarini bir joyda taqdim etuvchi, oson kengaytiriladigan sayt kerak edi.",
@@ -157,19 +157,19 @@ PROJECTS = [
             "The company needed an easily extendable site presenting its services and projects in one place.",
         ),
         solution=(
-            "Sayt Next.js va TypeScript asosida ishlab chiqilgan. Xizmatlar: veb va mobil ilovalar, AI/LLM integratsiyasi, Telegram botlar, IT konsalting. Yangi loyiha bitta ma'lumot faylidagi yozuv orqali qo'shiladi.",
-            "Сайт разработан на Next.js и TypeScript. Услуги: веб- и мобильные приложения, интеграция AI/LLM, Telegram-боты, IT-консалтинг. Новый проект добавляется одной записью в файле данных.",
-            "The site is built with Next.js and TypeScript. Services: web and mobile apps, AI/LLM integration, Telegram bots, IT consulting. A new project is added with a single entry in a data file.",
+            "Sayt Next.js (App Router) va TypeScript asosida ishlab chiqilgan. Unda 6 yoʻnalishdagi xizmatlar, kompaniya saytlari reestri, yangiliklar boʻlimi, shisha kapsula koʻrinishidagi menyu (joriy boʻlimni koʻrsatadi) va aloqa formasi mavjud. Forma server tomonda tekshiriladi va avtomatik soʻrovlardan himoyalangan. Loyiha va xizmatlar ma'lumot fayllaridan shakllanadi.",
+            "Сайт разработан на Next.js (App Router) и TypeScript. На нём представлены услуги по шести направлениям, реестр сайтов компании, раздел новостей, меню в виде стеклянной капсулы (показывает текущий раздел) и форма обратной связи. Форма проверяется на сервере и защищена от автоматических запросов. Проекты и услуги формируются из файлов данных.",
+            "The site is built with Next.js (App Router) and TypeScript. It includes services in six areas, a registry of the company's sites, a news section, a glass-capsule menu (showing the current section) and a contact form. The form is validated on the server and protected against automated requests. Projects and services are generated from data files.",
         ),
         result=(
-            "Sayt ishlab chiqilmoqda va akromind.uz manzilida mavjud.",
-            "Сайт находится в разработке и доступен по адресу akromind.uz.",
-            "The site is in development and available at akromind.uz.",
+            "Sayt akromind.uz manzilida ishlamoqda (uz, ru, en; kunduzgi va tungi rejim).",
+            "Сайт работает на akromind.uz (uz, ru, en; дневной и ночной режим).",
+            "The site runs at akromind.uz (uz, ru, en; day and night themes).",
         ),
         highlights=(
-            ["Next.js, TypeScript, Tailwind CSS", "Portfolio va xizmatlar ma'lumot fayllaridan shakllanadi", "Loyiha sahifalari /loyihalar/<slug> manzilida", "Docker orqali ishga tushiriladi"],
-            ["Next.js, TypeScript, Tailwind CSS", "Портфолио и услуги формируются из файлов данных", "Страницы проектов по адресу /loyihalar/<slug>", "Запуск через Docker"],
-            ["Next.js, TypeScript, Tailwind CSS", "Portfolio and services are generated from data files", "Project pages at /loyihalar/<slug>", "Runs through Docker"],
+            ["Next.js 14, TypeScript, Tailwind CSS", "Uch til (uz, ru, en), kunduzgi va tungi rejim", "Loyihalar reestri va yangiliklar boʻlimi", "Aloqa formasi: server tomonda tekshiruv, avtomatik soʻrovlardan himoya", "Docker (standalone) orqali ishga tushiriladi"],
+            ["Next.js 14, TypeScript, Tailwind CSS", "Три языка (uz, ru, en), дневной и ночной режим", "Реестр проектов и раздел новостей", "Форма обратной связи: проверка на сервере, защита от автоматических запросов", "Запуск через Docker (standalone)"],
+            ["Next.js 14, TypeScript, Tailwind CSS", "Three languages (uz, ru, en), day and night themes", "Project registry and a news section", "Contact form: server-side validation, protection against automated requests", "Runs through Docker (standalone)"],
         ),
     ),
     # ------------------------------------------------------------ BOTLAR (shaxsiy)

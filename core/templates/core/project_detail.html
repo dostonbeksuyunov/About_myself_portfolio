@@ -21,7 +21,7 @@
 
     <div class="case-actions">
       {% if project.show_links %}
-        {% if project.live_url %}<a class="btn btn-primary" href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer">{{ t.link_live }}<svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>{% endif %}
+        {% if project.live_url %}<a class="btn btn-primary" href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer">{{ t.link_live }}<svg class="icon arr" aria-hidden="true"><use href="#i-external"/></svg></a>{% endif %}
         {% if project.telegram_url %}<a class="btn btn-primary" href="{{ project.telegram_url }}" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-telegram"/></svg>{{ t.link_telegram }}</a>{% endif %}
         {% if project.github_url %}<a class="btn btn-outline" href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>{{ t.link_github }}</a>{% endif %}
       {% endif %}

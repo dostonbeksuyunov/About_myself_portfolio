@@ -83,6 +83,40 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Magnit effekti (Akromind uslubi): kursor tugma yaqiniga kelganda tugma va strelka kursor tomon siljiydi.
+  // Faqat sichqonchali qurilmalarda va harakatni cheklash yoqilmagan bo'lsa ishlaydi.
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reduceMotion) {
+    const magEls = Array.from(document.querySelectorAll('.btn'));
+    const clamp = (v, m) => Math.max(-m, Math.min(m, v));
+    let px = -1e4, py = -1e4, raf = 0;
+    const reset = (el) => {
+      if (!el.hasAttribute('data-mag-on')) return;
+      el.removeAttribute('data-mag-on');
+      el.style.transform = '';
+      el.style.removeProperty('--ax');
+      el.style.removeProperty('--ay');
+    };
+    const tick = () => {
+      raf = 0;
+      magEls.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const near = px > r.left - 24 && px < r.right + 24 && py > r.top - 24 && py < r.bottom + 24;
+        if (!near || r.width === 0) { reset(el); return; }
+        const dx = px - (r.left + r.width / 2);
+        const dy = py - (r.top + r.height / 2);
+        el.setAttribute('data-mag-on', '');
+        el.style.transform = `translate3d(${clamp(dx * 0.25, 8).toFixed(1)}px, ${clamp(dy * 0.35, 8).toFixed(1)}px, 0)`;
+        el.style.setProperty('--ax', `${(dx * 0.12).toFixed(1)}px`);
+        el.style.setProperty('--ay', `${(dy * 0.12).toFixed(1)}px`);
+      });
+    };
+    window.addEventListener('pointermove', (e) => {
+      px = e.clientX; py = e.clientY;
+      if (!raf) raf = requestAnimationFrame(tick);
+    }, { passive: true });
+    document.documentElement.addEventListener('mouseleave', () => { px = py = -1e4; magEls.forEach(reset); });
+  }
+
   // Scroll reveal (JS ishlamasa elementlar ko'rinaveradi — .reveal faqat JS bor paytda yashiriladi)
   const revealEls = document.querySelectorAll('.reveal');
   if (reduceMotion || !('IntersectionObserver' in window)) {

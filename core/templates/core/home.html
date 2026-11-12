@@ -10,7 +10,7 @@
       <p class="hero-role">{{ t.hero_role }}</p>
       <p class="hero-tagline">{{ t.hero_tagline }}</p>
       <div class="hero-actions">
-        <a href="{% url 'project_list' %}" class="btn btn-primary">{{ t.btn_projects }}<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a href="{% url 'project_list' %}" class="btn btn-primary">{{ t.btn_projects }}<svg class="icon arr" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a href="#contact" class="btn btn-outline">{{ t.btn_contact }}</a>
         <a href="{% static 'core/resume.pdf' %}" download="Dostonbek_Suyunov_CV.pdf" class="btn btn-ghost"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>{{ t.btn_resume }}</a>
       </div>
@@ -79,7 +79,7 @@
     </div>
     {% endif %}
 
-    <p class="center reveal"><a href="{% url 'project_list' %}" class="btn btn-outline">{{ t.all_projects }} ({{ stats.projects }})<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+    <p class="center reveal"><a href="{% url 'project_list' %}" class="btn btn-outline">{{ t.all_projects }} ({{ stats.projects }})<svg class="icon arr" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
   </div>
 </section>
 
@@ -116,7 +116,7 @@
     <a href="{{ contact.group }}" target="_blank" rel="noopener noreferrer" class="group-cta reveal">
       <span class="group-cta-icon"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span>
       <span class="group-cta-text"><strong>{{ t.group_title }}</strong><span>{{ t.group_desc }}</span></span>
-      <span class="btn btn-primary btn-sm">{{ t.group_btn }}<svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></span>
+      <span class="btn btn-primary btn-sm">{{ t.group_btn }}<svg class="icon arr" aria-hidden="true"><use href="#i-external"/></svg></span>
     </a>
   </div>
 </section>
