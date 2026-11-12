@@ -99,6 +99,11 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; letter-spacing
 
 /* ===== Navigatsiya: yuzib turuvchi kapsula (Lumarc uslubi) ===== */
 .nav { position: sticky; top: 0; z-index: 100; padding-top: 14px; pointer-events: none; }
+.nav::before {
+  content: ''; position: absolute; inset: 0 0 -26px 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(var(--bg) 35%, transparent);
+  -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent);
+}
 .nav-inner {
   pointer-events: auto; position: relative;
   width: min(1120px, 100% - 32px); margin-inline: auto; min-height: 64px; padding: 8px 12px 8px 28px;
@@ -113,8 +118,12 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; letter-spacing
 .nav-tagline::before { content: '\00b7'; margin-right: 10px; }
 @media (min-width: 1240px) { .nav-tagline { display: inline; } }
 .nav-links { display: flex; gap: 22px; font-size: 14.5px; font-weight: 500; }
-.nav-links a { color: color-mix(in srgb, var(--text) 80%, transparent); padding: 6px 0; white-space: nowrap; transition: color .2s; }
+.nav-links a {
+  color: color-mix(in srgb, var(--text) 80%, transparent); padding: 5px 0; white-space: nowrap;
+  border-bottom: 2px solid transparent; transition: color .2s, border-color .2s;
+}
 .nav-links a:hover, .nav-links a:focus-visible { color: var(--accent); }
+.nav-links a.active { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
 .nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .nav-toggle { display: none; }
 .lang-switch.lang-switch-mobile { display: none; }
@@ -487,7 +496,8 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; letter-spacing
     transition: max-height .3s ease, visibility .3s, border-color .3s;
   }
   .nav-links.open { max-height: 520px; visibility: visible; border-color: var(--border); }
-  .nav-links a { color: var(--text); }
+  .nav-links a { color: var(--text); border-bottom: 0; }
+  .nav-links a.active { color: var(--accent); }
   .nav-links a { padding: 14px 24px; min-height: 44px; }
   /* Mobil sarlavha: bitta qator — chapda logo, o'ngda mavzu, "Menga yozing" va menyu */
   .nav-inner { flex-wrap: nowrap; }

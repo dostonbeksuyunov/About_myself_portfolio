@@ -61,12 +61,12 @@
       <span></span><span></span><span></span>
     </button>
     <nav class="nav-links" id="nav-links" aria-label="{{ t.menu_label }}">
-      <a href="{% url 'home' %}#about">{{ t.nav_about }}</a>
-      <a href="{% url 'project_list' %}">{{ t.nav_projects }}</a>
-      <a href="{% url 'home' %}#skills">{{ t.nav_skills }}</a>
-      <a href="{% url 'home' %}#services">{{ t.nav_services }}</a>
-      <a href="{% url 'home' %}#experience">{{ t.nav_experience }}</a>
-      <a href="{% url 'home' %}#contact">{{ t.nav_contact }}</a>
+      <a href="{% url 'home' %}#about" data-section="about">{{ t.nav_about }}</a>
+      <a href="{% url 'project_list' %}" data-section="projects"{% if request.resolver_match.url_name == 'project_list' or request.resolver_match.url_name == 'project_detail' %} class="active" aria-current="page"{% endif %}>{{ t.nav_projects }}</a>
+      <a href="{% url 'home' %}#skills" data-section="skills">{{ t.nav_skills }}</a>
+      <a href="{% url 'home' %}#services" data-section="services">{{ t.nav_services }}</a>
+      <a href="{% url 'home' %}#experience" data-section="experience">{{ t.nav_experience }}</a>
+      <a href="{% url 'home' %}#contact" data-section="contact">{{ t.nav_contact }}</a>
       <div class="lang-switch lang-switch-mobile" role="group" aria-label="Language">
         {% for code, url in lang_urls.items %}<a href="{{ url }}" hreflang="{{ code }}" lang="{{ code }}" {% if current_lang == code %}class="active" aria-current="true"{% endif %}>{{ code|upper }}</a>{% endfor %}
       </div>

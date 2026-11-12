@@ -38,6 +38,37 @@ document.addEventListener('DOMContentLoaded', function () {
     navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
   }
 
+  // Menyuda hozirgi bo'limni ko'rsatish (scrollspy). /projects/ sahifalarida "Loyihalar" server tomonda belgilanadi.
+  const spyLinks = Array.from(document.querySelectorAll('.nav-links a[data-section]'));
+  const spySections = spyLinks
+    .map(a => ({ link: a, el: document.getElementById(a.dataset.section) }))
+    .filter(x => x.el);
+  if (spySections.length) {
+    const setActive = (active) => {
+      spyLinks.forEach(a => {
+        const on = a === active;
+        a.classList.toggle('active', on);
+        if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
+      });
+    };
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const line = 140; // kapsula balandligi + zaxira
+      let current = null;
+      spySections.forEach(x => { if (x.el.getBoundingClientRect().top <= line) current = x.link; });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+        current = spySections[spySections.length - 1].link;
+      }
+      setActive(current);
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    spyLinks.forEach(a => a.addEventListener('click', () => setActive(a)));
+    update();
+  }
+
   // "Menga yozing" dropdown: tashqariga bosilsa yoki Escape bosilsa yopiladi
   const hireMenu = document.getElementById('hire-menu');
   if (hireMenu) {

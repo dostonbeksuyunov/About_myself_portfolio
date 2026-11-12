@@ -478,3 +478,23 @@ class AiStackTests(PortfolioTestCase):
             self.assertNotIn('fal.ai', body)
         self.assertContains(self.client.get('/projects/lumarcos/?lang=en'), 'Kie.ai')
         self.assertContains(self.client.get('/'), 'Kie.ai')
+
+
+class NavActiveStateTests(PortfolioTestCase):
+    def test_nav_links_have_section_hooks_for_scrollspy(self):
+        body = self.client.get('/').content.decode()
+        for section in ('about', 'projects', 'skills', 'services', 'experience', 'contact'):
+            self.assertIn(f'data-section="{section}"', body)
+            self.assertIn(f'id="{section}"', body)
+
+    def test_projects_link_is_active_on_project_pages(self):
+        for url in ('/projects/', '/projects/saveclip/'):
+            with self.subTest(url=url):
+                body = self.client.get(url).content.decode()
+                nav = body[body.index('<nav class="nav-links"'):body.index('</nav>')]
+                self.assertIn('data-section="projects" class="active" aria-current="page"', nav)
+
+    def test_no_nav_link_is_preselected_on_home(self):
+        body = self.client.get('/').content.decode()
+        nav = body[body.index('<nav class="nav-links"'):body.index('</nav>')]
+        self.assertNotIn('data-section="projects" class="active"', nav)
