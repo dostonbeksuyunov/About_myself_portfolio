@@ -43,7 +43,7 @@
   <div class="container">
     <p class="route reveal">01 — GET /about</p>
     <h2 class="reveal">{{ t.about_title }}</h2>
-    <p class="about-text reveal">{{ t.about_text }}</p>
+    <div class="about-text reveal">{{ t.about_text|linebreaks }}</div>
     <div class="about-edu reveal">
       <p class="edu-title">{{ t.edu_label }}</p>
       <p>{{ t.edu_degree }}</p>

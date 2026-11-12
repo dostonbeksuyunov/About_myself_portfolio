@@ -498,3 +498,29 @@ class NavActiveStateTests(PortfolioTestCase):
         body = self.client.get('/').content.decode()
         nav = body[body.index('<nav class="nav-links"'):body.index('</nav>')]
         self.assertNotIn('data-section="projects" class="active"', nav)
+
+
+class AboutSectionTests(PortfolioTestCase):
+    def _about(self, lang):
+        body = self.client.get(f'/?lang={lang}').content.decode()
+        return body[body.index('id="about"'):body.index('id="projects"')]
+
+    def test_about_is_three_paragraphs_in_every_language(self):
+        for lang in LANGS:
+            with self.subTest(lang=lang):
+                about = self._about(lang)
+                block = about[about.index('class="about-text'):about.index('class="about-edu')]
+                self.assertEqual(block.count('<p>'), 3)
+
+    def test_about_uzbek_text_is_formal_and_complete(self):
+        about = self._about('uz')
+        for phrase in ('Fullstack dasturchiman', '2026-yil sentabr oyidan buyon Lumarc studiyasida',
+                       "sun&#x27;iy intellekt asosidagi platformasi", 'ishtirok etganman',
+                       'Computer Science yo&#x27;nalishi bakalavr darajasiga egaman',
+                       'Ustudy Academy (IT Park)', 'Meta Back-End Developer professional sertifikatiga egaman'):
+            self.assertIn(phrase, about)
+
+    def test_about_other_languages(self):
+        self.assertIn('Lumarc', self._about('ru'))
+        self.assertIn('Ustudy Academy (IT Park)', self._about('ru'))
+        self.assertIn("Bachelor's degree in Computer Science".replace("'", '&#x27;'), self._about('en'))
