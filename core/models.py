@@ -1,5 +1,7 @@
 from django.db import models
 
+from .orthography import uz_latin
+
 LANGS = ('uz', 'ru', 'en')
 
 
@@ -81,7 +83,11 @@ class Project(models.Model):
         return self.title
 
     def text(self, field, lang):
-        return getattr(self, f'{field}_{lang}', '') or getattr(self, f'{field}_uz', '')
+        value = getattr(self, f'{field}_{lang}', '')
+        if lang != 'uz' and value:
+            return value
+        # o'zbekcha matn (yoki boshqa tilda bo'sh bo'lsa, shunga qaytish) yangi lotin imlosida chiqariladi
+        return uz_latin(value or getattr(self, f'{field}_uz', ''))
 
     def lines(self, field, lang):
         return [ln.strip() for ln in self.text(field, lang).splitlines() if ln.strip()]

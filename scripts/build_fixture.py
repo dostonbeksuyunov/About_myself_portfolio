@@ -12,6 +12,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from projects_data import PROJECTS  # noqa: E402
 
+sys.path.insert(0, str(ROOT))
+from core.orthography import uz_latin  # noqa: E402
+
 LANGS = ('uz', 'ru', 'en')
 MEDIA_ROOT = ROOT / 'core' / 'static' / 'core' / 'projects'
 
@@ -56,6 +59,11 @@ def build():
                 fields[f'{key}_{lang}'] = p.get(key, ('', '', ''))[i]
             fields[f'highlights_{lang}'] = '\n'.join(p['highlights'][i])
         rows.append({'model': 'core.project', 'pk': pk, 'fields': fields})
+    # o'zbekcha maydonlar yangilangan lotin imlosida saqlanadi
+    for row in rows:
+        for name, value in row['fields'].items():
+            if name.endswith('_uz') and isinstance(value, str):
+                row['fields'][name] = uz_latin(value)
     out = ROOT / 'core' / 'fixtures' / 'projects.json'
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(rows, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')

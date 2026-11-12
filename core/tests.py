@@ -54,7 +54,7 @@ class HomeViewTests(PortfolioTestCase):
 
     def test_work_projects_are_listed_under_current_job(self):
         response = self.client.get('/')
-        self.assertContains(response, '2026-sentyabr — hozirgacha')
+        self.assertContains(response, '2026-yil sentabr — hozirgacha')
         for slug in ('lumarc-sayt', 'lumarcos', 'e-auksion-radar', 'lumarcode', 'akromind'):
             self.assertContains(response, f'/projects/{slug}/')
 
@@ -515,8 +515,8 @@ class AboutSectionTests(PortfolioTestCase):
     def test_about_uzbek_text_is_formal_and_complete(self):
         about = self._about('uz')
         for phrase in ('Fullstack dasturchiman', '2026-yil sentabr oyidan buyon Lumarc studiyasida',
-                       "sun&#x27;iy intellekt asosidagi platformasi", 'ishtirok etganman',
-                       'Computer Science yo&#x27;nalishi bakalavr darajasiga egaman',
+                       'sun\u02bciy intellekt asosidagi platformasi', 'ishtirok etganman',
+                       'Computer Science yo\u02bbnalishi bakalavr darajasiga egaman',
                        'Ustudy Academy (IT Park)', 'Meta Back-End Developer professional sertifikatiga egaman'):
             self.assertIn(phrase, about)
 
@@ -524,3 +524,79 @@ class AboutSectionTests(PortfolioTestCase):
         self.assertIn('Lumarc', self._about('ru'))
         self.assertIn('Ustudy Academy (IT Park)', self._about('ru'))
         self.assertIn("Bachelor's degree in Computer Science".replace("'", '&#x27;'), self._about('en'))
+
+
+class OrthographyTests(PortfolioTestCase):
+    """Barcha o'zbekcha matn yangilangan lotin imlosida (oʻ, gʻ, ʼ) chiqadi."""
+
+    OKG = '\u02bb'
+    TUTUQ = '\u02bc'
+
+    def _visible_text(self, url):
+        import re
+        body = self.client.get(url).content.decode()
+        body = re.sub(r'<(script|style)\b.*?</\1>', '', body, flags=re.S)
+        body = re.sub(r'<[^>]+>', ' ', body)
+        return body
+
+    def test_converter_rules(self):
+        from .orthography import uz_latin
+        self.assertEqual(uz_latin("O'zbekiston, g'oya, to'lov, qo'ng'iroq"),
+                         'O\u02bbzbekiston, g\u02bboya, to\u02bblov, qo\u02bbng\u02bbiroq')
+        self.assertEqual(uz_latin("ma'lumot, ta'lim, sun'iy"), 'ma\u02bclumot, ta\u02bclim, sun\u02bciy')
+        self.assertEqual(uz_latin('yo\u2018nalish va sun\u2019iy'), 'yo\u02bbnalish va sun\u02bciy')
+        self.assertEqual(uz_latin("Django'da"), 'Django\u02bcda')
+
+    def test_converter_is_idempotent(self):
+        from .orthography import uz_latin
+        once = uz_latin("bo'yicha, ma'lumot, g'oya")
+        self.assertEqual(uz_latin(once), once)
+
+    def test_uzbek_pages_have_no_ascii_apostrophes_in_text(self):
+        for url in ('/?lang=uz', '/projects/?lang=uz', '/projects/saveclip/?lang=uz', '/projects/uzstroymarket/?lang=uz'):
+            with self.subTest(url=url):
+                text = self._visible_text(url)
+                self.assertNotIn("'", text)
+                self.assertNotIn('&#x27;', text)
+                self.assertNotIn('\u2018', text)
+                self.assertNotIn('\u2019', text)
+
+    def test_uzbek_pages_use_modifier_letters(self):
+        text = self._visible_text('/?lang=uz')
+        self.assertIn('O\u02bbzbekiston'.upper(), text.upper())
+        self.assertIn('ma\u02bclumotlar bazalari', text)
+
+    def test_other_languages_keep_their_apostrophes(self):
+        en = self._visible_text('/?lang=en')
+        self.assertIn("Let&#x27;s", self.client.get('/?lang=en').content.decode())
+        self.assertNotIn('\u02bb', en)
+
+    def test_project_texts_are_normalised_even_if_stored_with_ascii(self):
+        project = Project.objects.get(slug='moneyflow')
+        project.short_uz = "Bo'limlar va ma'lumotlar"
+        self.assertEqual(project.text('short', 'uz'), 'Bo\u02bblimlar va ma\u02bclumotlar')
+        self.assertEqual(project.text('short', 'en'), project.short_en)
+
+    def test_fixture_stores_uzbek_in_new_alphabet(self):
+        for project in Project.objects.all():
+            for field in ('short_uz', 'problem_uz', 'solution_uz', 'result_uz', 'highlights_uz'):
+                value = getattr(project, field)
+                self.assertNotIn("'", value, (project.slug, field))
+                self.assertNotIn('\u2019', value, (project.slug, field))
+
+
+class FormalWordingTests(PortfolioTestCase):
+    def test_price_is_stated_formally(self):
+        for lang, phrase in (('uz', 'Xizmat narxi'), ('ru', 'Стоимость определяется'), ('en', 'Pricing depends')):
+            with self.subTest(lang=lang):
+                body = self.client.get(f'/?lang={lang}').content.decode()
+                self.assertIn(phrase, body)
+                for informal in ('Narx kelishiladi', 'Цена договорная', 'negotiable'):
+                    self.assertNotIn(informal, body)
+
+    def test_informal_words_are_gone_from_uzbek_pages(self):
+        for url in ('/?lang=uz', '/projects/?lang=uz', '/projects/lumarcos/?lang=uz'):
+            body = self.client.get(url).content.decode()
+            for word in ('Menga yozing', 'quraylik', 'Keysni', 'jonli', 'sentyabr', 'deployigacha', 'Yozib qoling'):
+                with self.subTest(url=url, word=word):
+                    self.assertNotIn(word, body)

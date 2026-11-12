@@ -1,7 +1,7 @@
 # CLAUDE.md — portfolio (Django 5.2)
 
 ## Buyruqlar
-- Test: `python manage.py test` (80 ta; `projects` fixture'ini ishlatadi) · Tekshiruv: `python manage.py check`
+- Test: `python manage.py test` (89 ta; `projects` fixture'ini ishlatadi) · Tekshiruv: `python manage.py check`
 - Lokal: `python manage.py migrate && python manage.py loaddata projects && python manage.py runserver 8010`
 - Prod-ga o'xshash tekshiruv: `DEBUG=False SECURE_SSL_REDIRECT=False python manage.py collectstatic --noinput` so'ng runserver
 - Havolalar: `python scripts/check_links.py http://127.0.0.1:8010`
@@ -24,4 +24,5 @@
 - `.env`, token, server IP/kalitlar commit qilinmaydi; domen faqat `SITE_URL` env orqali.
 - Media: WebP ≤ 250 KB; `{% static %}` yo'llari; rasmlarda `width/height` va `loading="lazy"` (birinchi ekrandagi rasmdan tashqari).
 - Shriftlar o'z serverimizda (`core/static/core/fonts`, `css/fonts.css`); yangilash: `python scripts/fetch_fonts.py`. Google Fonts'ga tashqi so'rov qo'shmang.
+- O'zbekcha matn yangilangan lotin imlosida chiqadi (oʻ, gʻ — U+02BB; tutuq belgisi ʼ — U+02BC). Manbani oddiy apostrof (') bilan yozish mumkin: `core/orthography.py` (`uz_latin`) chiqishda almashtiradi (TEXT['uz'], Project.text(), fixture). Matn uslubi: rasmiy, qisqa, aniq ("Narx kelishiladi" kabi so'zlashuv iboralari yo'q).
 - Mavzu faqat 2 ta: light / dark. `<head>` dagi inline skript `data-theme` ni CSS dan oldin qo'yadi (FOUC yo'q).
