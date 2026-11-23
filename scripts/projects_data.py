@@ -269,4 +269,36 @@ PROJECTS = [
             ["Three roles: buyer, seller (own dashboard), head administrator", "Stock reservation in a transaction and idempotent checkout", "A multi-store cart is split into orders per seller", "Audit records for admin changes", "Telegram phone verification, three languages, day and night theme"],
         ),
     ),
+    dict(
+        pk=23, slug='shajara', title='Shajara', kind=LUMARC, order=52, featured=True,
+        categories='web', year_start=2026, ongoing=True, status='live',
+        live_url='https://akromind.uz/shajara/',
+        stack='JavaScript (vanilla), HTML5, CSS3, localStorage, Node.js (testlar)',
+        role=("Fullstack dasturchi", "Fullstack-разработчик", "Fullstack Developer"),
+        short=(
+            "Oilaviy daraxt (shajara) ilovasi: a'zolarni daraxt va ro'yxat ko'rinishida yuritish, Excel'dan yuklash, PDF va Excel'ga chiqarish. Ma'lumotlar faqat foydalanuvchi brauzerida saqlanadi.",
+            "Приложение семейного древа (шажара): ведение родственников в виде дерева и списка, загрузка из Excel, экспорт в PDF и Excel. Данные хранятся только в браузере пользователя.",
+            "A family-tree (shajara) app: managing relatives as a tree and a list, import from Excel, export to PDF and Excel. Data is stored only in the user's browser.",
+        ),
+        problem=(
+            "Shajarani yuritish uchun akkauntsiz, internetga bog'liq bo'lmagan va ma'lumotlari begonalarga ochilmaydigan oddiy vosita kerak edi.",
+            "Для ведения родословной требовался простой инструмент без аккаунта, не зависящий от интернета и не передающий данные посторонним.",
+            "Keeping a family genealogy called for a simple tool that needs no account, does not depend on the internet and does not expose data to third parties.",
+        ),
+        solution=(
+            "Ilova bitta HTML fayl ko'rinishida tayyorlangan: alohida server, o'rnatish yoki akkaunt talab qilinmaydi, ma'lumotlar brauzerning o'z xotirasida saqlanadi. Daraxt va ro'yxat ko'rinishlari, «faqat erkaklar» va «ayollar bilan» rejimlari, a'zo surati hamda qarindoshlik aloqalarini tahrirlash mavjud. Excel jadvalidan daraxt oldindan ko'rish va tasdiqlash bilan yuklanadi; shajara PDF va Excel ko'rinishida chiqariladi.",
+            "Приложение выполнено в виде одного HTML-файла: не требуются отдельный сервер, установка или аккаунт, данные хранятся в собственной памяти браузера. Доступны представления «дерево» и «список», режимы «только мужчины» и «с женщинами», редактирование фото и родственных связей. Дерево из таблицы Excel загружается с предварительным просмотром и подтверждением; родословную можно выгрузить в PDF и Excel.",
+            "The app is delivered as a single HTML file: no separate server, installation or account is required, and data is kept in the browser's own storage. It offers tree and list views, “men only” and “with women” modes, and editing of photos and family links. A tree is imported from an Excel table with a preview and confirmation, and the genealogy can be exported to PDF and Excel.",
+        ),
+        result=(
+            "Ilova akromind.uz/shajara manzilida ishlamoqda; interfeys o'zbek tilida (kirill yozuvida). Muhim amallardan oldin shajara nusxasi «Korzina»ga saqlanadi va tiklanishi mumkin.",
+            "Приложение работает на akromind.uz/shajara; интерфейс на узбекском языке (кириллица). Перед важными действиями копия родословной сохраняется в «Корзину» и может быть восстановлена.",
+            "The app runs at akromind.uz/shajara; the interface is in Uzbek (Cyrillic script). Before important actions a copy of the tree is saved to the “Trash” and can be restored.",
+        ),
+        highlights=(
+            ["Bitta HTML fayl: server, akkaunt va internet talab qilinmaydi", "Daraxt va ro'yxat ko'rinishlari; «faqat erkaklar» va «ayollar bilan» rejimlari", "Excel'dan yuklash: oldindan ko'rish, ogohlantirishlar va tasdiqlash", "PDF va Excel'ga chiqarish, chop etish, to'liq ekran rejimi", "Korzina: oxirgi 10 ta nusxa saqlanadi, bekor qilish va tiklash mumkin"],
+            ["Один HTML-файл: без сервера, аккаунта и интернета", "Представления «дерево» и «список»; режимы «только мужчины» и «с женщинами»", "Загрузка из Excel: предпросмотр, предупреждения и подтверждение", "Экспорт в PDF и Excel, печать, полноэкранный режим", "Корзина: хранятся последние 10 копий, доступны отмена и восстановление"],
+            ["Single HTML file: no server, account or internet needed", "Tree and list views; “men only” and “with women” modes", "Excel import: preview, warnings and confirmation", "Export to PDF and Excel, printing, full-screen mode", "Trash: the last 10 copies are kept, with undo and restore"],
+        ),
+    ),
 ]

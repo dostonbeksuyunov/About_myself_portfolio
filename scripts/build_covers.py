@@ -34,7 +34,7 @@ PALETTES = [
     ('#1a1226', '#5a2a7a', '#e0a8ff'),
     ('#101a2b', '#24527a', '#9fd0ff'),
 ]
-KIND_LABEL = {'work': 'WORK · LUMARC', 'client': 'CLIENT', 'personal': 'PERSONAL', 'learning': 'LEARNING'}
+KIND_LABEL = {'work': 'WORK', 'client': 'CLIENT', 'personal': 'PERSONAL', 'learning': 'LEARNING'}
 FONTS = ('<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600'
          '&family=JetBrains+Mono:wght@500&family=Manrope:wght@700;800&display=swap" rel="stylesheet">')
 
@@ -68,7 +68,7 @@ h1{{font:800 {title_size}px/1.02 Manrope,sans-serif;letter-spacing:-.02em;max-wi
  font:500 {32*scale}px "JetBrains Mono",monospace}}
 </style></head><body><div class="grid"></div><div class="glow"></div>
 <div class="initial">{escape(project['title'][:1])}</div>
-<div class="wrap"><div><div class="route">GET /projects/{escape(project['slug'])}</div>
+<div class="wrap"><div><div class="route">PORTFOLIO</div>
 <span class="kind">{KIND_LABEL[project['kind']]}</span></div>
 <div><h1>{escape(project['title'])}</h1><div class="chips">{chips}</div></div></div></body></html>'''
 

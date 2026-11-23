@@ -375,9 +375,9 @@ class ProjectUpdateTests(PortfolioTestCase):
 class ScopeTests(PortfolioTestCase):
     """Saytda faqat tasdiqlangan loyihalar bo'ladi."""
 
-    ALLOWED = {'lumarc-sayt', 'lumarcos', 'e-auksion-radar', 'lumarcode', 'akromind', 'moneyflow', 'saveclip',
+    ALLOWED = {'lumarc-sayt', 'lumarcos', 'e-auksion-radar', 'lumarcode', 'akromind', 'shajara', 'moneyflow', 'saveclip',
                'uzstroymarket'}
-    REMOVED = ('tashkent-3d-residence', 'bahober', 'yuridik-yordam', 'shajara', 'language-bot', 'buy-a-ticket-bot',
+    REMOVED = ('tashkent-3d-residence', 'bahober', 'yuridik-yordam', 'language-bot', 'buy-a-ticket-bot',
                'gym-management', 'hunarmandlar-tarmogi', 'umumiy-sayt', 'u13-task-manager', 'normativ-drf',
                'stadium-booking', 'taxi-trips', 'online-book-store')
 
@@ -404,10 +404,11 @@ class ScopeTests(PortfolioTestCase):
     def test_trim_migration_removes_rows(self):
         from importlib import import_module
         from django.apps import apps
-        Project.objects.create(slug='shajara', title='x', year_start=2026, short_uz='a', short_ru='a', short_en='a')
+        Project.objects.create(slug='taxi-trips', title='x', year_start=2026, short_uz='a', short_ru='a', short_en='a')
         import_module('core.migrations.0003_trim_projects').remove_projects(apps, None)
-        self.assertFalse(Project.objects.filter(slug='shajara').exists())
-        self.assertEqual(Project.objects.count(), len(self.ALLOWED))
+        self.assertFalse(Project.objects.filter(slug='taxi-trips').exists())
+        # tarixiy 0003 migratsiyasi eski 'shajara' yozuvini ham o'chiradi; yangi Shajara fixture orqali qayta yuklanadi
+        self.assertEqual(Project.objects.filter(slug__in=self.ALLOWED - {'shajara'}).count(), len(self.ALLOWED) - 1)
 
 
 class ContactAndFooterTests(PortfolioTestCase):
@@ -712,3 +713,42 @@ class AkromindAndInteractionTests(PortfolioTestCase):
     def test_arrow_buttons_have_sliding_arrow_class(self):
         body = self.client.get('/').content.decode()
         self.assertIn('class="icon arr"', body)
+
+
+class ShajaraProjectTests(PortfolioTestCase):
+    def test_shajara_is_a_live_work_project_with_link(self):
+        project = Project.objects.get(slug='shajara')
+        self.assertEqual(project.kind, 'work')
+        self.assertEqual(project.status, 'live')
+        self.assertEqual(project.live_url, 'https://akromind.uz/shajara/')
+        self.assertTrue(project.is_published)
+        self.assertEqual(len(project.gallery_list), 3)
+        self.assertIsNone(project.github_url or None)
+
+    def test_shajara_is_listed_under_current_job_and_in_list(self):
+        for url in ('/', '/projects/'):
+            self.assertContains(self.client.get(url), '/projects/shajara/')
+
+    def test_shajara_page_in_every_language(self):
+        expected = {
+            'uz': ('Oilaviy daraxt', 'kirill yozuvida', 'Korzina'),
+            'ru': ('семейного древа', 'кириллица', 'Корзину'),
+            'en': ('family-tree', 'Cyrillic', 'Trash'),
+        }
+        for lang, words in expected.items():
+            body = self.client.get(f'/projects/shajara/?lang={lang}').content.decode()
+            for word in words:
+                with self.subTest(lang=lang, word=word):
+                    self.assertIn(word, body)
+            self.assertIn('https://akromind.uz/shajara/', body)
+
+    def test_shajara_claims_match_the_product(self):
+        project = Project.objects.get(slug='shajara')
+        blob = ' '.join(project.lines('highlights', 'en')) + project.short_en + project.solution_en
+        for fact in ('Single HTML file', 'Excel import', 'PDF', 'full-screen', 'last 10 copies'):
+            self.assertIn(fact, blob)
+
+    def test_shajara_media_has_no_personal_data_files(self):
+        folder = Path(__file__).resolve().parent / 'static' / 'core' / 'projects' / 'shajara'
+        names = sorted(p.name for p in folder.iterdir())
+        self.assertEqual(names, ['cover-800.webp', 'cover.webp', 'gallery-1.webp', 'gallery-2.webp', 'gallery-3.webp', 'og.jpg'])

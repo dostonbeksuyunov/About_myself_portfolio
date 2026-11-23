@@ -72,6 +72,43 @@ def capture_akromind(browser):
     return images
 
 
+SHAJARA = 'https://akromind.uz/shajara/'
+SHAJARA_KEY = 'shajara:yangi:v1:people'
+# Skrinshot uchun xayoliy namuna oila (haqiqiy odamlar emas); faqat shu avtomatlashtirilgan brauzer xotirasiga yoziladi
+SHAJARA_SAMPLE = [('p1', 'Карим', 'Рахимов', '1948', '', None, None, 'p2', 'male'), ('p2', 'Зебо', 'Рахимова', '1951', '', None, None, 'p1', 'female'), ('p3', 'Азиз', 'Рахимов', '1974', '', 'p1', 'p2', 'p4', 'male'), ('p4', 'Малика', 'Рахимова', '1977', '', None, None, 'p3', 'female'), ('p5', 'Дилшод', 'Рахимов', '1979', '', 'p1', 'p2', None, 'male'), ('p6', 'Нигора', 'Рахимова', '1982', '', 'p1', 'p2', None, 'female'), ('p7', 'Жасур', 'Рахимов', '2001', '', 'p3', 'p4', None, 'male'), ('p8', 'Сабина', 'Рахимова', '2004', '', 'p3', 'p4', None, 'female'), ('p9', 'Умид', 'Рахимов', '2008', '', 'p5', None, None, 'male')]
+
+
+def shajara_payload():
+    people = []
+    for pid, first, last, born, died, father, mother, spouse, gender in SHAJARA_SAMPLE:
+        people.append({'id': pid, 'firstName': first, 'lastName': last, 'birthDate': born or None, 'deathDate': died or None,
+                       'photo': None, 'fatherId': father, 'motherId': mother, 'spouseId': spouse, 'gender': gender})
+    return {'version': 1, 'app': 'Shajara', 'people': people}
+
+
+def capture_shajara(browser):
+    """Shajara ilovasi: daraxt va ro'yxat ko'rinishi (namuna ma'lumot bilan) hamda mobil ko'rinish."""
+    import json as _json
+    images = []
+    payload = _json.dumps(shajara_payload(), ensure_ascii=False)
+    for w, h, view in ((1440, 900, 'tree'), (1440, 900, 'list'), (390, 844, 'tree')):
+        ctx = browser.new_context(viewport={'width': w, 'height': h}, reduced_motion='reduce')
+        ctx.add_init_script("try{localStorage.setItem(%s,%s)}catch(e){}" % (_json.dumps(SHAJARA_KEY), _json.dumps(payload)))
+        page = ctx.new_page()
+        try:
+            page.goto(SHAJARA, wait_until='domcontentloaded', timeout=45000)
+            page.wait_for_timeout(3000)
+            if view == 'list':
+                page.get_by_role('button', name='Рўйхат').first.click()
+                page.wait_for_timeout(900)
+            raw = Image.open(io.BytesIO(page.screenshot(type='png')))
+            images.append(phone_frame(raw) if w < 600 else fit(raw))
+        except Exception as exc:
+            print(f'  ! shajara ({w}px, {view}): {type(exc).__name__}')
+        ctx.close()
+    return images
+
+
 def capture_stroy(browser):
     """Faqat ochiq sahifalar: bosh sahifa va kirish sahifasi (kunduzgi/tungi) hamda mobil ko'rinish.
     Katalog, mahsulot va panellar login talab qiladi — olinmaydi."""
@@ -216,7 +253,7 @@ def main():
     with sync_playwright() as p:
         browser = p.chromium.launch()
         results = {}
-        slugs = set(LIVE) | set(MOCKUPS) | set(DIAGRAMS) | {'uzstroymarket', 'akromind'}
+        slugs = set(LIVE) | set(MOCKUPS) | set(DIAGRAMS) | {'uzstroymarket', 'akromind', 'shajara'}
         for slug in sorted(slugs):
             if args.only and slug != args.only:
                 continue
@@ -225,6 +262,8 @@ def main():
                 images += capture_stroy(browser)
             if slug == 'akromind':
                 images += capture_akromind(browser)
+            if slug == 'shajara':
+                images += capture_shajara(browser)
             for url, w, h in LIVE.get(slug, []):
                 ctx = browser.new_context(viewport={'width': w, 'height': h}, reduced_motion='reduce')
                 page = ctx.new_page()

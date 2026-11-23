@@ -334,5 +334,47 @@
    "result_en": "The platform runs at uzstroymarket.uz (uz, ru, en; day and night themes). During sign-up the phone number is verified through a Telegram bot with a six-digit code.",
    "highlights_en": "Three roles: buyer, seller (own dashboard), head administrator\nStock reservation in a transaction and idempotent checkout\nA multi-store cart is split into orders per seller\nAudit records for admin changes\nTelegram phone verification, three languages, day and night theme"
   }
+ },
+ {
+  "model": "core.project",
+  "pk": 23,
+  "fields": {
+   "slug": "shajara",
+   "order": 52,
+   "is_featured": true,
+   "is_published": true,
+   "kind": "work",
+   "categories": "web",
+   "year_start": 2026,
+   "year_end": null,
+   "ongoing": true,
+   "status": "live",
+   "confidential": false,
+   "title": "Shajara",
+   "stack": "JavaScript (vanilla), HTML5, CSS3, localStorage, Node.js (testlar)",
+   "live_url": "https://akromind.uz/shajara/",
+   "telegram_url": "",
+   "github_url": "",
+   "cover": "core/projects/shajara/cover.webp",
+   "gallery": "core/projects/shajara/gallery-1.webp\ncore/projects/shajara/gallery-2.webp\ncore/projects/shajara/gallery-3.webp",
+   "role_uz": "Fullstack dasturchi",
+   "short_uz": "Oilaviy daraxt (shajara) ilovasi: aʼzolarni daraxt va roʻyxat koʻrinishida yuritish, Excelʼdan yuklash, PDF va Excelʼga chiqarish. Maʼlumotlar faqat foydalanuvchi brauzerida saqlanadi.",
+   "problem_uz": "Shajarani yuritish uchun akkauntsiz, internetga bogʻliq boʻlmagan va maʼlumotlari begonalarga ochilmaydigan oddiy vosita kerak edi.",
+   "solution_uz": "Ilova bitta HTML fayl koʻrinishida tayyorlangan: alohida server, oʻrnatish yoki akkaunt talab qilinmaydi, maʼlumotlar brauzerning oʻz xotirasida saqlanadi. Daraxt va roʻyxat koʻrinishlari, «faqat erkaklar» va «ayollar bilan» rejimlari, aʼzo surati hamda qarindoshlik aloqalarini tahrirlash mavjud. Excel jadvalidan daraxt oldindan koʻrish va tasdiqlash bilan yuklanadi; shajara PDF va Excel koʻrinishida chiqariladi.",
+   "result_uz": "Ilova akromind.uz/shajara manzilida ishlamoqda; interfeys oʻzbek tilida (kirill yozuvida). Muhim amallardan oldin shajara nusxasi «Korzina»ga saqlanadi va tiklanishi mumkin.",
+   "highlights_uz": "Bitta HTML fayl: server, akkaunt va internet talab qilinmaydi\nDaraxt va roʻyxat koʻrinishlari; «faqat erkaklar» va «ayollar bilan» rejimlari\nExcelʼdan yuklash: oldindan koʻrish, ogohlantirishlar va tasdiqlash\nPDF va Excelʼga chiqarish, chop etish, toʻliq ekran rejimi\nKorzina: oxirgi 10 ta nusxa saqlanadi, bekor qilish va tiklash mumkin",
+   "role_ru": "Fullstack-разработчик",
+   "short_ru": "Приложение семейного древа (шажара): ведение родственников в виде дерева и списка, загрузка из Excel, экспорт в PDF и Excel. Данные хранятся только в браузере пользователя.",
+   "problem_ru": "Для ведения родословной требовался простой инструмент без аккаунта, не зависящий от интернета и не передающий данные посторонним.",
+   "solution_ru": "Приложение выполнено в виде одного HTML-файла: не требуются отдельный сервер, установка или аккаунт, данные хранятся в собственной памяти браузера. Доступны представления «дерево» и «список», режимы «только мужчины» и «с женщинами», редактирование фото и родственных связей. Дерево из таблицы Excel загружается с предварительным просмотром и подтверждением; родословную можно выгрузить в PDF и Excel.",
+   "result_ru": "Приложение работает на akromind.uz/shajara; интерфейс на узбекском языке (кириллица). Перед важными действиями копия родословной сохраняется в «Корзину» и может быть восстановлена.",
+   "highlights_ru": "Один HTML-файл: без сервера, аккаунта и интернета\nПредставления «дерево» и «список»; режимы «только мужчины» и «с женщинами»\nЗагрузка из Excel: предпросмотр, предупреждения и подтверждение\nЭкспорт в PDF и Excel, печать, полноэкранный режим\nКорзина: хранятся последние 10 копий, доступны отмена и восстановление",
+   "role_en": "Fullstack Developer",
+   "short_en": "A family-tree (shajara) app: managing relatives as a tree and a list, import from Excel, export to PDF and Excel. Data is stored only in the user's browser.",
+   "problem_en": "Keeping a family genealogy called for a simple tool that needs no account, does not depend on the internet and does not expose data to third parties.",
+   "solution_en": "The app is delivered as a single HTML file: no separate server, installation or account is required, and data is kept in the browser's own storage. It offers tree and list views, “men only” and “with women” modes, and editing of photos and family links. A tree is imported from an Excel table with a preview and confirmation, and the genealogy can be exported to PDF and Excel.",
+   "result_en": "The app runs at akromind.uz/shajara; the interface is in Uzbek (Cyrillic script). Before important actions a copy of the tree is saved to the “Trash” and can be restored.",
+   "highlights_en": "Single HTML file: no server, account or internet needed\nTree and list views; “men only” and “with women” modes\nExcel import: preview, warnings and confirmation\nExport to PDF and Excel, printing, full-screen mode\nTrash: the last 10 copies are kept, with undo and restore"
+  }
  }
 ]
