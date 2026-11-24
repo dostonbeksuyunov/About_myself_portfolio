@@ -85,21 +85,12 @@ SERVICES = [
         },
     },
     {
-        'icon': 'student',
-        'title': {'uz': 'Talabalar uchun', 'ru': 'Для студентов', 'en': 'For students'},
-        'desc': {
-            'uz': "Taqdimot, diplom va kurs ishlari bo'yicha texnik yordam.",
-            'ru': "Техническая помощь с презентациями, дипломными и курсовыми работами.",
-            'en': "Technical help with presentations, diploma and coursework projects.",
-        },
-    },
-    {
         'icon': 'rocket',
-        'title': {'uz': 'Mavjud loyihalar', 'ru': 'Существующие проекты', 'en': 'Existing projects'},
+        'title': {'uz': "Mavjud loyihani rivojlantirish", 'ru': 'Развитие существующих проектов', 'en': 'Improving existing projects'},
         'desc': {
-            'uz': "Audit, xatolarni bartaraf etish, qo'llab-quvvatlash va yangilash.",
-            'ru': "Аудит, исправление ошибок, поддержка и обновление.",
-            'en': "Audit, bug fixing, maintenance and updates.",
+            'uz': "Kodni audit qilish, xatolarni bartaraf etish, yangi funksiya qoʻshish, tezlikni oshirish va uzluksiz qoʻllab-quvvatlash.",
+            'ru': "Аудит кода, исправление ошибок, новые функции, ускорение работы и постоянная поддержка.",
+            'en': "Code audit, bug fixing, new features, performance tuning and ongoing maintenance.",
         },
     },
 ]
@@ -353,9 +344,9 @@ _STRINGS = {
     ),
     'services_title': ('Xizmatlar', 'Услуги', 'Services'),
     'services_desc': (
-        "Telegram botlar, veb-saytlar, AI integratsiya va talabalar uchun loyihalar. Xizmat narxi loyihaning hajmi va murakkabligiga qarab belgilanadi.",
-        "Telegram-боты, сайты, AI-интеграция и проекты для студентов. Стоимость определяется объёмом и сложностью проекта.",
-        "Telegram bots, websites, AI integration and student projects. Pricing depends on the scope and complexity of the project.",
+        "Telegram botlar, veb-saytlar, AI integratsiya hamda mavjud loyihalarni rivojlantirish. Xizmat narxi loyihaning hajmi va murakkabligiga qarab belgilanadi.",
+        "Telegram-боты, сайты, AI-интеграция и развитие существующих проектов. Стоимость определяется объёмом и сложностью проекта.",
+        "Telegram bots, websites, AI integration and improvement of existing projects. Pricing depends on the scope and complexity of the project.",
     ),
     'group_title': ('IT VA AI XIZMATLAR guruhi', 'Группа «IT VA AI XIZMATLAR»', 'IT VA AI XIZMATLAR community'),
     'group_desc': (
