@@ -375,9 +375,9 @@ class ProjectUpdateTests(PortfolioTestCase):
 class ScopeTests(PortfolioTestCase):
     """Saytda faqat tasdiqlangan loyihalar bo'ladi."""
 
-    ALLOWED = {'lumarc-sayt', 'lumarcos', 'e-auksion-radar', 'lumarcode', 'akromind', 'shajara', 'moneyflow', 'saveclip',
+    ALLOWED = {'lumarc-sayt', 'lumarcos', 'e-auksion-radar', 'lumarcode', 'akromind', 'shajara', 'mevakassa', 'moneyflow', 'saveclip', 'buy-a-ticket-bot',
                'uzstroymarket'}
-    REMOVED = ('tashkent-3d-residence', 'bahober', 'yuridik-yordam', 'language-bot', 'buy-a-ticket-bot',
+    REMOVED = ('tashkent-3d-residence', 'bahober', 'yuridik-yordam', 'language-bot',
                'gym-management', 'hunarmandlar-tarmogi', 'umumiy-sayt', 'u13-task-manager', 'normativ-drf',
                'stadium-booking', 'taxi-trips', 'online-book-store')
 
@@ -408,7 +408,7 @@ class ScopeTests(PortfolioTestCase):
         import_module('core.migrations.0003_trim_projects').remove_projects(apps, None)
         self.assertFalse(Project.objects.filter(slug='taxi-trips').exists())
         # tarixiy 0003 migratsiyasi eski 'shajara' yozuvini ham o'chiradi; yangi Shajara fixture orqali qayta yuklanadi
-        self.assertEqual(Project.objects.filter(slug__in=self.ALLOWED - {'shajara'}).count(), len(self.ALLOWED) - 1)
+        self.assertEqual(Project.objects.filter(slug__in=self.ALLOWED - {'shajara', 'buy-a-ticket-bot'}).count(), len(self.ALLOWED) - 2)
 
 
 class ContactAndFooterTests(PortfolioTestCase):
@@ -752,3 +752,54 @@ class ShajaraProjectTests(PortfolioTestCase):
         folder = Path(__file__).resolve().parent / 'static' / 'core' / 'projects' / 'shajara'
         names = sorted(p.name for p in folder.iterdir())
         self.assertEqual(names, ['cover-800.webp', 'cover.webp', 'gallery-1.webp', 'gallery-2.webp', 'gallery-3.webp', 'og.jpg'])
+
+
+class ResumeUpdateTests(PortfolioTestCase):
+    """Yangilangan rezyume: MevaKassa va Buy a Ticket qo'shildi, ko'nikmalar rezyumega moslandi."""
+
+    def test_eleven_published_projects_and_eleven_live(self):
+        self.assertEqual(Project.objects.filter(is_published=True).count(), 11)
+        stats = self.client.get('/').context['stats']
+        self.assertEqual(stats['projects'], 11)
+        self.assertEqual(stats['live'], 11)
+
+    def test_mevakassa_facts(self):
+        project = Project.objects.get(slug='mevakassa')
+        self.assertEqual(project.kind, 'personal')
+        self.assertEqual(project.status, 'live')
+        self.assertEqual(project.telegram_url, 'https://t.me/mevakassa_uz_bot')
+        self.assertEqual(project.live_url, '')  # veb-manzil hozircha ochilmaydi, havola qo'yilmaydi
+        self.assertIn('FastAPI', project.stack)
+        self.assertEqual(len(project.gallery_list), 1)
+        body = self.client.get('/projects/mevakassa/?lang=en').content.decode()
+        for fact in ('offline-first PWA', 'multi-tenant', 'HMAC', 'not a fiscal receipt', '@mevakassa_uz_bot'):
+            self.assertIn(fact, body)
+        for server_detail in ('23.21.196', 'us-east-1', 't3.micro'):
+            self.assertNotIn(server_detail, body)
+
+    def test_buy_a_ticket_is_back_with_bot_link(self):
+        project = Project.objects.get(slug='buy-a-ticket-bot')
+        self.assertEqual(project.telegram_url, 'https://t.me/Buy_tickets_online_bot')
+        self.assertEqual(project.status, 'live')
+        uz = self.client.get('/projects/buy-a-ticket-bot/?lang=uz').content.decode()
+        for phrase in ('Click yoki Payme', 'QR-kodli chipta', 'Django Admin'):
+            self.assertIn(phrase, uz)
+
+    def test_uzstroymarket_stays_first_among_personal_projects(self):
+        personal = list(Project.objects.filter(kind='personal', is_featured=True).order_by('order').values_list('slug', flat=True))
+        self.assertEqual(personal[:2], ['uzstroymarket', 'mevakassa'])
+
+    def test_skills_match_the_new_resume(self):
+        body = self.client.get('/?lang=uz').content.decode()
+        for skill in ('Fastify', 'AWS', 'grammY', 'Mini Apps', 'Telegram botlar'):
+            self.assertIn(skill, body)
+        ru = self.client.get('/?lang=ru').content.decode()
+        self.assertIn('Платёжные системы (Click, Payme)', ru)
+        self.assertIn('Telegram-боты', ru)
+        self.assertIn('Payments (Click, Payme)', self.client.get('/?lang=en').content.decode())
+
+    def test_resume_pdf_is_the_new_version(self):
+        resume = Path(__file__).resolve().parent / 'static' / 'core' / 'resume.pdf'
+        data = resume.read_bytes()
+        self.assertTrue(data.startswith(b'%PDF'))
+        self.assertEqual(len(data), 278265)

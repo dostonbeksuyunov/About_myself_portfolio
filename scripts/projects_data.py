@@ -301,4 +301,68 @@ PROJECTS = [
             ["Single HTML file: no server, account or internet needed", "Tree and list views; “men only” and “with women” modes", "Excel import: preview, warnings and confirmation", "Export to PDF and Excel, printing, full-screen mode", "Trash: the last 10 copies are kept, with undo and restore"],
         ),
     ),
+    dict(
+        pk=25, slug='mevakassa', title='MevaKassa', kind=PERSONAL, order=57, featured=True,
+        categories='web,bot,backend', year_start=2026, status='live',
+        telegram_url='https://t.me/mevakassa_uz_bot',
+        stack='Python, FastAPI, aiogram 3, SQLAlchemy, PostgreSQL, Redis, Docker, AWS',
+        role=("Dasturchi (yakka)", "Разработчик (соло)", "Solo developer"),
+        short=(
+            "Meva-sabzavot do'konlari uchun savdo, ombor va hisobot platformasi: Telegram bot, oflayn ishlaydigan PWA kassa va egasi kabineti.",
+            "Платформа продаж, склада и отчётности для магазинов овощей и фруктов: Telegram-бот, PWA-касса с офлайн-режимом и кабинет владельца.",
+            "A sales, inventory and reporting platform for fruit and vegetable shops: a Telegram bot, an offline-first PWA cash register and an owner dashboard.",
+        ),
+        problem=(
+            "Kichik meva-sabzavot do'konlariga savdo, ombor va kunlik hisobotni bir joyda yuritadigan, internet uzilganda ham ishlaydigan oddiy kassa tizimi kerak edi.",
+            "Небольшим магазинам овощей и фруктов требовалась простая кассовая система, которая ведёт продажи, склад и дневную отчётность в одном месте и работает даже без интернета.",
+            "Small fruit and vegetable shops needed a simple till system that keeps sales, stock and daily reports in one place and keeps working without internet.",
+        ),
+        solution=(
+            "Platforma ko'p do'konli (multi-tenant) tuzilishda ishlab chiqilgan: sotuvchi uchun oflayn ishlaydigan PWA kassa (PIN bilan kirish, smena), egasi va menejer uchun kabinet, platforma administratori paneli hamda hisobotlar va eslatmalar yuboradigan Telegram bot. Kunlik chek raqamlash, kunni yopish, filiallar bo'yicha umumiy hisobot va tashqi kassa dasturlari uchun imzolangan (HMAC) API mavjud. Tizim ichki hisob-kitob uchun mo'ljallangan va fiskal chek hisoblanmaydi.",
+            "Платформа реализована как многомагазинная (multi-tenant): PWA-касса с офлайн-режимом для продавца (вход по PIN, смены), кабинет для владельца и менеджера, панель администратора платформы и Telegram-бот, присылающий отчёты и напоминания. Есть ежедневная нумерация чеков, закрытие дня, сводный отчёт по филиалам и подписанный (HMAC) API для внешних кассовых программ. Система предназначена для внутреннего учёта и не является фискальным чеком.",
+            "The platform is built as multi-tenant: an offline-first PWA cash register for the cashier (PIN sign-in, shifts), a dashboard for owners and managers, a platform admin panel and a Telegram bot that sends reports and reminders. It provides daily receipt numbering, day closing, a combined report across branches and a signed (HMAC) API for external POS software. The system is meant for internal accounting and is not a fiscal receipt.",
+        ),
+        result=(
+            "Platforma AWS serverda (HTTPS, PostgreSQL, Redis) ishlamoqda, bot — @mevakassa_uz_bot. Kod 1300 dan ortiq avtomatik test, Playwright e2e va yuklama testi bilan tekshirilgan.",
+            "Платформа работает на сервере AWS (HTTPS, PostgreSQL, Redis), бот — @mevakassa_uz_bot. Код проверен более чем 1300 автоматическими тестами, Playwright e2e и нагрузочным тестом.",
+            "The platform runs on an AWS server (HTTPS, PostgreSQL, Redis) with the bot @mevakassa_uz_bot. The code is verified by 1,300+ automated tests, Playwright e2e and a load test.",
+        ),
+        highlights=(
+            ["Oflayn ishlaydigan PWA kassa: PIN bilan kirish, smena, kunlik chek raqami", "Egasi va menejer kabineti, platforma administratori paneli", "Telegram bot: hisobotlar, kunni yopish va eslatmalar", "Filiallar bo'yicha umumiy hisobot; tashqi kassalar uchun imzolangan API", "1300+ avtomatik test, e2e va yuklama testlari"],
+            ["PWA-касса с офлайн-режимом: вход по PIN, смены, ежедневная нумерация чеков", "Кабинет владельца и менеджера, панель администратора платформы", "Telegram-бот: отчёты, закрытие дня и напоминания", "Сводный отчёт по филиалам; подписанный API для внешних касс", "1300+ автоматических тестов, e2e и нагрузочные тесты"],
+            ["Offline-first PWA cash register: PIN sign-in, shifts, daily receipt numbering", "Owner and manager dashboard, platform admin panel", "Telegram bot: reports, day closing and reminders", "Combined report across branches; signed API for external tills", "1,300+ automated tests, e2e and load tests"],
+        ),
+    ),
+    dict(
+        pk=24, slug='buy-a-ticket-bot', title='Buy a Ticket', kind=PERSONAL, order=80, featured=True,
+        categories='bot,backend', year_start=2026, status='live',
+        telegram_url='https://t.me/Buy_tickets_online_bot',
+        stack='Python, Django, python-telegram-bot, Django Admin, QR',
+        role=("Dasturchi (yakka)", "Разработчик (соло)", "Solo developer"),
+        short=(
+            "Tadbir va konferensiya chiptalarini Telegram orqali sotish: speaker va mavzu tanlash, joy band qilish, to'lov tasdig'i va QR-kodli chipta.",
+            "Продажа билетов на мероприятия и конференции через Telegram: выбор спикера и темы, бронь места, подтверждение оплаты и билет с QR-кодом.",
+            "Ticketing for events and conferences in Telegram: pick a speaker and topic, reserve a seat, payment confirmation and a QR-coded ticket.",
+        ),
+        problem=(
+            "Tadbirga joylarni qo'lda ro'yxatga olish va to'lovlarni tekshirish chalkash va xatoga moyil.",
+            "Ручная запись на мероприятие и проверка оплат запутана и подвержена ошибкам.",
+            "Registering seats by hand and checking payments is confusing and error-prone.",
+        ),
+        solution=(
+            "Foydalanuvchi bot orqali mavzu va joyni tanlaydi, to'lov usulini (Click yoki Payme) belgilaydi, ko'rsatilgan kartaga to'lab chek skrinshotini yuboradi. Administrator to'lovni tasdiqlaydi yoki sabab bilan rad etadi, so'ng QR-kodli chipta beriladi. Ma'lumotlar Django Admin'da boshqariladi.",
+            "Пользователь выбирает в боте тему и место, указывает способ оплаты (Click или Payme), оплачивает на указанную карту и присылает скриншот чека. Администратор подтверждает оплату или отклоняет её с указанием причины, после чего выдаётся билет с QR-кодом. Данные управляются в Django Admin.",
+            "The user picks a topic and a seat in the bot, chooses a payment method (Click or Payme), pays to the card shown and sends a receipt screenshot. An administrator approves the payment or rejects it with a reason, and a QR-coded ticket is issued. Data is managed in Django Admin.",
+        ),
+        result=(
+            "Telegram bot @Buy_tickets_online_bot ishlaydi; interfeys bir necha tilda, ma'lumotlar Django Admin orqali boshqariladi.",
+            "Telegram-бот @Buy_tickets_online_bot работает; интерфейс на нескольких языках, данные управляются через Django Admin.",
+            "The Telegram bot @Buy_tickets_online_bot is running; the interface supports several languages and data is managed through Django Admin.",
+        ),
+        highlights=(
+            ["Speaker, mavzu, sessiya va joy modellari", "To'lov tasdig'i administrator orqali (sabab bilan rad etish)", "QR-kodli chipta", "Bot matnlari bir necha tilda"],
+            ["Модели спикера, темы, сессии и места", "Подтверждение оплаты администратором (отказ с причиной)", "Билет с QR-кодом", "Тексты бота на нескольких языках"],
+            ["Speaker, topic, session and seat models", "Payment approval by an administrator (rejection with a reason)", "QR-coded ticket", "Bot texts in several languages"],
+        ),
+    ),
 ]

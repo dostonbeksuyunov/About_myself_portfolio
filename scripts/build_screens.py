@@ -204,6 +204,13 @@ MOCKUPS = {
         ('bot', '🔎 Havola tekshirilmoqda...'),
         ('bot', '🎞 <b>Video</b>\n\nSifatni tanlang:', ['HD', '2K', '4K', "🎵 Qo'shiqni yuklab olish"]),
     ]),
+    'buy-a-ticket-bot': phone_html('Buy a Ticket', 'bot', [
+        ('bot', 'Mavzuni tanlang:'),
+        ('bot', 'Joyni tanlang:'),
+        ('bot', "To'lov usulini tanlang:", ['Click', 'Payme']),
+        ('bot', "💳 Click orqali to'lov\n\nQuyidagi kartaga … o'tkazing\n\nBilet: mavzu — speaker\nJoy: …\n\n✅ To'lovni amalga oshirgach, screenshot (chek)ni shu yerga rasm qilib yuboring."),
+        ('bot', "🎉 To'lovingiz tasdiqlandi! Biletingiz tayyor.\nJoy: …"),
+    ]),
     'e-auksion-radar': phone_html('Тошкент лот радари', 'telegram', [
         ('bot', '🏙 <b>Тошкент — янги лотлар</b>\n\n📌 Бу сафар: N та лот'),
         ('bot', '🔻 <b>НАРХ ТУШДИ</b> — олдинги нарх кўрсатилади\n📋 Шартли лот\n\nҲар бир лот: нарх, майдон, ҳудуд, ўхшаш лотлар билан таққослаш ва ball.'),
@@ -212,6 +219,9 @@ MOCKUPS = {
 }
 
 DIAGRAMS = {
+    'mevakassa': diagram_html('MevaKassa: tizim tuzilishi', [
+        ('Kassa, bot, kabinet', "PWA kassa (oflayn), Telegram bot, egasi kabineti"), ('API (FastAPI)', 'savdo, ombor, kunni yopish'),
+        ('PostgreSQL va Redis', "ma'lumotlar va navbatlar"), ('Worker', 'avtomatik hisobotlar va eslatmalar')]),
     'e-auksion-radar': diagram_html('Lot radari: jarayon', [
         ('e-auksion.uz', 'Toshkent va tutash tumanlar lotlari'), ('Yig\'ish', 'haftasiga 2 marta'),
         ('Saralash', 'mezonlar.json bo\'yicha'), ('Ball', 'narx solishtiruvi va baholash'),

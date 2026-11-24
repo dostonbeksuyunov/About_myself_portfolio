@@ -24,10 +24,11 @@ SKILLS = {
     'languages': ['Python', 'TypeScript', 'JavaScript', 'SQL'],
     'frontend': ['React', 'Next.js (App Router)', 'Tailwind CSS', 'Framer Motion', 'GSAP',
                  'Three.js / React Three Fiber', 'i18next / next-intl'],
-    'backend': ['Django', 'DRF', 'FastAPI', 'NestJS', 'Prisma', 'SQLAlchemy', 'REST API', 'JWT',
-                'Celery', 'BullMQ', 'WebSockets', 'python-telegram-bot', 'aiogram'],
+    'backend': ['Django', 'DRF', 'FastAPI', 'NestJS', 'Fastify', 'Prisma', 'SQLAlchemy', 'REST API', 'JWT',
+                'Celery', 'BullMQ', 'WebSockets'],
+    'bots': ['aiogram', 'python-telegram-bot', 'grammY', "To'lov tizimlari (Click, Payme)", 'Mini Apps'],
     'data': ['PostgreSQL', 'Redis', 'SQLite'],
-    'devops': ['Docker', 'Docker Compose', 'Nginx', 'Caddy', 'Linux', 'Git / GitHub', 'CI/CD',
+    'devops': ['Docker', 'Docker Compose', 'Nginx', 'Caddy', 'Linux', 'AWS', 'Git / GitHub', 'CI/CD',
                'pytest', 'Jest', 'Vitest', 'Playwright'],
     'ai': ['AI-assisted development (Claude Code)', 'Generativ AI API integratsiyasi',
            'Gemini / Vertex AI', 'Kie.ai', 'Claude API', 'Prompt engineering'],
@@ -42,14 +43,16 @@ SKILL_ITEM_LABELS = {
         'uz': 'Generativ AI API integratsiyasi', 'ru': 'Интеграция API генеративного AI',
         'en': 'Generative AI API integration'},
     'Prompt engineering': {'uz': 'Prompt muhandisligi', 'ru': 'Промпт-инжиниринг', 'en': 'Prompt engineering'},
+    "To'lov tizimlari (Click, Payme)": {
+        'uz': "To'lov tizimlari (Click, Payme)", 'ru': 'Платёжные системы (Click, Payme)', 'en': 'Payments (Click, Payme)'},
 }
 
 SKILL_CATEGORY_LABELS = {
-    'uz': {'languages': 'Tillar', 'frontend': 'Frontend', 'backend': 'Backend',
+    'uz': {'languages': 'Tillar', 'frontend': 'Frontend', 'backend': 'Backend', 'bots': 'Telegram botlar',
            'data': "Ma'lumotlar", 'devops': 'DevOps va test', 'ai': 'AI'},
-    'ru': {'languages': 'Языки', 'frontend': 'Frontend', 'backend': 'Backend',
+    'ru': {'languages': 'Языки', 'frontend': 'Frontend', 'backend': 'Backend', 'bots': 'Telegram-боты',
            'data': 'Данные', 'devops': 'DevOps и тесты', 'ai': 'AI'},
-    'en': {'languages': 'Languages', 'frontend': 'Frontend', 'backend': 'Backend',
+    'en': {'languages': 'Languages', 'frontend': 'Frontend', 'backend': 'Backend', 'bots': 'Telegram bots',
            'data': 'Data', 'devops': 'DevOps & testing', 'ai': 'AI'},
 }
 
