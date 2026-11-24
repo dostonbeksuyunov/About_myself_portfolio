@@ -449,7 +449,7 @@ class ContactAndFooterTests(PortfolioTestCase):
         footer = self._footer()
         self.assertIn('tel:+998775353104', footer)
         self.assertIn('dostonbeksuyunov444@gmail.com', footer)
-        self.assertIn('TOSHKENT', footer)
+        self.assertIn('Toshkent', footer)
 
     def test_github_and_resume_live_in_about_section(self):
         body = self.client.get('/').content.decode()

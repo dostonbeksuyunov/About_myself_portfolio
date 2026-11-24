@@ -405,7 +405,7 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; letter-spacing
 }
 .footer-plain a:hover, .footer-plain a:focus-visible { color: var(--accent); }
 .footer-plain a:hover::after, .footer-plain a:focus-visible::after { transform: scaleX(1); }
-.footer-location { padding: 8px 0; font-size: 14px; color: var(--text-muted); font-family: var(--font-mono); }
+.footer-location { padding: 8px 0; font-size: 15px; color: var(--text-muted); }
 .footer-social { list-style: none; }
 .footer .link-row { min-height: 52px; padding: 12px 4px; font-size: 15.5px; font-weight: 500; }
 .footer .link-row-arrow { margin-left: auto; }
