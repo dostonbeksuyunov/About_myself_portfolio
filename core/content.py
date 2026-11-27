@@ -132,6 +132,17 @@ TIMELINE = [
     },
     {
         'kind': 'study',
+        'title': {'uz': 'Python Backend Development', 'ru': 'Python Backend Development', 'en': 'Python Backend Development'},
+        'org': {'uz': 'Farobiy IT Academy', 'ru': 'Farobiy IT Academy', 'en': 'Farobiy IT Academy'},
+        'period': {'uz': '2025-yil fevral — iyul', 'ru': 'февраль — июль 2025', 'en': 'February – July 2025'},
+        'desc': {
+            'uz': "6 oylik dastur: Python va OOP, SQL/PostgreSQL, Django, Django REST Framework (JWT, ruxsatlar), Linux va Docker. Har bir modul amaliy loyiha bilan yakunlangan.",
+            'ru': "Программа на 6 месяцев: Python и ООП, SQL/PostgreSQL, Django, Django REST Framework (JWT, права доступа), Linux и Docker. Каждый модуль завершался практическим проектом.",
+            'en': "6-month program: Python and OOP, SQL/PostgreSQL, Django, Django REST Framework (JWT, permissions), Linux and Docker. Each module ended with a hands-on project.",
+        },
+    },
+    {
+        'kind': 'study',
         'title': {'uz': 'Meta Back-End dasturchi professional sertifikati', 'ru': 'Профессиональный сертификат Meta по Back-End разработке', 'en': 'Meta Back-End Developer Professional Certificate'},
         'org': {'uz': 'Coursera (Meta)', 'ru': 'Coursera (Meta)', 'en': 'Coursera (Meta)'},
         'period': {'uz': '2025-yil iyun', 'ru': 'июнь 2025', 'en': 'June 2025'},
